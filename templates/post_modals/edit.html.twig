@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PostModals{% endblock %}
+
+{% block body %}
+    <h1>Edit PostModals</h1>
+
+    {{ include('post_modals/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_post_modals_index') }}">back to list</a>
+
+    {{ include('post_modals/_delete_form.html.twig') }}
+{% endblock %}

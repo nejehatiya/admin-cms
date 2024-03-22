@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PostModals{% endblock %}
+
+{% block body %}
+    <h1>Create new PostModals</h1>
+
+    {{ include('post_modals/_form.html.twig') }}
+
+    <a href="{{ path('app_post_modals_index') }}">back to list</a>
+{% endblock %}
