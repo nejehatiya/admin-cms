@@ -1,3 +1,5 @@
+// import main function 
+
 $(document).ready(function(){
     // init file type list
     let list_file_types = ["","file","textarea","number","text","date","text riche","select","checkbox","radio"];
@@ -9,24 +11,26 @@ $(document).ready(function(){
         e.preventDefault();
         // reset html
         html_block = "";
-        // get number block
-        let nombre_block = parseInt($(".nombre-blocks").val());
-        // ajouter les block
-        for(let i = 0;i<nombre_block;i++){
-            html_block += "<fieldset class='block"+i+"'>";
-                html_block += "<legend>Block "+(i+1)+"</legend>";
+        // get name block
+        let name_block = $(".name-blocks").val();
+        if(name_block.length){
+            // create ref block
+            let ref_block = slugify(name_block)+createUniqueID();
+            // ajouter les block
+                html_block += "<fieldset class='"+ref_block+"'>";
+                html_block += "<legend>"+name_block+"</legend>";
                 html_block += "<select class='field-list'>";
                     for(let item of list_file_types){
                         html_block += "<option value='"+item+"'>"+item+"</option>";  
                     }
                 html_block += "</select>";
-                html_block += "<button class='add-field' id='fields-"+i+"'>+</button>";
-                html_block += "<div class='fields-"+i+"'></div>";
+                html_block += "<button class='add-field' id='fields-"+ref_block+"'>+</button>";
+                html_block += "<div class='fields-"+ref_block+"'></div>";
             html_block += "</fieldset>";
+            // remplire les block
+            $(".blocks-container").append(html_block);
+            $(".name-blocks").val("");
         }
-        console.log('html_block',html_block,nombre_block);
-        // remplire les block
-        $(".blocks-container").html(html_block);
     });
     // add new field
     $(document).on('click','.add-field',function(e){
