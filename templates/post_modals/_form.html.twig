@@ -1,9 +1,12 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-
-    <div class="modal-fields">
-        <input type="text" class="name-blocks" placeholder="name de block" />
-        <button id="btn-blocks">ajouter block</button>
+    <div class=" w-50 m-auto d-flex flex-column justify-content-center">
+        <div class="input-group">
+            <input type="text" class="form-control name-blocks" placeholder="nom du block" aria-label="nom du block" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button id="btn-blocks" class="btn btn-primary" type="button">Button</button>
+            </div>
+        </div>
         <div class="blocks-container"></div>
     </div>
     <button class="btn">{{ button_label|default('Save') }}</button>

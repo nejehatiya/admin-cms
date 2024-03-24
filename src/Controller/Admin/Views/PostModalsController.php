@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Views;
 
 use App\Entity\PostModals;
 use App\Form\PostModalsType;
