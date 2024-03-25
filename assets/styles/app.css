@@ -1,3 +1,19 @@
-body{
-    background: #fff;
+body {
+    background: #f0f0f1;
+    color: #3c434a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    line-height: 1.4em;
+    min-width: 600px;
+}
+
+#adminmenu {
+    margin: 49px 0 0;
+}
+.wrap {
+    margin: 39px 20px 0 2px;
+}
+
+#wpadminbar a.ab-item:hover + .ab-sub-wrapper{
+    display: block;
 }

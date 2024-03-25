@@ -4,6 +4,7 @@
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
+import './styles/dashbord-wordpress.css';
 import './styles/app.css';
 // get api prefix value
 let api_prefix = document.getElementById('prefix-admin').value;
