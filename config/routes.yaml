@@ -1,12 +1,12 @@
 controllers:
     resource: ../src/Controller/
-    type: annotation
+    type: attribute
 
 app_bundle_controller:
     resource: ../src/Controller/Admin
-    type: annotation
+    type: attribute
     prefix: /admin4552255
     
 kernel:
     resource: ../src/Kernel.php
-    type: annotation
+    type: attribute

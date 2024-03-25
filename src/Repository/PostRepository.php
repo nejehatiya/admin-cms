@@ -372,7 +372,7 @@ class PostRepository extends ServiceEntityRepository
         return $response;
     }
 
-    public function getPageByParentIdWithTemplatePage($parentId, $search = "", $template_page_key, $template_page_value, $maxResult = 50, $post_status = "Publié")
+    public function getPageByParentIdWithTemplatePage($parentId, $search = "", $template_page_key="", $template_page_value="", $maxResult = 50, $post_status = "Publié")
     {
         $response = $this->createQueryBuilder('p')
             ->innerJoin('p.post_type', 'pT', 'WITH', 'pT.slug_post_type like :postType')

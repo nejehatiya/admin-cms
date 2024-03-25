@@ -35,7 +35,7 @@ class PostModalsController extends AbstractController
             return $this->redirectToRoute('app_post_modals_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('post_modals/new.html.twig', [
+        return $this->render('post_modals/new.html.twig', [
             'post_modal' => $postModal,
             'form' => $form,
         ]);

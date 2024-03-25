@@ -1,7 +1,7 @@
 /**
  * slugify words
  */
-function slugify(str) {
+export function slugify(str) {
     return String(str)
     .normalize('NFKD') // split accented characters into their base characters and diacritical marks
     .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
@@ -14,6 +14,6 @@ function slugify(str) {
 /**
  * create unique uuid
  */
-function createUniqueID(){
+export function createUniqueID(){
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }

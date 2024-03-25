@@ -1,4 +1,5 @@
-// import main function 
+// main function
+import * as main_function from './main-functions.js';
 
 $(document).ready(function(){
     // init structure fields [{refblock:,name:,is_duplicatable:,fields:[{type:,titre:,options:,required:,uuid:}]}]
@@ -17,7 +18,7 @@ $(document).ready(function(){
         let name_block = $(".name-blocks").val();
         if(name_block.length){
             // create ref block
-            let ref_block = slugify(name_block)+createUniqueID();
+            let ref_block = main_function.slugify(name_block)+main_function.createUniqueID();
             // ajouter les block
             let is_duplicated_html = '<div class="form-check"><input class="duplicate-check-input" type="checkbox" value="" id="duplicated-option-'+ref_block+'"><label class="form-check-label" for="duplicated-option-'+ref_block+'">duplicated</label></div>';
             html_block += "<fieldset class='"+ref_block+" card' style='padding: 20px;margin: 10px 0;'>";
@@ -70,7 +71,7 @@ $(document).ready(function(){
     $(document).on('click','.add-field',function(e){
         e.preventDefault();
         // create unique uuid
-        let uuid = createUniqueID();
+        let uuid = main_function.createUniqueID();
         // init field type and class div
         let field_type = $(this).parent('fieldset').find('select.field-list').val();
         let class_div = $(this).attr('id');
