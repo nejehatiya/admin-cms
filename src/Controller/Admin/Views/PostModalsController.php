@@ -16,7 +16,7 @@ class PostModalsController extends AbstractController
     #[Route('/', name: 'app_post_modals_index', methods: ['GET'])]
     public function index(PostModalsRepository $postModalsRepository): Response
     {
-        return $this->render('post_modals/index.html.twig', [
+        return $this->render('admin/post_modals/index.html.twig', [
             'post_modals' => $postModalsRepository->findAll(),
         ]);
     }
@@ -35,7 +35,7 @@ class PostModalsController extends AbstractController
             return $this->redirectToRoute('app_post_modals_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('post_modals/new.html.twig', [
+        return $this->render('admin/post_modals/new.html.twig', [
             'post_modal' => $postModal,
             'form' => $form,
         ]);
@@ -44,7 +44,7 @@ class PostModalsController extends AbstractController
     #[Route('/{id}', name: 'app_post_modals_show', methods: ['GET'])]
     public function show(PostModals $postModal): Response
     {
-        return $this->render('post_modals/show.html.twig', [
+        return $this->render('admin/post_modals/show.html.twig', [
             'post_modal' => $postModal,
         ]);
     }
@@ -61,7 +61,7 @@ class PostModalsController extends AbstractController
             return $this->redirectToRoute('app_post_modals_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('post_modals/edit.html.twig', [
+        return $this->renderForm('admin/post_modals/edit.html.twig', [
             'post_modal' => $postModal,
             'form' => $form,
         ]);
