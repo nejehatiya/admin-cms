@@ -1,0 +1,22 @@
+<tr>
+    <td id="cb" class="manage-column column-cb check-column">
+        <input id="cb-select-all-1" type="checkbox" />
+        <label for="cb-select-all-1"><span class="screen-reader-text">Tout sélectionner</span></label>
+    </td>
+    {% for field in fields %}
+        <th scope="col" id="{{field.field_name}}" class="manage-column column-{{field.field_name}} column-primary sortable desc" abbr="{{field.name}}">
+            {% if field.sortable %}
+                <a href="#">
+                    <span>{{field.name}}</span>
+                    <span class="sorting-indicators">
+                        <span class="sorting-indicator asc" aria-hidden="true"></span>
+                        <span class="sorting-indicator desc" aria-hidden="true"></span>
+                    </span>
+                    <span class="screen-reader-text">Tri croissant</span>
+                </a>
+            {% else %}
+                {{field.name}}
+            {% endif %}
+        </th>
+    {% endfor %}
+</tr>

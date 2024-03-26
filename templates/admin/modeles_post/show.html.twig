@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ModelesPost{% endblock %}
+
+{% block body %}
+    <h1>ModelesPost</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ modeles_post.id }}</td>
+            </tr>
+            <tr>
+                <th>Name_modele</th>
+                <td>{{ modeles_post.nameModele }}</td>
+            </tr>
+            <tr>
+                <th>Content_modele</th>
+                <td>{{ modeles_post.contentModele }}</td>
+            </tr>
+            <tr>
+                <th>Shortcode_modele</th>
+                <td>{{ modeles_post.shortcodeModele }}</td>
+            </tr>
+            <tr>
+                <th>Path_modele</th>
+                <td>{{ modeles_post.pathModele }}</td>
+            </tr>
+            <tr>
+                <th>Variable_modele</th>
+                <td>{{ modeles_post.variableModele }}</td>
+            </tr>
+            <tr>
+                <th>Status_modele</th>
+                <td>{{ modeles_post.statusModele ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_add</th>
+                <td>{{ modeles_post.dateAdd ? modeles_post.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_upd</th>
+                <td>{{ modeles_post.dateUpd ? modeles_post.dateUpd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image_preview</th>
+                <td>{{ modeles_post.imagePreview }}</td>
+            </tr>
+            <tr>
+                <th>Used_in</th>
+                <td>{{ modeles_post.usedIn }}</td>
+            </tr>
+            <tr>
+                <th>Fields</th>
+                <td>{{ modeles_post.fields }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_modeles_post_index') }}">back to list</a>
+
+    <a href="{{ path('app_modeles_post_edit', {'id': modeles_post.id}) }}">edit</a>
+
+    {{ include('modeles_post/_delete_form.html.twig') }}
+{% endblock %}

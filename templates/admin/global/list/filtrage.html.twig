@@ -1,0 +1,12 @@
+<div class="alignleft actions">
+    {% for key,item in filters %}
+        <label for="filter-by-{{item.field}}" class="screen-reader-text">Filtrer par {{item.name}}</label>
+        <select name="{{item.field}}" id="filter-by-{{item.field}}">
+            <option selected="selected" value="">Tous les {{item.name}}</option>
+            {% for key_child,item_child in item.list %}
+                <option value="{{key_child}}">{{item_child}}</option>
+            {% endfor %}
+        </select>
+    {% endfor %}
+    <input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filtrer" />
+</div>

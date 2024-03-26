@@ -1,0 +1,16 @@
+<div class="tablenav-pages">
+    <span class="displaying-num">{{total_count}} éléments</span>
+    <span class="pagination-links">
+        <span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
+        <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
+        <span class="paging-input">
+            <label for="current-page-selector" class="screen-reader-text">Page actuelle</label>
+            <input class="current-page" id="current-page-selector" type="text" name="paged" value="{{current_page}}" size="3" aria-describedby="table-paging" />
+            <span class="tablenav-paging-text">sur 
+                <span class="total-pages">{{total_page}}</span>
+            </span>
+        </span>
+        <a class="next-page button" href="#"><span class="screen-reader-text">Page suivante</span><span aria-hidden="true">›</span></a>
+        <a class="last-page button" href="#"><span class="screen-reader-text">Dernière page</span><span aria-hidden="true">»</span></a>
+    </span>
+</div>

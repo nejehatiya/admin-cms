@@ -1,0 +1,11 @@
+<ul class="subsubsub">
+    {% for key,item in vars %}
+        <li class="{{key}}">
+            <a href="#" {% if loop.first %}class="current"{% endif %} aria-current="page">
+                {{item.name}}
+                <span class="count">({{item.count}})</span>
+            </a>
+            {% if loop.last != true %}|{% endif %}
+        </li>
+    {% endfor %}
+</ul>

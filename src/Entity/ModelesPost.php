@@ -49,6 +49,9 @@ class ModelesPost
     #[ORM\Column(type: 'text', nullable: true)]
     private $used_in;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $fields = null;
+
     public function __construct()
     {
         $this->postModals = new ArrayCollection();
@@ -212,5 +215,17 @@ class ModelesPost
     public function isStatusModele(): ?bool
     {
         return $this->status_modele;
+    }
+
+    public function getFields(): ?string
+    {
+        return $this->fields;
+    }
+
+    public function setFields(?string $fields): static
+    {
+        $this->fields = $fields;
+
+        return $this;
     }
 }

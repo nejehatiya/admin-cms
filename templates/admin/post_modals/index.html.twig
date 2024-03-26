@@ -104,83 +104,85 @@
 
 
             <tbody id="the-list">
-                <tr id="post-1" class="iedit author-self level-0 post-1 type-post status-publish format-standard hentry category-non-classe">
-                    <th scope="row" class="check-column">
-                        <input id="cb-select-1" type="checkbox" name="post[]" value="1">
-                        <label for="cb-select-1">
-                            <span class="screen-reader-text">
-                                Sélectionner Bonjour tout le monde&nbsp;!
-                            </span>
-                        </label>
-                        <div class="locked-indicator">
-                            <span class="locked-indicator-icon" aria-hidden="true"></span>
-                            <span class="screen-reader-text">
-                                «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» est verrouillé
-                            </span>
-                        </div>
-                    </th>
-                    <td class="title column-title has-row-actions column-primary page-title" data-colname="Titre">
-                        <div class="locked-info">
-                            <span class="locked-avatar"></span>
-                            <span class="locked-text"></span>
-                        </div>
-                        <strong>
-                            <a class="row-title" href="http://localhost/test_technique/wp-admin/post.php?post=1&amp;action=edit" aria-label="«&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» (Modifier)">Bonjour tout le monde&nbsp;!</a>
-                        </strong>
+                {% for i in range(0, 3)  %}
+                    <tr id="post-{{i}}" class="iedit author-self level-0 post-1 type-post status-publish format-standard hentry category-non-classe">
+                        <th scope="row" class="check-column">
+                            <input id="cb-select-1" type="checkbox" name="post[]" value="1">
+                            <label for="cb-select-1">
+                                <span class="screen-reader-text">
+                                    Sélectionner Bonjour tout le monde&nbsp;!
+                                </span>
+                            </label>
+                            <div class="locked-indicator">
+                                <span class="locked-indicator-icon" aria-hidden="true"></span>
+                                <span class="screen-reader-text">
+                                    «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» est verrouillé
+                                </span>
+                            </div>
+                        </th>
+                        <td class="title column-title has-row-actions column-primary page-title" data-colname="Titre">
+                            <div class="locked-info">
+                                <span class="locked-avatar"></span>
+                                <span class="locked-text"></span>
+                            </div>
+                            <strong>
+                                <a class="row-title" href="http://localhost/test_technique/wp-admin/post.php?post=1&amp;action=edit" aria-label="«&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» (Modifier)">Bonjour tout le monde&nbsp;!</a>
+                            </strong>
 
-                        <div class="hidden" id="inline_1">
-                            <div class="post_title">Bonjour tout le monde&nbsp;!</div>
-                            <div class="post_name">bonjour-tout-le-monde</div>
-                            <div class="post_author">1</div>
-                            <div class="comment_status">open</div>
-                            <div class="ping_status">open</div>
-                            <div class="_status">publish</div>
-                            <div class="jj">26</div>
-                            <div class="mm">02</div>
-                            <div class="aa">2024</div>
-                            <div class="hh">20</div>
-                            <div class="mn">33</div>
-                            <div class="ss">07</div>
-                            <div class="post_password"></div>
-                            <div class="page_template">default</div>
-                            <div class="post_category" id="category_1">1</div>
-                            <div class="tags_input" id="post_tag_1"></div>
-                            <div class="sticky"></div>
-                            <div class="post_format"></div>
-                        </div>
-                        <div class="row-actions">
-                            <span class="edit">
-                                <a href="http://localhost/test_technique/wp-admin/post.php?post=1&amp;action=edit" aria-label="Modifier «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;»">Modifier</a>
-                                |
-                            </span>
-                            <span class="inline hide-if-no-js">
-                                <button type="button" class="button-link editinline" aria-label="Modifier rapidement «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» en ligne" aria-expanded="false">Modification&nbsp;rapide</button>
-                                |
-                            </span>
-                            <span class="trash">
-                                <a href="http://localhost/test_technique/wp-admin/post.php?post=1&amp;action=trash&amp;_wpnonce=9979d3e4cf" class="submitdelete" aria-label="Déplacer «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» dans la corbeille">Corbeille</a>
-                                |
-                            </span>
-                            <span class="view">
-                                <a href="http://localhost/test_technique/bonjour-tout-le-monde/" rel="bookmark" aria-label="Afficher «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;»">Voir</a>
-                            </span>
-                        </div>
-                        <button type="button" class="toggle-row">
-                            <span class="screen-reader-text">Afficher plus de détails</span>
-                        </button>
-                    </td>
-                    <td class="status column-status" data-colname="status">
-                        active
-                    </td>
-                    <td class="image column-image" data-colname="image">
-                        <span aria-hidden="true">—</span>
-                        <span class="screen-reader-text">Aucune image</span>
-                    </td>
-                    <td class="utuliser-pour column-utuliser-pour" data-colname="Utuliser pour">
-                        Post | Page
-                    </td>
-                    <td class="date column-date" data-colname="Date">Créer le <br>26/02/2024 à 20h33</td>
-                </tr>
+                            <div class="hidden" id="inline_1">
+                                <div class="post_title">Bonjour tout le monde&nbsp;!</div>
+                                <div class="post_name">bonjour-tout-le-monde</div>
+                                <div class="post_author">1</div>
+                                <div class="comment_status">open</div>
+                                <div class="ping_status">open</div>
+                                <div class="_status">publish</div>
+                                <div class="jj">26</div>
+                                <div class="mm">02</div>
+                                <div class="aa">2024</div>
+                                <div class="hh">20</div>
+                                <div class="mn">33</div>
+                                <div class="ss">07</div>
+                                <div class="post_password"></div>
+                                <div class="page_template">default</div>
+                                <div class="post_category" id="category_1">1</div>
+                                <div class="tags_input" id="post_tag_1"></div>
+                                <div class="sticky"></div>
+                                <div class="post_format"></div>
+                            </div>
+                            <div class="row-actions">
+                                <span class="edit">
+                                    <a href="http://localhost/test_technique/wp-admin/post.php?post=1&amp;action=edit" aria-label="Modifier «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;»">Modifier</a>
+                                    |
+                                </span>
+                                <span class="inline hide-if-no-js">
+                                    <button type="button" class="button-link editinline" aria-label="Modifier rapidement «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» en ligne" aria-expanded="false">Modification&nbsp;rapide</button>
+                                    |
+                                </span>
+                                <span class="trash">
+                                    <a href="http://localhost/test_technique/wp-admin/post.php?post=1&amp;action=trash&amp;_wpnonce=9979d3e4cf" class="submitdelete" aria-label="Déplacer «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» dans la corbeille">Corbeille</a>
+                                    |
+                                </span>
+                                <span class="view">
+                                    <a href="http://localhost/test_technique/bonjour-tout-le-monde/" rel="bookmark" aria-label="Afficher «&nbsp;Bonjour tout le monde&nbsp;!&nbsp;»">Voir</a>
+                                </span>
+                            </div>
+                            <button type="button" class="toggle-row">
+                                <span class="screen-reader-text">Afficher plus de détails</span>
+                            </button>
+                        </td>
+                        <td class="status column-status" data-colname="status">
+                            active
+                        </td>
+                        <td class="image column-image" data-colname="image">
+                            <span aria-hidden="true">—</span>
+                            <span class="screen-reader-text">Aucune image</span>
+                        </td>
+                        <td class="utuliser-pour column-utuliser-pour" data-colname="Utuliser pour">
+                            Post | Page
+                        </td>
+                        <td class="date column-date" data-colname="Date">Créer le <br>26/02/2024 à 20h33</td>
+                    </tr>
+                {% endfor %}
             </tbody>
 
 
