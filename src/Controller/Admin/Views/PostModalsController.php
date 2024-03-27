@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostModalsController extends AbstractController
 {
     #[Route('/', name: 'app_post_modals_index', methods: ['GET'])]
-    public function index(PostModalsRepository $postModalsRepository): Response
+    public function index(Request $request,PostModalsRepository $postModalsRepository): Response
     {
         return $this->render('admin/post_modals/index.html.twig', [
             'post_modals' => $postModalsRepository->findAll(),

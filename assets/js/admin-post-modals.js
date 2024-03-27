@@ -22,6 +22,7 @@ $(document).ready(function(){
             // ajouter les block
             let is_duplicated_html = '<div class="form-check duplicated-option"><input class="duplicate-check-input" type="checkbox" value="" id="duplicated-option-'+ref_block+'"><label class="form-check-label" for="duplicated-option-'+ref_block+'">duplicated</label></div>';
             html_block += "<fieldset class='"+ref_block+" card' >";
+                html_block += "<input value='"+ref_block+"' type='hidden' class='ref-block-hidden' />"; 
                 html_block += "<legend>"+name_block+is_duplicated_html+" <button type='button' class='delete-block btn btn-danger' id='"+ref_block+"'>X</button></legend>";
                 html_block += "<div class='fields-select'><select class='field-list custom-select'>";
                     html_block += "<option value=''>champs list</option>";  
@@ -30,7 +31,7 @@ $(document).ready(function(){
                     }
                 html_block += "</select>";
                 html_block += "<button type='button' class='add-field btn btn-info' id='fields-"+ref_block+"'>+</button></div>";
-                html_block += "<div class='fields-"+ref_block+"'></div>";
+                html_block += "<div class='fields-"+ref_block+" fields-element'></div>";
             html_block += "</fieldset>";
             // remplire les block
             $(".blocks-container").append(html_block);
@@ -40,6 +41,8 @@ $(document).ready(function(){
             // log blocks
             console.log('blocks 39',blocks);
         }
+        // update sortable list
+        $( "#blocks-container" ).sortable( "refresh" );
     });
     // update duplicate option block
     $(document).on('change',".duplicate-check-input",function(e){
@@ -67,6 +70,8 @@ $(document).ready(function(){
         })
         // log blocks
         console.log('blocks 67',blocks);
+        // update sortable list
+        $( "#blocks-container" ).sortable( "refresh" );
     })
     // add new field
     $(document).on('click','.add-field',function(e){
@@ -81,16 +86,22 @@ $(document).ready(function(){
             let ref_block = class_div.replace('fields-','');
             // create html fieald blcok
             let required_html = '<div class="form-check"><input class="required-check-input" type="checkbox" value="" id="required-option-'+uuid+'"><label class="form-check-label" for="required-option-'+uuid+'">required</label></div>';
+            let multiple_html = '<div class="form-check"><input class="multiple-check-input" type="checkbox" value="" id="multiple-option-'+uuid+'"><label class="form-check-label" for="multiple-option-'+uuid+'">multiple</label></div>';
             let html_field = "";
             html_field += "<div class='filed card p-2 mt-3 mb-3' style='background:#eee'>";
                 html_field += "<input data-refblock='"+ref_block+"' value='"+uuid+"' type='hidden' class='uuid-field' />";
                 html_field += "<button type='button' class='delete-field btn btn-danger'>X</button>";
-                html_field += "<p>field type :<strong>"+field_type+"</strong></p>";
+                html_field += "<p class='titre'>field type : <strong>"+field_type+"</strong></p>";
                 html_field += "<p><label>titre:</label><input type='text' class='form-control titre-field' placeholder='titre' /></p>";
                 if(["select","checkbox","radio"].indexOf(field_type)!==-1){
                     // add option 
                     html_field += "<p><label>List options(séparer par | ):</label><textarea class='options-list'></textarea></p>";
                 }
+                // is multiple 
+                if(["select"].indexOf(field_type)!==-1){
+                    html_field += multiple_html;
+                }
+                // is required
                 html_field += required_html;
             html_field += "</div>";
             // add field to list fiels
@@ -216,5 +227,26 @@ $(document).ready(function(){
         }
         // log blocks
         console.log('blocks 208',blocks);
-    })
+    });
+    /** init block is ordererd */
+    $( "#blocks-container" ).sortable();
+    // update list blocks on sort change
+    $( "#blocks-container" ).on( "sortupdate", function( event, ui ) {
+        let elements = $("#blocks-container").find('>fieldset');
+        let new_blocks = [];
+        for(let index = 0;index<elements.length;index++){
+            let ref_block = elements.eq(index).find('input.ref-block-hidden').val();
+            console.log('ref_block',elements.eq(index).find('input.ref-block-hidden'),ref_block)
+            let check_block = blocks.filter((ele)=>{
+                return ele.refblock == ref_block;
+            });
+            if(check_block.length){
+                new_blocks.push(check_block[0]); 
+            }
+        }
+        // update finaly blocks list
+        blocks = new_blocks;
+        console.log('blocks',blocks)
+    });
+
 })

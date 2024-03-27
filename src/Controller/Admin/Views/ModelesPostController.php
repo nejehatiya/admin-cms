@@ -2,29 +2,34 @@
 
 namespace App\Controller\Admin\Views;
 
+use Cocur\Slugify\Slugify;
 use App\Entity\ModelesPost;
 use App\Form\ModelesPostType;
-use App\Repository\ModelesPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ModelesPostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 #[Route('/modeles/post')]
 class ModelesPostController extends AbstractController
 {
     private $serializer;
+    private $slugify;
     public function __construct(
         SerializerInterface $serializer
     ) {
         $this->serializer = $serializer;
+        $this->slugify = new Slugify();
     }
 
     #[Route('/', name: 'app_modeles_post_index', methods: ['GET'])]
-    public function index(ModelesPostRepository $modelesPostRepository): Response
+    public function index(Request $request,ModelesPostRepository $modelesPostRepository): Response
     {
         $list_modeles_posts = $modelesPostRepository->findAll();
         $list_modeles_posts = json_decode($this->serializer->serialize($list_modeles_posts, 'json', ['groups' =>[], DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s']), true);
