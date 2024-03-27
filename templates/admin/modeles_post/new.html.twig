@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/admin.html.twig' %}
 
-{% block title %}New ModelesPost{% endblock %}
+{% block title %}
+    Ajouter un nouveau modèle
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un nouveau modèle
+{% endblock %}
 
-{% block body %}
-    <h1>Create new ModelesPost</h1>
-
+{% block contentAdmin %}
     {{ include('admin/modeles_post/_form.html.twig') }}
-
-    <a href="{{ path('app_modeles_post_index') }}">back to list</a>
 {% endblock %}

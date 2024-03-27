@@ -1,4 +1,45 @@
 {{ form_start(form) }}
+    <table class="form-table" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.name_modele) }}</th>
+                <td>{{ form_widget(form.name_modele) }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.used_in) }}</th>
+                <td>{{ form_widget(form.used_in) }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.image_preview) }}</th>
+                <td>
+                    <a href="#" class="open-media-action page-title-action  aria-button-if-js" role="button" aria-expanded="true">Ajouter un fichier média</a>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.status_modele) }}</th>
+                <td>
+                    <div class="form-check form-switch">{{ form_widget(form.status_modele) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.fields) }}</th>
+                <td>
+                    {{ form_widget(form.fields) }}
+                    <div class=" w-50 d-flex flex-column justify-content-start">
+                        <div class="input-group">
+                            <input type="text" class="regular-text name-blocks" placeholder="nom du block" aria-label="nom du block" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button id="btn-blocks" class="btn btn-primary btn-radius-custom" type="button">+ ajouter</button>
+                            </div>
+                        </div>
+                        <div class="blocks-container"></div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+    </p>
 {{ form_end(form) }}

@@ -11,8 +11,9 @@ import './styles/app.css';
 // get api prefix value
 let api_prefix = document.getElementById('prefix-admin').value;
 document.getElementById('prefix-admin').remove();
-console.log('api_prefixapi_prefix',api_prefix)
-window.api_prefix = api_prefix;
+console.log('api_prefixapi_prefix',api_prefix);
+// init select picker
+$('.selectpicker').selectpicker();
 // import main function 
 import './js/admin-post-modals.js';
 
