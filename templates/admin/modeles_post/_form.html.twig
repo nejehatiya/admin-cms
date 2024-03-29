@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <th scope="row">{{ form_label(form.status_modele) }}</th>
-                <td>
+                <td> 
                     <div class="form-check form-switch">{{ form_widget(form.status_modele) }}</div>
                 </td>
             </tr>
@@ -36,47 +36,49 @@
                             </div>
                         </div>
                         <div class="blocks-container" id="blocks-container">
-                            {% for field in  fields %}
-                                <fieldset class='{{field.refblock}} card' >
-                                    <input value='{{field.refblock}}' type='hidden' class='ref-block-hidden' /> 
-                                    <legend>{{field.name}} <div class="form-check duplicated-option"><input class="duplicate-check-input" type="checkbox" value="" id="duplicated-option-{{field.refblock}}"><label class="form-check-label" for="duplicated-option-{{field.refblock}}">duplicated</label></div> <button type='button' class='delete-block btn btn-danger' id='{{field.refblock}}'>X</button></legend>
-                                    <div class='fields-select'>
-                                        <select class='field-list custom-select'>
-                                            <option value=''>champs list</option>  
-                                            {% for  item in  ["file","textarea","number","text","date","text riche","select","checkbox","radio"] %}
-                                                <option value='{{item}}'>{{item}}</option>  
-                                            {% endfor %}
-                                        </select>
-                                        <button type='button' class='add-field btn btn-info' id='fields-{{field.refblock}}'>+</button>
-                                    </div>
-                                    <div class='fields-{{field.refblock}} fields-element'>
-                                        {% for item in field.fields %}
-                                            <div class='filed card p-2 mt-3 mb-3' style='background:#eee'>
-                                                <input data-refblock='{{field.refblock}}' value='{{item.uuid}}' type='hidden' class='uuid-field' />
-                                                <button type='button' class='delete-field btn btn-danger'>X</button>
-                                                <p class='titre'>field type : <strong>{{item.type}}</strong></p>
-                                                <p>
-                                                    <label>titre:</label>
-                                                    <input value="{{item.titre}}" type='text' class='form-control titre-field' placeholder='titre' />
-                                                </p>
-                                                {% if item.type in ["select","checkbox","radio"] %}
-                                                    <p><label>List options(séparer par | ):</label><textarea class='options-list'>{{item.options}}</textarea></p>
-                                                {% endif %}
-                                                {% if item.type in ["select"] %}
+                            {% if fields is defined %}
+                                {% for field in  fields %}
+                                    <fieldset class='{{field.refblock}} card' >
+                                        <input value='{{field.refblock}}' type='hidden' class='ref-block-hidden' /> 
+                                        <legend>{{field.name}} <div class="form-check duplicated-option"><input class="duplicate-check-input" type="checkbox" value="" id="duplicated-option-{{field.refblock}}"><label class="form-check-label" for="duplicated-option-{{field.refblock}}">duplicated</label></div> <button type='button' class='delete-block btn btn-danger' id='{{field.refblock}}'>X</button></legend>
+                                        <div class='fields-select'>
+                                            <select class='field-list custom-select'>
+                                                <option value=''>champs list</option>  
+                                                {% for  item in  ["file","textarea","number","text","date","text riche","select","checkbox","radio"] %}
+                                                    <option value='{{item}}'>{{item}}</option>  
+                                                {% endfor %}
+                                            </select>
+                                            <button type='button' class='add-field btn btn-info' id='fields-{{field.refblock}}'>+</button>
+                                        </div>
+                                        <div class='fields-{{field.refblock}} fields-element'>
+                                            {% for item in field.fields %}
+                                                <div class='filed card p-2 mt-3 mb-3' style='background:#eee'>
+                                                    <input data-refblock='{{field.refblock}}' value='{{item.uuid}}' type='hidden' class='uuid-field' />
+                                                    <button type='button' class='delete-field btn btn-danger'>X</button>
+                                                    <p class='titre'>field type : <strong>{{item.type}}</strong></p>
+                                                    <p>
+                                                        <label>titre:</label>
+                                                        <input value="{{item.titre}}" type='text' class='form-control titre-field' placeholder='titre' />
+                                                    </p>
+                                                    {% if item.type in ["select","checkbox","radio"] %}
+                                                        <p><label>List options(séparer par | ):</label><textarea class='options-list'>{{item.options}}</textarea></p>
+                                                    {% endif %}
+                                                    {% if item.type in ["select"] %}
+                                                        <div class="form-check">
+                                                            <input class="multiple-check-input" type="checkbox" value="" id="multiple-option-{{item.uuid}}">
+                                                            <label class="form-check-label" for="multiple-option-{{item.uuid}}">multiple</label>
+                                                        </div>
+                                                    {% endif %}
                                                     <div class="form-check">
-                                                        <input class="multiple-check-input" type="checkbox" value="" id="multiple-option-{{item.uuid}}">
-                                                        <label class="form-check-label" for="multiple-option-{{item.uuid}}">multiple</label>
+                                                        <input {% if item.required %}checked="checked"{% endif %} class="required-check-input" type="checkbox" value="" id="required-option-{{item.uuid}}">
+                                                        <label class="form-check-label" for="required-option-{{item.uuid}}">required</label>
                                                     </div>
-                                                {% endif %}
-                                                <div class="form-check">
-                                                    <input {% if item.required %}checked="checked"{% endif %} class="required-check-input" type="checkbox" value="" id="required-option-{{item.uuid}}">
-                                                    <label class="form-check-label" for="required-option-{{item.uuid}}">required</label>
                                                 </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                </fieldset>
-                            {% endfor %}
+                                            {% endfor %}
+                                        </div>
+                                    </fieldset>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </td>

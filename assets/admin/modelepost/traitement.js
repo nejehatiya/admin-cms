@@ -3,7 +3,7 @@ import * as ajax_call from './ajax-call.js';
 // require main function
 import * as main_function from '../../js/main-functions.js';
 let id = null;
-if(id_modele != undefined){
+if(typeof id_modele !== "undefined"){
     id = id_modele;
 }
 $(document).ready(function(){

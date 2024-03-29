@@ -22,6 +22,6 @@ return [
     ],
     'modeles-post' => [
         'path' => './assets/admin/modelepost/traitement.js',
-        'entrypoint' => false,
+        'entrypoint' => true,
     ],
 ];
