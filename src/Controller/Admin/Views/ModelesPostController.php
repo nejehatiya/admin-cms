@@ -25,7 +25,7 @@ class ModelesPostController extends AbstractController
         SerializerInterface $serializer
     ) {
         $this->serializer = $serializer;
-        $this->slugify = new Slugify();
+        //$this->slugify = new Slugify();
     }
 
     #[Route('/', name: 'app_modeles_post_index', methods: ['GET'])]
@@ -82,6 +82,8 @@ class ModelesPostController extends AbstractController
         return $this->render('admin/modeles_post/edit.html.twig', [
             'modeles_post' => $modelesPost,
             'form' => $form,
+            
+            'fields'=>json_decode($modelesPost->getFields(),true),
         ]);
     }
 

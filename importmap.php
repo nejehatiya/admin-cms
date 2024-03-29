@@ -16,4 +16,12 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    'admin-post-modals' => [
+        'path' => './assets/js/admin-post-modals.js',
+        'entrypoint' => true,
+    ],
+    'modeles-post' => [
+        'path' => './assets/admin/modelepost/traitement.js',
+        'entrypoint' => false,
+    ],
 ];

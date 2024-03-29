@@ -1,6 +1,6 @@
 // main function
 import * as main_function from './main-functions.js';
-
+//console.log('fields',JSON.parse(fields));
 $(document).ready(function(){
     // init structure fields [{refblock:,name:,is_duplicatable:,fields:[{type:,titre:,options:,required:,uuid:}]}]
     let blocks = [];
@@ -40,9 +40,11 @@ $(document).ready(function(){
             blocks.push({refblock:ref_block,name:name_block,is_duplicatable:false,fields:[]});
             // log blocks
             console.log('blocks 39',blocks);
+            // update sortable list
+            $( "#blocks-container" ).sortable( "refresh" );
+            // update blocks
+            main_function.setBlocks(blocks);
         }
-        // update sortable list
-        $( "#blocks-container" ).sortable( "refresh" );
     });
     // update duplicate option block
     $(document).on('change',".duplicate-check-input",function(e){
@@ -58,6 +60,8 @@ $(document).ready(function(){
         }
         // log blocks
         console.log('blocks 55',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
     })
     // delete block 
     $(document).on('click',".delete-block",function(e){
@@ -72,6 +76,8 @@ $(document).ready(function(){
         console.log('blocks 67',blocks);
         // update sortable list
         $( "#blocks-container" ).sortable( "refresh" );
+        // update blocks
+        main_function.setBlocks(blocks);
     })
     // add new field
     $(document).on('click','.add-field',function(e){
@@ -115,6 +121,8 @@ $(document).ready(function(){
             }
             // log blocks
             console.log('blocks 103',blocks);
+            // update blocks
+            main_function.setBlocks(blocks);
         }
     })
     // update required field
@@ -141,6 +149,8 @@ $(document).ready(function(){
         }
         // log blocks
         console.log('blocks 128',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
     })
     // update tittre field
     $(document).on('keyup',"input.titre-field",function(e){
@@ -168,6 +178,8 @@ $(document).ready(function(){
         }
         // log blocks
         console.log('blocks 152',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
     })
     // update options list
     $(document).on('keyup',"textarea.options-list",function(e){
@@ -203,6 +215,8 @@ $(document).ready(function(){
         }
         // log blocks
         console.log('blocks 184',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
     })
     // delete field
     $(document).on('click',".delete-field",function(e){
@@ -227,6 +241,8 @@ $(document).ready(function(){
         }
         // log blocks
         console.log('blocks 208',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
     });
     /** init block is ordererd */
     $( "#blocks-container" ).sortable();
@@ -247,6 +263,7 @@ $(document).ready(function(){
         // update finaly blocks list
         blocks = new_blocks;
         console.log('blocks',blocks)
+        // update blocks
+        main_function.setBlocks(blocks);
     });
-
 })

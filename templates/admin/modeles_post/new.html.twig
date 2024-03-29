@@ -6,7 +6,9 @@
 {% block titreAdmin %}
     Ajouter un nouveau modèle
 {% endblock %}
-
+{% block importmap %}
+    {{ importmap(['app','admin-post-modals','modeles-post']) }}
+{% endblock %}
 {% block contentAdmin %}
     {{ include('admin/modeles_post/_form.html.twig') }}
 {% endblock %}

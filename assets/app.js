@@ -8,12 +8,13 @@
 import  './styles/css/wp-admin.css';
 
 import './styles/app.css';
-// get api prefix value
-let api_prefix = document.getElementById('prefix-admin').value;
-document.getElementById('prefix-admin').remove();
-console.log('api_prefixapi_prefix',api_prefix);
+// main function
+//import * as main_function from './js/main-functions.js';
+//window.main_function = main_function; 
 // init select picker
-$('.selectpicker').selectpicker();
+if($('.selectpicker').length){
+    $('.selectpicker').selectpicker();
+}
 // import main function 
-import './js/admin-post-modals.js';
+//import './js/admin-post-modals.js';
 

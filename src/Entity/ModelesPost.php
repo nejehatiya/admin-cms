@@ -43,18 +43,20 @@ class ModelesPost
     #[ORM\OneToMany(targetEntity: PostModals::class, mappedBy: 'modele', orphanRemoval: true)]
     private $postModals;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $image_preview;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private $used_in;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $fields = null;
+
+    #[ORM\ManyToMany(targetEntity: PostType::class, inversedBy: 'modelesPosts')]
+    private Collection $used_in;
+
+    #[ORM\ManyToOne]
+    private ?Images $image_preview = null;
+
 
     public function __construct()
     {
         $this->postModals = new ArrayCollection();
+        $this->used_in = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,29 +190,6 @@ class ModelesPost
         return $this;
     }
     
-    public function getImagePreview(): ?string
-    {
-        return $this->image_preview;
-    }
-
-    public function setImagePreview(?string $image_preview): self
-    {
-        $this->image_preview = $image_preview;
-
-        return $this;
-    }
-
-    public function getUsedIn(): ?string
-    {
-        return $this->used_in;
-    }
-
-    public function setUsedIn(?string $used_in): self
-    {
-        $this->used_in = $used_in;
-
-        return $this;
-    }
 
     public function isStatusModele(): ?bool
     {
@@ -228,4 +207,42 @@ class ModelesPost
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, PostType>
+     */
+    public function getUsedIn(): Collection
+    {
+        return $this->used_in;
+    }
+
+    public function addUsedIn(PostType $usedIn): static
+    {
+        if (!$this->used_in->contains($usedIn)) {
+            $this->used_in->add($usedIn);
+        }
+
+        return $this;
+    }
+
+    public function removeUsedIn(PostType $usedIn): static
+    {
+        $this->used_in->removeElement($usedIn);
+
+        return $this;
+    }
+
+    public function getImagePreview(): ?Images
+    {
+        return $this->image_preview;
+    }
+
+    public function setImagePreview(?Images $image_preview): static
+    {
+        $this->image_preview = $image_preview;
+
+        return $this;
+    }
+
+    
 }

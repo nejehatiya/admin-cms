@@ -64,6 +64,8 @@ class PostType
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $metaDescriptionSeoSitemap;
 
+    #[ORM\ManyToMany(targetEntity: ModelesPost::class, mappedBy: 'used_in')]
+    private Collection $modelesPosts;
 
     public function __construct()
     {
@@ -72,6 +74,7 @@ class PostType
         $this->statutMenuSideBar = 0;
         $this->is_draft = 0;
         $this->posts = new ArrayCollection();
+        $this->modelesPosts = new ArrayCollection();
     }
 
     /**
@@ -294,6 +297,33 @@ class PostType
     public function isDisplayInSitemap(): ?bool
     {
         return $this->displayInSitemap;
+    }
+
+    /**
+     * @return Collection<int, ModelesPost>
+     */
+    public function getModelesPosts(): Collection
+    {
+        return $this->modelesPosts;
+    }
+
+    public function addModelesPost(ModelesPost $modelesPost): static
+    {
+        if (!$this->modelesPosts->contains($modelesPost)) {
+            $this->modelesPosts->add($modelesPost);
+            $modelesPost->addUsedIn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModelesPost(ModelesPost $modelesPost): static
+    {
+        if ($this->modelesPosts->removeElement($modelesPost)) {
+            $modelesPost->removeUsedIn($this);
+        }
+
+        return $this;
     }
 
 

@@ -1,13 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/admin.html.twig' %}
 
-{% block title %}Edit ModelesPost{% endblock %}
-
-{% block body %}
-    <h1>Edit ModelesPost</h1>
-
-    {{ include('modeles_post/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_modeles_post_index') }}">back to list</a>
-
-    {{ include('modeles_post/_delete_form.html.twig') }}
+{% block title %}
+    Modifier modèle
+{% endblock %}
+{% block titreAdmin %}
+    Modifier modèle
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','admin-post-modals','modeles-post']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+        let id_modele = "{{modeles_post.id}}";
+    </script>
+    {{ include('admin/modeles_post/_form.html.twig') }}
 {% endblock %}
