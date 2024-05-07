@@ -42,7 +42,7 @@ class ApiPostModalsController extends AbstractController
     {
         return $this->indexEdit($request,null);
     }
-    #[Route('/edit/{id}', name: 'app_post_modals_edit_dscsdcsd', methods: ['POST'])]
+    #[Route('/edit/{id}', name: 'app_post_modals_edit_dscsdcsd_test', methods: ['POST'])]
     public function indexEdit(Request $request,$id): Response
     {
         // get name from request

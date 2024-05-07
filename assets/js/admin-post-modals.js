@@ -2,7 +2,7 @@
 import * as main_function from './main-functions.js';
 //console.log('fields',JSON.parse(fields));
 $(document).ready(function(){
-    // init structure fields [{refblock:,name:,is_duplicatable:,fields:[{type:,titre:,options:,required:,uuid:}]}]
+    // init structure fields [{refblock:,name:,is_duplicatable:,fields:[{type:,titre:,options:,required:,uuid:,old_var_name:',is_old:}]}]
     let blocks = [];
     // init file type list
     let list_file_types = ["file","textarea","number","text","date","text riche","select","checkbox","radio"];
@@ -92,6 +92,7 @@ $(document).ready(function(){
             let ref_block = class_div.replace('fields-','');
             // create html fieald blcok
             let required_html = '<div class="form-check"><input class="required-check-input" type="checkbox" value="" id="required-option-'+uuid+'"><label class="form-check-label" for="required-option-'+uuid+'">required</label></div>';
+            let old_html = '<div class="form-check"><input class="old-check-input" type="checkbox" value="" id="old-option-'+uuid+'"><label class="form-check-label" for="old-option-'+uuid+'">old</label><div class="old d-none"><input type="text" class="form-control old-var-name" placeholder="old var name" /></div></div>';
             let multiple_html = '<div class="form-check"><input class="multiple-check-input" type="checkbox" value="" id="multiple-option-'+uuid+'"><label class="form-check-label" for="multiple-option-'+uuid+'">multiple</label></div>';
             let html_field = "";
             html_field += "<div class='filed card p-2 mt-3 mb-3' style='background:#eee'>";
@@ -109,6 +110,8 @@ $(document).ready(function(){
                 }
                 // is required
                 html_field += required_html;
+                // is old vars
+                html_field += old_html;
             html_field += "</div>";
             // add field to list fiels
             $("."+class_div).append(html_field);
@@ -117,7 +120,7 @@ $(document).ready(function(){
                 return ele.refblock == ref_block;
             });
             if(check_field_index>-1){
-                blocks[check_field_index].fields.push({type:field_type,titre:'',options:'',required:false,uuid:uuid})
+                blocks[check_field_index].fields.push({type:field_type,titre:'',options:'',required:false,uuid:uuid,old_var_name:'',is_old:false})
             }
             // log blocks
             console.log('blocks 103',blocks);
@@ -266,4 +269,68 @@ $(document).ready(function(){
         // update blocks
         main_function.setBlocks(blocks);
     });
+    /***
+     * add old variable to field
+     */
+    $(document).on('change','input.old-check-input',function(e){
+        let is_checked = $(this).prop('checked');
+        if(is_checked){
+            $(this).siblings('div.old').removeClass('d-none');
+        }else{
+            $(this).siblings('div.old').addClass('d-none');
+        }
+        e.preventDefault();
+        // get uuid field
+        let uuid_field = $(this).parents('.form-check').siblings('.uuid-field').val();
+        // get ref block  parent
+        let ref_block = $(this).parents('.form-check').siblings('.uuid-field').attr('data-refblock');
+        // get field titre
+        let checked_prop = $(this).prop('checked');
+        // update field in list
+        let check_block_index = blocks.findIndex((ele)=>{
+            return ele.refblock == ref_block;
+        });
+        if(check_block_index>-1){
+            let fields_block = blocks[check_block_index].fields;
+            let field_index = fields_block.findIndex((ele)=>{
+                return ele.uuid == uuid_field;
+            })
+            fields_block[field_index].is_old = checked_prop;
+            // update field list
+            blocks[check_block_index].fields = fields_block;
+        }
+        // log blocks
+        console.log('blocks 128',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
+    })
+
+    /***
+     * add old variable to field
+     */
+    $(document).on('keyup','input.old-var-name',function(e){
+        let val = $(this).val();
+        e.preventDefault();
+        // get uuid field
+        let uuid_field = $(this).parents('.form-check').siblings('.uuid-field').val();
+        // get ref block  parent
+        let ref_block = $(this).parents('.form-check').siblings('.uuid-field').attr('data-refblock');
+        // update field in list
+        let check_block_index = blocks.findIndex((ele)=>{
+            return ele.refblock == ref_block;
+        });
+        if(check_block_index>-1){
+            let fields_block = blocks[check_block_index].fields;
+            let field_index = fields_block.findIndex((ele)=>{
+                return ele.uuid == uuid_field;
+            })
+            fields_block[field_index].old_var_name = val;
+            // update field list
+            blocks[check_block_index].fields = fields_block;
+        }
+        // log blocks
+        console.log('blocks 128',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
+    })
 })
