@@ -73,7 +73,7 @@
       </ul>
     </li>
     <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-media" id="menu-media">
-      <a href="upload.php" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-media" aria-haspopup="true">
+      <a href="{{path('app_media_index')}}" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-media" aria-haspopup="true">
         <div class="wp-menu-arrow">
           <div></div>
         </div>
@@ -85,10 +85,10 @@
       <ul class="wp-submenu wp-submenu-wrap">
         <li class="wp-submenu-head" aria-hidden="true">Médias</li>
         <li class="wp-first-item">
-          <a href="upload.php" class="wp-first-item">Médiathèque</a>
+          <a href="{{path('app_media_index')}}" class="wp-first-item">Médiathèque</a>
         </li>
         <li>
-          <a href="media-new.php">Ajouter un fichier média</a>
+          <a href="{{path('app_media_new')}}">Ajouter un fichier média</a>
         </li>
       </ul>
     </li>

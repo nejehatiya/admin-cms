@@ -1,0 +1,93 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+  Médiathèque
+{% endblock %}
+{% block titreAdmin %}
+  Médiathèque
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','mediatheque']) }}
+{% endblock %}
+{% block class_personalise %}upload-php{% endblock %}
+{% block contentAdmin %}
+  {# header list #}
+  {% include 'admin/global/list/list-header.html.twig' with { path: 'app_media_new', titre: 'Ajouter un fichier média',class:'open-upload-inline' } %}
+  <hr class="wp-header-end" />
+
+  {# médiathéque content #}
+  <div class="media-frame wp-core-ui mode-grid mode-edit hide-menu">
+    <div class="media-frame-tab-panel">
+        <div class="media-frame-router"></div>
+        <div class="media-frame-content" data-columns="11">
+            <div class="attachments-browser has-load-more hide-sidebar sidebar-for-errors">
+                <div class="media-sidebar">
+                    <div class="media-uploader-status" style="display: none;">
+                        <h2>Téléversement</h2>
+
+                        <div class="media-progress-bar">
+                            <div></div>
+                        </div>
+                        <div class="upload-details">
+                            <span class="upload-count"><span class="upload-index"></span> / <span class="upload-total"></span></span>
+                            <span class="upload-detail-separator">–</span>
+                            <span class="upload-filename"></span>
+                        </div>
+                        <div class="upload-errors"></div>
+                        <button type="button" class="button upload-dismiss-errors">Ignorer les erreurs</button>
+                    </div>
+                </div>
+
+                {# ulpoader inline #}
+                {% include "admin/media/_partials/uploader-inline.html.twig"  %}
+                
+                <div class="media-toolbar wp-filter">
+                    <div class="media-toolbar-secondary">
+                        <h2 class="media-attachments-filter-heading screen-reader-text">Filtrer les médias</h2>
+                        <div class="view-switch media-grid-view-switch">
+                            <a href="http://localhost/cmswordpress/wp-admin/upload.php?mode=list" class="view-list">
+                                <span class="screen-reader-text">Vue liste</span>
+                            </a>
+                            <a href="http://localhost/cmswordpress/wp-admin/upload.php?mode=grid" class="view-grid current" aria-current="page">
+                                <span class="screen-reader-text">Vue grille</span>
+                            </a>
+                        </div>
+                        <label for="media-attachment-filters" class="screen-reader-text">Filtrer par type</label>
+                        <select id="media-attachment-filters" class="attachment-filters">
+                            <option value="all">Tous les médias</option>
+                            <option value="image">Images</option>
+                            <option value="audio">Sons</option>
+                            <option value="video">Vidéos</option>
+                            <option value="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-word.document.macroEnabled.12,application/vnd.ms-word.template.macroEnabled.12,application/vnd.oasis.opendocument.text,application/vnd.apple.pages,application/pdf,application/vnd.ms-xpsdocument,application/oxps,application/rtf,application/wordperfect,application/octet-stream">Documents</option>
+                            <option value="application/vnd.apple.numbers,application/vnd.oasis.opendocument.spreadsheet,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,application/vnd.ms-excel.sheet.binary.macroEnabled.12">Feuilles&nbsp;de&nbsp;calcul</option>
+                            <option value="application/x-gzip,application/rar,application/x-tar,application/zip,application/x-7z-compressed">Archives</option>
+                            <option value="unattached">Non attachés</option>
+                            <option value="mine">Les miens</option>
+                        </select>
+                        <button type="button" class="button media-button button-primary button-large delete-selected-button hidden" disabled="disabled">Supprimer définitivement</button>
+                        <label for="media-attachment-date-filters" class="screen-reader-text">Filtrer par date</label>
+                        <select id="media-attachment-date-filters" class="attachment-filters">
+                            <option value="all">Toutes les dates</option>
+                        </select>
+                        <button type="button" class="button media-button select-mode-toggle-button">Sélection groupée</button>
+                        <span class="spinner"></span>
+                    </div>
+                    <div class="media-toolbar-primary search-form">
+                        <label for="media-search-input" class="media-search-input-label">Rechercher</label>
+                        <input type="search" id="media-search-input" class="search" />
+                    </div>
+                    <div class="media-bg-overlay" style="display: none;"></div>
+                </div>
+                <h2 class="media-views-heading screen-reader-text">Liste des médias</h2>
+                <div class="attachments-wrapper">
+                    <ul tabindex="-1" class="attachments ui-sortable ui-sortable-disabled" id="__attachments-view-48"></ul>
+                    <div class="load-more-wrapper">
+                        <span class="spinner"></span><p class="load-more-count hidden"></p><button type="button" class="button load-more hidden button-primary">Charger la suite</button><button type="button" class="button load-more-jump hidden" disabled="">Aller au premier élément chargé</button>
+                    </div>
+                </div>
+                <p class="no-media">Aucun média n’a été trouvé.</p>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

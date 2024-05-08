@@ -24,4 +24,8 @@ return [
         'path' => './assets/admin/modelepost/traitement.js',
         'entrypoint' => true,
     ],
+    'mediatheque' => [
+        'path' => './assets/admin/mediatheque/media.js',
+        'entrypoint' => true,
+    ],
 ];
