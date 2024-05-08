@@ -73,6 +73,14 @@
                                                         <input {% if item.required %}checked="checked"{% endif %} class="required-check-input" type="checkbox" value="" id="required-option-{{item.uuid}}">
                                                         <label class="form-check-label" for="required-option-{{item.uuid}}">required</label>
                                                     </div>
+
+                                                    <div class="form-check">
+                                                        <input {% if item.is_old %}checked="checked"{% endif %} class="old-check-input" type="checkbox" value="" id="old-option-{{item.uuid}}">
+                                                        <label class="form-check-label" for="old-option-{{item.uuid}}">old</label>
+                                                        <div class="old {% if item.is_old is defined and  item.is_old == false %}d-none{% endif %}">
+                                                            <input type="text" class="form-control old-var-name" value="{{item.old_var_name}}" placeholder="old var name" />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             {% endfor %}
                                         </div>

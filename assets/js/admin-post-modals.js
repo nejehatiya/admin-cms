@@ -1,9 +1,25 @@
 // main function
 import * as main_function from './main-functions.js';
+import * as ajax_call from '../admin/modelepost/ajax-call.js';
+let id = null;
+if(typeof id_modele !== "undefined"){
+    id = id_modele;
+}
 //console.log('fields',JSON.parse(fields));
 $(document).ready(function(){
-    // init structure fields [{refblock:,name:,is_duplicatable:,fields:[{type:,titre:,options:,required:,uuid:,old_var_name:',is_old:}]}]
     let blocks = [];
+    // if us edt 
+    if(id){
+        ajax_call.getModelePost(id).done(function(response) {
+            console.log('data',response)
+            if(response?.model_post){
+                main_function.setBlocks(JSON.parse(response.model_post.fields));
+                blocks = JSON.parse(response.model_post.fields) ;
+            }
+        });;
+    }
+    // init structure fields [{refblock:,name:,is_duplicatable:,fields:[{type:,titre:,options:,required:,uuid:,old_var_name:',is_old:}]}]
+    //blocks = main_function.getBlocks();
     // init file type list
     let list_file_types = ["file","textarea","number","text","date","text riche","select","checkbox","radio"];
     // init html block

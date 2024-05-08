@@ -1,5 +1,7 @@
 // require main function
 import * as main_function from '../../js/main-functions.js';
+// require main function
+import * as mainadmin_post_modals from '../../js/admin-post-modals.js';
 /***
  * function to check modele post by name
  */
@@ -44,10 +46,5 @@ export function deleteModelePost(data){
 export function getModelePost(id){
     let url = "/api/post/modals/get/"+id;
     let check_modele_post = main_function.ajaxOperation(url,{},'GET');
-    check_modele_post.done(function(response) {
-        console.log('data',response)
-        if(response?.model_post){
-            main_function.setBlocks(JSON.parse(response.model_post.fields));
-        }
-    });
+    return check_modele_post;
 }

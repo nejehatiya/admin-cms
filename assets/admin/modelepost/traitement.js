@@ -7,10 +7,7 @@ if(typeof id_modele !== "undefined"){
     id = id_modele;
 }
 $(document).ready(function(){
-    // if us edt 
-    if(id){
-        ajax_call.getModelePost(id);
-    }
+    
     // check name modele
     $("#modeles_post_name_modele").on('change',function(e){
         let name = $(this).val();
