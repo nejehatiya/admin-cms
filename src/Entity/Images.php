@@ -84,6 +84,12 @@ class Images
     #[ORM\Column(type: 'float', nullable: true)]
     private $width;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $data = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mime_type = null;
+
     public function __construct()
     {
         $this->id_post = new ArrayCollection();
@@ -335,6 +341,30 @@ class Images
                 $postsFeature->setIdFeatureImage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getData(): ?string
+    {
+        return $this->data;
+    }
+
+    public function setData(?string $data): static
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getMimeType(): ?string
+    {
+        return $this->mime_type;
+    }
+
+    public function setMimeType(?string $mime_type): static
+    {
+        $this->mime_type = $mime_type;
 
         return $this;
     }

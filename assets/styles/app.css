@@ -205,3 +205,8 @@ input.success{
 input.error{
     border-bottom: 5px solid red;
 }
+
+img{
+    max-width: 100%;
+    height: auto;
+}
