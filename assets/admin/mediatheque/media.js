@@ -1,16 +1,11 @@
 import * as main_function from '../../js/main-functions.js';
 $(document).ready(function(){
+    let html_error = main_function.htmlErrorUpload();
     let prefix_admin  = main_function.apiPrefix();
     //
     let allowed_extension = ['jpg', 'jpeg', 'gif', 'png', 'pdf', 'mp4', 'svg'];
     //
-    let html_progress_bar = '<li tabindex="0" role="checkbox" aria-checked="false" class="attachment uploading save-ready">';
-            html_progress_bar += '<div class="attachment-preview js--select-attachment type- subtype- landscape">';
-                html_progress_bar += '<div class="thumbnail">';
-                    html_progress_bar += '<div class="media-progress-bar"><div style="width: 0%"></div></div>';
-                html_progress_bar += '</div>';
-            html_progress_bar += '</div>';
-    html_progress_bar += '</li>';
+    let html_progress_bar = main_function.htmlProgressUpload();
     // open upload inline media
     $(".open-upload-inline,.uploader-inline button.close").on('click',function(e){
         e.preventDefault();

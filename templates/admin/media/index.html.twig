@@ -21,22 +21,8 @@
         <div class="media-frame-router"></div>
         <div class="media-frame-content" data-columns="11">
             <div class="attachments-browser has-load-more hide-sidebar sidebar-for-errors">
-                <div class="media-sidebar">
-                    <div class="media-uploader-status" style="display: none;">
-                        <h2>Téléversement</h2>
-
-                        <div class="media-progress-bar">
-                            <div></div>
-                        </div>
-                        <div class="upload-details">
-                            <span class="upload-count"><span class="upload-index"></span> / <span class="upload-total"></span></span>
-                            <span class="upload-detail-separator">–</span>
-                            <span class="upload-filename"></span>
-                        </div>
-                        <div class="upload-errors"></div>
-                        <button type="button" class="button upload-dismiss-errors">Ignorer les erreurs</button>
-                    </div>
-                </div>
+                {# ulpoader error #}
+                {% include "admin/media/_partials/uploader-error.html.twig"  %}
 
                 {# ulpoader inline #}
                 {% include "admin/media/_partials/uploader-inline.html.twig"  %}
