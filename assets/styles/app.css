@@ -210,3 +210,34 @@ img{
     max-width: 100%;
     height: auto;
 }
+/***
+* style admin
+*/
+.media-frame.mode-grid .uploader-inline.load::after,
+.media-frame-content[data-columns="11"] .attachment.load::after,
+.media-frame.mode-grid .media-toolbar.wp-filter.load::after,
+.media-frame.mode-grid .attachments-browser.load::after {
+    content: '';
+    background-image: url(/assets/images/spinner.gif);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    top: 0;
+    left: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(240 240 241 / 34%);
+}
+.media-frame.mode-grid .attachments-browser.load::after {
+    background-position: bottom;
+    height: 100px;
+    top: auto;
+    bottom:0;
+}
+.attachment-details.save-waiting .settings-save-status .spinner {
+    visibility: visible;
+}
+.attachment-details.save-complete .settings-save-status .saved {
+    display: inline-block;
+}

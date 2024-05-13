@@ -2,10 +2,7 @@
     <div class="media-toolbar-secondary">
         <h2 class="media-attachments-filter-heading screen-reader-text">Filtrer les médias</h2>
         <div class="view-switch media-grid-view-switch">
-            <a href="http://localhost/cmswordpress/wp-admin/upload.php?mode=list" class="view-list">
-                <span class="screen-reader-text">Vue liste</span>
-            </a>
-            <a href="http://localhost/cmswordpress/wp-admin/upload.php?mode=grid" class="view-grid current" aria-current="page">
+            <a href="#" class="view-grid current" aria-current="page">
                 <span class="screen-reader-text">Vue grille</span>
             </a>
         </div>
@@ -15,18 +12,17 @@
             <option value="image">Images</option>
             <option value="audio">Sons</option>
             <option value="video">Vidéos</option>
-            <option value="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-word.document.macroEnabled.12,application/vnd.ms-word.template.macroEnabled.12,application/vnd.oasis.opendocument.text,application/vnd.apple.pages,application/pdf,application/vnd.ms-xpsdocument,application/oxps,application/rtf,application/wordperfect,application/octet-stream">Documents</option>
-            <option value="application/vnd.apple.numbers,application/vnd.oasis.opendocument.spreadsheet,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,application/vnd.ms-excel.sheet.binary.macroEnabled.12">Feuilles&nbsp;de&nbsp;calcul</option>
-            <option value="application/x-gzip,application/rar,application/x-tar,application/zip,application/x-7z-compressed">Archives</option>
+            <option value="pdf">PDF</option>
             <option value="unattached">Non attachés</option>
-            <option value="mine">Les miens</option>
         </select>
         <button type="button" class="button media-button button-primary button-large delete-selected-button hidden" disabled="disabled">Supprimer définitivement</button>
         <label for="media-attachment-date-filters" class="screen-reader-text">Filtrer par date</label>
         <select id="media-attachment-date-filters" class="attachment-filters">
             <option value="all">Toutes les dates</option>
+            {% for month in months %}
+                <option value="{{month.formatted_date_key}}">{{month.formatted_date}}</option>
+            {% endfor %}
         </select>
-        <button type="button" class="button media-button select-mode-toggle-button">Sélection groupée</button>
         <span class="spinner"></span>
     </div>
     <div class="media-toolbar-primary search-form">

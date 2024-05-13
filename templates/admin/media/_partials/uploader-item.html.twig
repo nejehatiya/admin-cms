@@ -4,6 +4,11 @@
             <div class="centered">
                 <img src="{{getImagesUrl(item,320)}}" draggable="false" alt="">
             </div>
+            {% if item.mimeType == "application/pdf" or item.mimeType == "video/mp4"  %}
+                <div class="filename">
+					<div>{{item.urlImage}}</div>
+				</div>
+            {% endif %}
         </div>
     </div>
     <button type="button" class="check" tabindex="-1">

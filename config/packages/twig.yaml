@@ -1,6 +1,7 @@
 twig:
     globals:
         prefix_api: '%env(string:ADMIN_PREFIX)%'
+        url_site: '%env(string:URL_SITE)%'
     default_path: '%kernel.project_dir%/templates'
 
 when@test:

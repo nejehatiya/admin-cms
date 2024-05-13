@@ -1,0 +1,105 @@
+<div id="__wp-uploader-id-2" class="supports-drag-drop" style="position: relative;">
+	<div tabindex="0" class="media-modal wp-core-ui" role="dialog" aria-labelledby="media-frame-title">
+
+		<button type="button" class="media-modal-close">
+			<span class="media-modal-icon">
+				<span class="screen-reader-text">
+					Fermez la boite de dialogue
+				</span>
+			</span>
+		</button>
+
+		<div class="media-modal-content" role="document">
+			<div class="media-frame mode-select wp-core-ui e-wp-media-elements-removed" id="__wp-uploader-id-0" style="--button-text: 'Insérez un média';">
+				<div class="media-frame-title" id="media-frame-title">
+					<h1>Insérez un média</h1>
+				</div>
+				<h2 class="media-frame-menu-heading">Actions</h2>
+				<button type="button" class="button button-link media-frame-menu-toggle" aria-expanded="false">
+					Menu
+					<span class="dashicons dashicons-arrow-down" aria-hidden="true"></span>
+				</button>
+				<div class="media-frame-menu">
+					<div role="tablist" aria-orientation="vertical" class="media-menu">
+						<button type="button" role="tab" class="media-menu-item active" id="menu-item-library" aria-selected="true">Insérez un média</button>
+						<div role="presentation" class="separator"></div>
+					</div>
+				</div>
+				<div class="media-frame-tab-panel" role="tabpanel" aria-labelledby="menu-item-library" tabindex="0">
+					<div class="media-frame-router">
+						<div role="tablist" aria-orientation="horizontal" class="media-router">
+							<button type="button" role="tab" class="media-menu-item" id="menu-item-upload" aria-selected="false" tabindex="-1">Téléverser des fichiers</button>
+							<button type="button" role="tab" class="media-menu-item active" id="menu-item-browse" aria-selected="true">Médiathèque</button>
+						</div>
+					</div>
+					<div class="media-frame-content" data-columns="9" role="tabpanel" aria-labelledby="menu-item-browse" tabindex="0">
+						<div class="attachments-browser has-load-more">
+							<div class="media-toolbar">
+								<div class="media-toolbar-secondary">
+									<span class="spinner"></span>
+								</div>
+								<div class="media-toolbar-primary search-form">
+									<label for="media-search-input" class="media-search-input-label">Rechercher</label><input type="search" id="media-search-input" class="search"></div>
+								<div class="media-bg-overlay" style="display: none;"></div>
+							</div>
+							{# ulpoader inline #}
+                            {% include "admin/media/_partials/uploader-inline.html.twig"  %}
+
+							<h2 class="media-views-heading screen-reader-text">Liste des médias</h2>
+							<div class="attachments-wrapper">
+								<ul tabindex="-1" class="attachments ui-sortable ui-sortable-disabled" id="__attachments-view-2595">
+                                    {% for image in images %}
+                                        {# ulpoader item #}
+                                        {% include "admin/media/_partials/uploader-item.html.twig" with {item:image}  %}
+                                    {% endfor %}
+                                </ul>
+							</div>
+							<div class="media-sidebar">
+								<div class="media-uploader-status" style="display: none;">
+									<h2>Téléversement</h2>
+
+									<div class="media-progress-bar">
+										<div></div>
+									</div>
+									<div class="upload-details">
+										<span class="upload-count">
+											<span class="upload-index"></span>
+											/
+											<span class="upload-total"></span>
+										</span>
+										<span class="upload-detail-separator">–</span>
+										<span class="upload-filename"></span>
+									</div>
+									<div class="upload-errors"></div>
+									<button type="button" class="button upload-dismiss-errors">Ignorer les erreurs</button>
+								</div>
+								<form class="compat-item"></form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h2 class="media-frame-actions-heading screen-reader-text">
+					Actions des médias sélectionnés.
+				</h2>
+				<div class="media-frame-toolbar">
+					<div class="media-toolbar">
+						<div class="media-toolbar-secondary"></div>
+						<div class="media-toolbar-primary search-form">
+							<button type="button" class="button media-button button-primary button-large media-button-select">Sélectionner</button>
+						</div>
+						<div class="media-bg-overlay"></div>
+					</div>
+				</div>
+				<div class="media-frame-uploader">
+					<div class="uploader-window">
+						<div class="uploader-window-content">
+							<div class="uploader-editor-title">Déposez vos fichiers pour les téléverser</div>
+						</div>
+					</div>
+				</div>
+				<div id="html5_1htlbduu312dh17kr1rhghq3e23_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1htlbduu312dh17kr1rhghq3e23" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/jpeg,.jpg,.jpeg,.jpe,image/gif,.gif,image/png,.png,image/bmp,.bmp,image/tiff,.tiff,.tif,.webp,.avif,.ico,.heic,.asf,.asx,video/x-ms-wmv,.wmv,.wmx,.wm,video/avi,.avi,.divx,video/x-flv,.flv,video/quicktime,.mov,.qt,video/mpeg,.mpeg,.mpg,.mpe,video/mp4,.mp4,video/x-m4v,.m4v,video/ogg,.ogv,video/webm,.webm,video/x-matroska,.mkv,video/3gpp,.3gp,.3gpp,video/3gpp2,.3g2,.3gp2,text/plain,.txt,.asc,.c,.cc,.h,.srt,text/csv,.csv,.tsv,.ics,.rtx,text/css,.css,text/html,.htm,.html,.vtt,.dfxp,audio/mpeg,.mp3,audio/x-m4a,.m4a,.m4b,audio/aac,.aac,.ra,.ram,audio/x-wav,.wav,audio/ogg,.ogg,.oga,audio/flac,.flac,.mid,.midi,audio/x-ms-wma,.wma,.wax,.mka,text/rtf,.rtf,application/x-javascript,.js,application/pdf,.pdf,.class,.tar,application/zip,.zip,.gz,.gzip,.rar,.7z,image/photoshop,.psd,.xcf,application/msword,.doc,application/vnd.ms-powerpoint,.pot,.pps,.ppt,.wri,.xla,application/vnd.ms-excel,.xls,.xlt,.xlw,.mdb,.mpp,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx,.docm,application/vnd.openxmlformats-officedocument.wordprocessingml.template,.dotx,.dotm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx,.xlsm,.xlsb,.xltx,.xltm,.xlam,application/vnd.openxmlformats-officedocument.presentationml.presentation,.pptx,.pptm,application/vnd.openxmlformats-officedocument.presentationml.slideshow,.ppsx,.ppsm,application/vnd.openxmlformats-officedocument.presentationml.template,.potx,.potm,.ppam,.sldx,.sldm,.onetoc,.onetoc2,.onetmp,.onepkg,.oxps,.xps,.odt,.odp,.ods,.odg,.odc,.odb,.odf,.wp,.wpd,.key,.numbers,.pages,image/svg+xml,.svg,.svg" tabindex="-1" aria-hidden="true"></div>
+			</div>
+		</div>
+	</div>
+	<div class="media-modal-backdrop"></div>
+</div>

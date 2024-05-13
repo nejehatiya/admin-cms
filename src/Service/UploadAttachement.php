@@ -79,12 +79,16 @@ class UploadAttachement
                 
                 //  generate web image
                 $destination = str_replace(['uploads','.'.$extension],['webp','.webp'],$file_path);
-                WebPConvert::convert($file_path, $destination, []);
-                $build_file_path = $build_directory.'/'.$fileName;
+                if(in_array($extension,array('jpg', 'jpeg', 'png')))
+                    WebPConvert::convert($file_path, $destination, []);
                 //list($iwidth, $iheight) = getimagesize($file_path);
-                $sizes = $this->getImageSizetwig($file_path);
+                $sizes = [null,null];
+                if(in_array($extension,array('jpg', 'jpeg', 'png','svg')))
+                    $sizes = $this->getImageSizetwig($file_path);
                 //$filesystem->copy($file_path,$build_file_path );
-                $data = $this->resize($file_path,$extension,$fileName);
+                $data = [];
+                if(in_array($extension,array('jpg', 'jpeg', 'png')))
+                    $data = $this->resize($file_path,$extension,$fileName);
                 //$this->resize($build_file_path);
                 $image = $this->createNewImages($safeFilename, $fileName,null,"",$sizes,$data,$mimeType);
             } catch (FileException $e) {

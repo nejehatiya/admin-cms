@@ -2312,7 +2312,7 @@ h1.nav-tab-wrapper, /* Back-compat for pre-4.4 */
 ------------------------------------------------------------------------------*/
 
 .spinner {
-	background: url(../images/spinner.gif) no-repeat;
+	background: url(/assets/images/spinner.gif) no-repeat;
 	background-size: 20px 20px;
 	display: inline-block;
 	visibility: hidden;
@@ -3014,7 +3014,7 @@ div.action-links {
 	top: 50%;
 	z-index: -1;
 	margin: -10px 0 0 -10px;
-	background: #fff url(../images/spinner.gif) no-repeat center;
+	background: #fff url(/assets/images/spinner.gif) no-repeat center;
 	background-size: 20px 20px;
 	transform: translateZ(0);
 }

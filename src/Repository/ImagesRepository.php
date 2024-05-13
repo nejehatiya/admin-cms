@@ -115,4 +115,58 @@ class ImagesRepository extends ServiceEntityRepository
             return $query = $query->getOneOrNullResult();
     }
 
+
+    // select date month
+    public function getDateMonth(){
+        $query = $this->createQueryBuilder('i')
+            ->select("DISTINCT  DATE_FORMAT(i.date_update, '%M %Y') AS formatted_date")
+            ->addSelect("DATE_FORMAT(i.date_update, '%Y-%m') AS formatted_date_key")
+            ->getQuery();
+        return $query = $query->getResult();
+    }
+    //get List Images avec search
+    public function getListImages($page,$params=array(),$limit=50){
+        $query =  $this->createQueryBuilder('i')
+            ->orderBy('i.date_update', 'DESC');
+        // add  date to search
+        if(array_key_exists('date',$params) && strlen($params['date']) && $params['date']!="all"){
+            $date_start_devis = date($params['date'].'-01');
+            $date_end_devis = date($params['date'].'-t');
+            $query=$query->andWhere('i.date_update >= :date')
+            ->setParameter('date', $date_start_devis)
+            ->andWhere('i.date_update <= :date_end')
+            ->setParameter('date_end', $date_end_devis);
+        }
+        // add  type to search
+        $mime = array(
+            'image'=>['image/jpeg','image/jpg','image/png','image/gif','image/svg+xml'],
+            'pdf'=>['application/pdf'],
+            'video'=>['video/mp4'],
+        );
+
+        if(array_key_exists('mime_type',$params) && strlen($params['mime_type']) && array_key_exists($params['mime_type'],$mime )){
+            $query=$query->andWhere('i.mime_type in (:mime_type)')
+            ->setParameter('mime_type', $mime[$params['mime_type']]);
+        }
+        // add unattached image
+        if(array_key_exists('mime_type',$params) && strlen($params['mime_type']) && $params['mime_type'] == "unattached" ){
+            $query=$query->leftJoin('i.id_post', 'p')
+            ->andWhere('p.id IS NULL');
+        }
+        // add  search by name_image | alt_image | url_image
+        if(array_key_exists('search',$params) && strlen($params['search'])){
+            $query =  $query->andWhere($query->expr()->orX(
+                $query->expr()->like('i.name_image', ':search'),
+                $query->expr()->like('i.alt_image', ':search'),
+                $query->expr()->like('i.url_image', ':search')
+                
+            ))->setParameter('search', '%'.$params['search'].'%');
+        }
+
+        $query = $query->setFirstResult( ( $page - 1 ) *  $limit)
+            ->setMaxResults($limit)
+            ->getQuery();
+        $query = $query->getResult();
+        return $query;
+    }
 }

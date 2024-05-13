@@ -63,7 +63,7 @@
 	right: 50%;
 	top: 50%;
 	margin: -10px -10px 0 0;
-	background: url(../images/spinner.gif) no-repeat center;
+	background: url(/assets/images/spinner.gif) no-repeat center;
 	background-size: 20px 20px;
 	transform: translateZ(0);
 }

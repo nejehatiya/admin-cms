@@ -18,7 +18,8 @@ class MediaController extends AbstractController
     public function index(ImagesRepository $imagesRepository): Response
     {
         return $this->render('admin/media/index.html.twig', [
-            'images' => $imagesRepository->findAll(),
+            'images' => $imagesRepository->getListImages(1),
+            'months'=>$imagesRepository->getDateMonth()
         ]);
     }
 

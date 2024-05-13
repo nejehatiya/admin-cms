@@ -65,14 +65,46 @@ export function htmlProgressUpload(){
     return html_progress_bar;
 }
 // html error html
-export function htmlErrorUpload(type_error,file_name,size){
+export function htmlErrorUpload(type_error,file_name,message=""){
     let html = '<div class="upload-error">'
             html += '<span class="upload-error-filename">'+file_name+'</span>';
             if(type_error=="size"){
                 html += '<span class="upload-error-message">'+file_name+' Dépasse la limite de téléversement de ce site.</span>';
+            }else if(message.length){
+                html += '<span class="upload-error-message">'+message+'</span>';
             }else{
                 html += '<span class="upload-error-message">Désolé, vous n’avez pas l’autorisation de téléverser ce type de fichier.</span>';
             }
         html += '</div>';
     return html;
+}
+
+// set data form image for edit
+export function  setDataForm(data){
+
+}
+// refresh list with search
+export function  refreshListWithSearch(page){
+    // set params serach 
+    let serach_param = {};
+    serach_param['date']=$(".upload-php #media-attachment-date-filters").val();
+    serach_param['mime_type']=$(".upload-php #media-attachment-filters").val();
+    serach_param['search']=$(".upload-php #media-search-input").val();
+    $(".media-frame.mode-grid .media-toolbar.wp-filter").addClass('load');
+    return ajaxOperation("/api/attachement/list/"+page,serach_param,'POST');
+}
+// Copier le texte
+export function  copierTexte(text,ele){
+    // On désactive l'action du formulaire
+    // 1. Si le <textarea> n'est pas vide
+    if (text.length) {
+        // 2. On copie le texte dans le presse-papier
+        navigator.clipboard.writeText(text).then(() => {
+            // 4. On affiche l'alert
+            ele.siblings('.success').removeClass('hidden');
+            setTimeout(()=>{
+                ele.siblings('.success').addClass('hidden');
+            },1000)
+        })
+    }
 }

@@ -42,9 +42,9 @@
                         <span class="spinner"></span><p class="load-more-count hidden"></p><button type="button" class="button load-more hidden button-primary">Charger la suite</button><button type="button" class="button load-more-jump hidden" disabled="">Aller au premier élément chargé</button>
                     </div>
                 </div>
-                {% if images|length == 0 %}
-                    <p class="no-media">Aucun média n’a été trouvé.</p>
-                {% endif %}
+                
+                <p class="no-media {% if images|length != 0 %}d-none{% endif %}">Aucun média n’a été trouvé.</p>
+                
                 {#{getImages(9)|raw}#}
             </div>
         </div>

@@ -1922,7 +1922,7 @@ body.full-overlay-active {
 	z-index: -1;
 	margin: -10px 0 0 -10px;
 	transform: translateZ(0);
-	background: transparent url(../images/spinner.gif) no-repeat center center;
+	background: transparent url(/assets/images/spinner.gif) no-repeat center center;
 	background-size: 20px 20px;
 }
 

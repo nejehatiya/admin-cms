@@ -367,7 +367,7 @@ body.language-chooser {
 }
 
 .spinner {
-	background: url(../images/spinner.gif) no-repeat;
+	background: url(/assets/images/spinner.gif) no-repeat;
 	background-size: 20px 20px;
 	visibility: hidden;
 	opacity: 0.7;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51f29f15e96a00a3b04b04039b8381cf",
+    "content-hash": "b659db7da180eff875af418f606859ca",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1688,6 +1688,53 @@
                 "source": "https://github.com/php-imagine/Imagine/tree/1.3.5"
             },
             "time": "2023-06-07T14:49:52+00:00"
+        },
+        {
+            "name": "mapado/mysql-doctrine-functions",
+            "version": "v1.1.3",
+            "target-dir": "Mapado/MysqlDoctrineFunctions",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mapado/MysqlDoctrineFunctions.git",
+                "reference": "b673a1ce348bb6a1fd6ed2feb8134a771a3036db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mapado/MysqlDoctrineFunctions/zipball/b673a1ce348bb6a1fd6ed2feb8134a771a3036db",
+                "reference": "b673a1ce348bb6a1fd6ed2feb8134a771a3036db",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": ">=2.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mapado\\MysqlDoctrineFunctions": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Julien Deniau",
+                    "email": "julien.deniau@mapado.com"
+                }
+            ],
+            "description": "MySQL Function for Doctrine : RAND(), ROUND() DATE(), DATE_FORMAT()...",
+            "keywords": [
+                "doctrine",
+                "function",
+                "mapado",
+                "mysql"
+            ],
+            "support": {
+                "issues": "https://github.com/mapado/MysqlDoctrineFunctions/issues",
+                "source": "https://github.com/mapado/MysqlDoctrineFunctions/tree/master"
+            },
+            "time": "2015-08-15T15:18:09+00:00"
         },
         {
             "name": "monolog/monolog",
