@@ -216,7 +216,11 @@ img{
 .media-frame.mode-grid .uploader-inline.load::after,
 .media-frame-content[data-columns="11"] .attachment.load::after,
 .media-frame.mode-grid .media-toolbar.wp-filter.load::after,
-.media-frame.mode-grid .attachments-browser.load::after {
+.media-frame.mode-grid .attachments-browser.load::after,
+#__wp-uploader-id-2  .media-sidebar.load::after,
+#__wp-uploader-id-2 #media-search-input.load::after,
+.open-media-action.load::after,
+#__wp-uploader-id-2  .attachments-browser .media-toolbar.load::after  {
     content: '';
     background-image: url(/assets/images/spinner.gif);
     position: absolute;
@@ -240,4 +244,29 @@ img{
 }
 .attachment-details.save-complete .settings-save-status .saved {
     display: inline-block;
+}
+.media-sidebar .setting span, 
+.attachment-details .setting span, 
+.media-sidebar .setting .name, 
+.media-sidebar .setting .value, 
+.attachment-details .setting .name {
+    margin-right: 2%;
+}
+
+.test{
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.no-media-popup.no-media{
+    position: absolute;
+    top: 74px;
+    z-index: 1000;
+    text-align: center;
+    width: calc(100% - 300px);
+    right: 300px;
+}
+.text-center{
+    text-align: center;
 }

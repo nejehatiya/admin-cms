@@ -66,7 +66,25 @@ class ApiAttachementController extends AbstractController
             'popup_form'=>$popup_form,
         ]);
     }
-
+    #[Route('/attachment-detail/{id}', name: 'app_attachement_get_detail', methods: ['GET'])]
+    public function indexGetDetailAttachement(Request $request,$id): Response
+    {
+        // recuperer l'image dans le base de données
+        $image = $this->em->getRepository(Images::class)->find($id);
+        // recupére popup edit form
+        $attachment_details = $this->renderView('admin/global/media/attachment-details.html.twig', [
+            'item' => $image,
+        ]);
+        // return response
+        return $this->json([
+            'success'=>$image?true:false,
+            'message'=>$image?"fichier recupérer avec succés":"fichier non trouvé",
+            'image'=>$image,
+            'url'=>$this->link->getLinkImage($image),
+            'attachment_details'=>$attachment_details,
+        ]);
+    }
+    
     #[Route('/edit/{id}', name: 'app_attachement_edit', methods: ['POST'])]
     public function indexEditAttachement(Request $request,$id): Response
     {

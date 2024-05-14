@@ -89,7 +89,7 @@ export function  refreshListWithSearch(page){
     let serach_param = {};
     serach_param['date']=$(".upload-php #media-attachment-date-filters").val();
     serach_param['mime_type']=$(".upload-php #media-attachment-filters").val();
-    serach_param['search']=$(".upload-php #media-search-input").val();
+    serach_param['search']=$(".upload-php #media-search-input,#__wp-uploader-id-2 #media-search-input").val();
     $(".media-frame.mode-grid .media-toolbar.wp-filter").addClass('load');
     return ajaxOperation("/api/attachement/list/"+page,serach_param,'POST');
 }

@@ -4,26 +4,23 @@
 		<span class="settings-save-status" role="status">
 			<span class="spinner"></span>
 			<span class="saved">Enregistré.</span>
-		</span>
+		</span> 
 	</h2>
 	<div class="attachment-info">
 
 		<div class="thumbnail thumbnail-image">
-			<img src="http://localhost/test_technique/wp-content/uploads/2024/05/istockphoto-1300845620-612x612-1-300x300.jpg" draggable="false" alt="">
+			<img src="{{getImagesUrl(item)}}" draggable="false" alt="">
 		</div>
 		<div class="details">
-			<div class="filename">istockphoto-1300845620-612x612-1.jpg</div>
-			<div class="uploaded">9 mai 2024</div>
+			<div class="filename">{{item.urlImage}}</div>
+			<div class="uploaded">{{item.dateAdd|date("m/d/Y")}}</div>
 
 			<div class="file-size">18 Ko</div>
 
 
 			<div class="dimensions">
-				612 pixels par 612
+				{{item.width}} pixels par {{item.height}}
 			</div>
-
-
-			<a class="edit-attachment" href="http://localhost/test_technique/wp-admin/post.php?post=466&amp;action=edit&amp;image-editor" target="_blank">Modifier l’image</a>
 
 
 			<button type="button" class="button-link delete-attachment">Supprimer définitivement</button>
@@ -34,7 +31,7 @@
 
 	<span class="setting alt-text has-description" data-setting="alt">
 		<label for="attachment-details-alt-text" class="name">Texte alternatif</label>
-		<textarea id="attachment-details-alt-text" aria-describedby="alt-text-description"></textarea>
+		<textarea id="attachment-details-alt-text" aria-describedby="alt-text-description" data-field="alt_image">{{item.altImage}}</textarea>
 	</span>
 	<p class="description" id="alt-text-description">
 		<a href="https://www.w3.org/WAI/tutorials/images/decision-tree" target="_blank" rel="noopener">Apprendre à décrire le but de l’image<span class="screen-reader-text">
@@ -43,20 +40,15 @@
 
 	<span class="setting" data-setting="title">
 		<label for="attachment-details-title" class="name">Titre</label>
-		<input type="text" id="attachment-details-title" value="User Icon Flat Isolated on White Background. User Symbol. Vector Illustration">
-	</span>
-
-	<span class="setting" data-setting="caption">
-		<label for="attachment-details-caption" class="name">Légende</label>
-		<textarea id="attachment-details-caption">User Icon Flat Isolated on White Background. User Symbol. Vector Illustration</textarea>
+		<input type="text" id="attachment-details-title" data-field="name_image" value="{{item.nameImage}}" >
 	</span>
 	<span class="setting" data-setting="description">
 		<label for="attachment-details-description" class="name">Description</label>
-		<textarea id="attachment-details-description"></textarea>
+		<textarea id="attachment-details-description" data-field="description_image">{{item.descriptionImage}}</textarea>
 	</span>
 	<span class="setting" data-setting="url">
 		<label for="attachment-details-copy-link" class="name">URL du fichier&nbsp;:</label>
-		<input type="text" class="attachment-details-copy-link" id="attachment-details-copy-link" value="http://localhost/test_technique/wp-content/uploads/2024/05/istockphoto-1300845620-612x612-1.jpg" readonly="">
+		<input type="text" class="attachment-details-copy-link" id="attachment-details-copy-link" value="{{url_site ~ getImagesUrl(item)}}" readonly="">
 		<div class="copy-to-clipboard-container">
 			<button type="button" class="button button-small copy-attachment-url" data-clipboard-target="#attachment-details-copy-link">Copier l’URL dans le presse-papiers</button>
 			<span class="success hidden" aria-hidden="true">Copié&nbsp;!</span>

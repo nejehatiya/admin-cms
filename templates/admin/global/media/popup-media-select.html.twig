@@ -33,59 +33,17 @@
 						</div>
 					</div>
 					<div class="media-frame-content" data-columns="9" role="tabpanel" aria-labelledby="menu-item-browse" tabindex="0">
-						<div class="attachments-browser has-load-more">
-							<div class="media-toolbar">
-								<div class="media-toolbar-secondary">
-									<span class="spinner"></span>
-								</div>
-								<div class="media-toolbar-primary search-form">
-									<label for="media-search-input" class="media-search-input-label">Rechercher</label><input type="search" id="media-search-input" class="search"></div>
-								<div class="media-bg-overlay" style="display: none;"></div>
-							</div>
-							{# ulpoader inline #}
-                            {% include "admin/media/_partials/uploader-inline.html.twig"  %}
-
-							<h2 class="media-views-heading screen-reader-text">Liste des médias</h2>
-							<div class="attachments-wrapper">
-								<ul tabindex="-1" class="attachments ui-sortable ui-sortable-disabled" id="__attachments-view-2595">
-                                    {% for image in images %}
-                                        {# ulpoader item #}
-                                        {% include "admin/media/_partials/uploader-item.html.twig" with {item:image}  %}
-                                    {% endfor %}
-                                </ul>
-							</div>
-							<div class="media-sidebar">
-								<div class="media-uploader-status" style="display: none;">
-									<h2>Téléversement</h2>
-
-									<div class="media-progress-bar">
-										<div></div>
-									</div>
-									<div class="upload-details">
-										<span class="upload-count">
-											<span class="upload-index"></span>
-											/
-											<span class="upload-total"></span>
-										</span>
-										<span class="upload-detail-separator">–</span>
-										<span class="upload-filename"></span>
-									</div>
-									<div class="upload-errors"></div>
-									<button type="button" class="button upload-dismiss-errors">Ignorer les erreurs</button>
-								</div>
-								<form class="compat-item"></form>
-							</div>
-						</div>
+						{% include "admin/global/media/uploader-tab-content-list.html.twig" %}
+						{% include "admin/global/media/uploader-inline-popup.html.twig"  %}
+						
+						<p class="no-media no-media-popup {% if images|length != 0 %}d-none{% endif %}">Aucun média n’a été trouvé.</p>
 					</div>
 				</div>
-				<h2 class="media-frame-actions-heading screen-reader-text">
-					Actions des médias sélectionnés.
-				</h2>
 				<div class="media-frame-toolbar">
 					<div class="media-toolbar">
 						<div class="media-toolbar-secondary"></div>
 						<div class="media-toolbar-primary search-form">
-							<button type="button" class="button media-button button-primary button-large media-button-select">Sélectionner</button>
+							<button type="button" class="button media-button button-primary button-large media-button-select" disabled="disabled" >Sélectionner</button>
 						</div>
 						<div class="media-bg-overlay"></div>
 					</div>
