@@ -39,8 +39,8 @@ $(document).ready(function(){
             // start loadmore 
             $(document).find("#__wp-uploader-id-2 .attachments-browser.has-load-more .attachments-wrapper").on('scroll',function(e){
                 let $this = $(this);
-                console.log('$this.scrollTop() + $this.innerHeight() >= $this[0].scrollHeight',$this.scrollTop() , $this.innerHeight(), $this[0].scrollHeight);
-                if ($this.scrollTop() + $this.innerHeight() >= $this[0].scrollHeight && load_actif) {
+                //console.log('$this.scrollTop() + $this.innerHeight() >= $this[0].scrollHeight',$this.scrollTop() + $this.innerHeight() , $this[0].scrollHeight);
+                if ( (( ( $this.scrollTop() + $this.innerHeight() )+10 ) >= $this[0].scrollHeight) && load_actif) {
                     // set params serach 
                     $("#__wp-uploader-id-2 .attachments-browser .media-toolbar").addClass('load');
                     main_function.refreshListWithSearch(page).done((data)=>{
@@ -149,5 +149,26 @@ $(document).ready(function(){
             $("#__wp-uploader-id-2  .uploader-inline-content").addClass('d-none').siblings('div').removeClass('d-none');
             $(this).addClass('active').siblings('button').removeClass('active');
         }
+    });
+    // téléverser les fichier
+    $(document).on('click',"#__wp-uploader-id-2 #__wp-uploader-id-1",function(e){
+        e.preventDefault();
+        $(this).siblings('input[type=file]').trigger('click');
+        //$("#__wp-uploader-id-2  .media-router .media-menu-item#menu-item-browse").trigger('click')
+    })
+    // start upload file
+    $(document).on('change',"#__wp-uploader-id-2 .upload-image-input",function(e){
+        $(".media-uploader-status .upload-errors").html('');
+        
+        $(".media-sidebar").removeClass('d-block');
+        let files = $(this).prop('files');
+        $("#__wp-uploader-id-2  .media-router .media-menu-item#menu-item-browse").trigger('click')
+        if(files.length){
+            for(let i =0;i<files.length;i++){
+                let file = files[i];
+                main_function.uploadFileFormData(file,i,'#__wp-uploader-id-2 ');
+            }
+        }
+        
     })
 })

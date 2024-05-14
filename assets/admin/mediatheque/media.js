@@ -8,7 +8,7 @@ $(document).ready(function(){
     //
     let allowed_extension = ['jpg', 'jpeg', 'gif', 'png', 'pdf', 'mp4', 'svg'];
     //
-    let html_progress_bar = main_function.htmlProgressUpload();
+    let html_progress_bar = "";
     // open upload inline media
     $(".open-upload-inline,.uploader-inline button.close").on('click',function(e){
         e.preventDefault();
@@ -22,73 +22,17 @@ $(document).ready(function(){
 
     // start upload file
     $(document).on('change',".upload-image-input",function(e){
-        let file = $(this).prop('files')[0];
-        let file_name =file.name;
-        let file_extension = file_name.split('.')[file_name.split('.').length - 1].toLowerCase();
-        let file_size = file.size;
-        file_size = (file_size / (1024 * 1024)).toFixed(2);
         $(".media-uploader-status .upload-errors").html('');
-        $(".media-uploader-status").removeClass('d-block'); 
+        
         $(".media-sidebar").removeClass('d-block');
-        if (file_size <= 40 && allowed_extension.indexOf(file_extension) != -1) {
-            $(".media-frame.mode-grid .uploader-inline").addClass('load');  
-            $(".attachments-wrapper .attachments").prepend(html_progress_bar);
-            let formData = new FormData();
-            formData.append('file', file);
-            $.ajax({
-                url: prefix_admin+"/api/attachement/upload-file",
-                dataType: 'text',
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: formData,
-                type: 'post',
-                xhr: function () {
-                    var xhr = new window.XMLHttpRequest();
-                    xhr.upload.addEventListener("progress", function (evt) {
-                        if (evt.lengthComputable) {
-                            var percentComplete = (evt.loaded / evt.total) * 100;
-                            $(".attachment.uploading.save-ready").find('.media-progress-bar>div').css("width", percentComplete + "%");
-                        }
-                    }, false);
-                    return xhr;
-                },
-                beforeSend: function () {
-                    $(".attachment.uploading.save-ready").find('.media-progress-bar>div').css("width","0%");
-                },
-                success: function (res) {
-                    console.log(res);
-                    res = JSON.parse(res);
-                    if(res.success){
-                        $(".attachment.uploading.save-ready").replaceWith(res.preview_image);
-                    }else{
-                        $(".attachment.uploading.save-ready").remove();
-                        $(".media-uploader-status .upload-errors").prepend(main_function.htmlErrorUpload('extension','',res.message));
-                        $(".media-uploader-status").addClass('d-block');
-                        $(".media-sidebar").addClass('d-block');
-                    }
-                    $(".media-frame.mode-grid .uploader-inline").removeClass('load');
-                }, error: function (error) {
-                    console.error(error);
-                    $(".attachment.uploading.save-ready").remove();
-                    $(".media-uploader-status .upload-errors").prepend(main_function.htmlErrorUpload('extension','',error.message));
-                    $(".media-frame.mode-grid .uploader-inline").removeClass('load');
-                    $(".media-uploader-status").addClass('d-block');
-                    $(".media-sidebar").addClass('d-block');
-                }
-            });
-        }else{
-            if(file_size > 40){
-                $(".media-uploader-status .upload-errors").prepend(main_function.htmlErrorUpload('size',file_name));
+        let files = $(this).prop('files');
+        if(files.length){
+            for(let i =0;i<files.length;i++){
+                let file = files[i];
+                main_function.uploadFileFormData(file,i);
             }
-
-            if(allowed_extension.indexOf(file_extension) === -1){
-                $(".media-uploader-status .upload-errors").prepend(main_function.htmlErrorUpload('extension',file_name));
-            }
-            $(".media-uploader-status").addClass('d-block');
-            $(".media-sidebar").addClass('d-block');
-            $(".media-frame.mode-grid .uploader-inline").removeClass('load');
         }
+        
     })
     // start get data
     $(document).on('click',".media-frame.mode-grid .attachments-browser .attachments li",function(e){

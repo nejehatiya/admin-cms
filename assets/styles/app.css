@@ -270,3 +270,10 @@ img{
 .text-center{
     text-align: center;
 }
+
+@media(max-width:1536px){
+    .media-frame-content[data-columns="11"] .attachment,
+    .media-frame-content[data-columns="9"] .attachment {
+        width: calc( 100% / 6 );
+    }
+}

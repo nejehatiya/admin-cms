@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="201" height="86" viewBox="0 0 201 86">
+  <defs>
+    <filter id="HBHS">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#1b1b1c" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <filter id="Depannage_rideaux_metalliques_">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-color="#343440" result="color-2"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color-2"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Groupe_45432" data-name="Groupe 45432" transform="translate(-20714.014 -2711.051)">
+    <g id="Groupe_45431" data-name="Groupe 45431" transform="translate(12701.514 3368.892)">
+      <g data-type="innerShadowGroup">
+        <text id="HBHS-2" data-name="HBHS" transform="translate(8013.5 -596.841)" fill="#7a7a8d" font-size="59" font-family="Orbitron" font-weight="700"><tspan x="0" y="0">HBHS</tspan></text>
+        <g transform="matrix(1, 0, 0, 1, 8012.5, -657.84)" filter="url(#HBHS)">
+          <text id="HBHS-3" data-name="HBHS" transform="translate(1 61)" fill="#fff" font-size="59" font-family="Orbitron" font-weight="700"><tspan x="0" y="0">HBHS</tspan></text>
+        </g>
+        <text id="HBHS-4" data-name="HBHS" transform="translate(8013.5 -596.841)" stroke="#001458" stroke-width="1" font-size="59" font-family="Orbitron" font-weight="700" fill="none"><tspan x="0" y="0">HBHS</tspan></text>
+      </g>
+      <g data-type="innerShadowGroup">
+        <text id="Depannage_rideaux_metalliques_2" data-name="Depannage rideaux metalliques " transform="translate(8016.001 -579.841)" fill="#7a7a8d" font-size="19" font-family="Corinthia-Bold, Corinthia" font-weight="700"><tspan x="0" y="0">Depannage rideaux metalliques </tspan></text>
+        <g transform="matrix(1, 0, 0, 1, 8012.5, -657.84)" filter="url(#Depannage_rideaux_metalliques_)">
+          <text id="Depannage_rideaux_metalliques_3" data-name="Depannage rideaux metalliques " transform="translate(3.5 78)" fill="#fff" font-size="19" font-family="Corinthia-Bold, Corinthia" font-weight="700"><tspan x="0" y="0">Depannage rideaux metalliques </tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
