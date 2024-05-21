@@ -166,7 +166,9 @@ $(document).ready(function(){
         if(files.length){
             for(let i =0;i<files.length;i++){
                 let file = files[i];
-                main_function.uploadFileFormData(file,i,'#__wp-uploader-id-2 ');
+                $.when(main_function.uploadFileFormData(file,i,'#__wp-uploader-id-2 ')).done(function(i){
+                    console.log('oki',i);
+                });
             }
         }
         
