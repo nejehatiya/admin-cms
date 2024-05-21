@@ -1,4 +1,8 @@
-<li tabindex="0" role="checkbox" aria-label="Capture" aria-checked="false" data-id="{{item.id}}" class="attachment save-ready">
+{% set is_selected = false %}
+{% if item.id in list_selectionner %}
+    {% set is_selected = true %}
+{% endif %}
+<li tabindex="0" role="checkbox" aria-label="Capture" aria-checked="false" data-id="{{item.id}}" class="attachment save-ready {{is_selected ? 'selected order-1 details' :'' }}" >
     <div class="attachment-preview js--select-attachment type-image subtype-png landscape">
         <div class="thumbnail">
             <div class="centered">

@@ -1,3 +1,4 @@
+{% set image_selected = null %}
 <div class="attachments-browser has-load-more">
 	<div class="media-toolbar">
 		<div class="media-toolbar-secondary">
@@ -14,8 +15,11 @@
 	<div class="attachments-wrapper">
 		<ul tabindex="-1" class="attachments ui-sortable ui-sortable-disabled" id="__attachments-view-2595">
 			{% for image in images %}
+				{% if image_selected is null and list_selectionner is defined and list_selectionner|length > 0 and image.id == list_selectionner[0] %}
+					{% set image_selected = image %}
+				{% endif %}
 				{# ulpoader item #}
-				{% include "admin/media/_partials/uploader-item.html.twig" with {item:image}  %}
+				{% include "admin/media/_partials/uploader-item.html.twig" with {item:image,list_selectionner:list_selectionner is defined ? list_selectionner : []}  %}
 			{% endfor %}
 		</ul>
 	</div>
@@ -38,6 +42,10 @@
 			<div class="upload-errors"></div>
 			<button type="button" class="button upload-dismiss-errors">Ignorer les erreurs</button>
 		</div>
+		{% if image_selected is not null  %}
+			{# ulpoader item #}
+			{% include "admin/global/media/attachment-details.html.twig" with {item:image_selected}  %}
+		{% endif %}
 		<form class="compat-item"></form>
 	</div>
 </div>
