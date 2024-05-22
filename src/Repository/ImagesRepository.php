@@ -125,9 +125,11 @@ class ImagesRepository extends ServiceEntityRepository
         return $query = $query->getResult();
     }
     //get List Images avec search
-    public function getListImages($page,$params=array(),$limit=50){
+    public function getListImages($page,$params=array(),$limit=50,$ids_select=array()){
         $query =  $this->createQueryBuilder('i')
-            ->orderBy('i.date_update', 'DESC');
+            ->orderBy('i.date_update', 'DESC')
+            ->andWhere('i.id != :id')
+            ->setParameter('id', 0);
         // add  date to search
         if(array_key_exists('date',$params) && strlen($params['date']) && $params['date']!="all"){
             $date_start_devis = date($params['date'].'-01');
@@ -162,7 +164,12 @@ class ImagesRepository extends ServiceEntityRepository
                 
             ))->setParameter('search', '%'.$params['search'].'%');
         }
-
+        if(is_array($ids_select) && !empty($ids_select) || (int)$ids_select){
+            if(!is_array($ids_select)){
+                $ids_select = [$ids_select];
+            }
+            $query =  $query->orWhere("i.id in (:ids_select)")->setParameter('ids_select', $ids_select);
+        }
         $query = $query->setFirstResult( ( $page - 1 ) *  $limit)
             ->setMaxResults($limit)
             ->getQuery();

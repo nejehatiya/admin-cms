@@ -1,28 +1,28 @@
 {% extends 'admin/admin.html.twig' %}
 
 {% block title %}
-  Modéles list
+  Post type list
 {% endblock %}
 {% block titreAdmin %}
-  Modéles list
+  Post type list
 {% endblock %}
 
 {% block contentAdmin %}
     {# header list #}
-    {% include "admin/global/list/list-header.html.twig" with {'path':'app_modeles_post_new','titre':'Ajouter un modéle'} %}
+    {% include "admin/global/list/list-header.html.twig" with {'path':'app_post_type_new','titre':'Ajouter un post type'} %}
     {# count list #}
     {% include "admin/global/list/list-count.html.twig" with {'vars':{'all':{'name':'Tous','count':20},'publish':{'name':'Publié','count':20}}} %}
     {# list content  #}
     <form id="filter" method="get">
         {# content search-box #}
-        {% include "admin/global/list/search-box.html.twig" with {'titre':'modéles'} %}
+        {% include "admin/global/list/search-box.html.twig" with {'titre':'post type'} %}
         {# list top  #}
         <div class="tablenav top">
             {# list actions grouper #}
-            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'modéles'} %}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'post type'} %}
 
             {# list filtrage  #}
-            {% include "admin/global/list/filtrage.html.twig" with {'filters':[{'field':'post_type','list':{'20':'post','25':'page'},'name':'Post Type'},{'field':'status','list':{'1':'Activer','0':'Désactiver'},'name':'Statut'} ] } %}
+            {% include "admin/global/list/filtrage.html.twig" with {'filters':[] } %}
             
             {# list pagination  #}
             {% include "admin/global/list/pagination.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'ModelesPost'} %}
@@ -36,18 +36,19 @@
             <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
             {# list table header #}
             {% set fields = [
-                {name:'Titre',field_name:'name_modele',method:'nameModele',sortable:true,type:'text'},
-                {name:'Statut',field_name:'status_modele',method:'statusModele',sortable:false,type:'boolean'},
-                {name:'Image',field_name:'image_preview',method:'imagePreview',sortable:false,type:'image'},
-                {name:'Utuliser dans',field_name:'used_in',method:'usedIn',sortable:false,type:'entity',field_to_display:'namePostType',collection:true},
-                {name:'Date',field_name:'date_add',method:'dateAdd',sortable:true,type:'date'}
+                {name:'Titre',field_name:'name_post_type',method:'namePostType',sortable:true,type:'text'},
+                {name:'Slug',field_name:'slug_post_type',method:'slugPostType',sortable:false,type:'text'},
+                {name:'taxonomies',field_name:'taxonomies',method:'taxonomies',sortable:false,type:'entity',field_to_display:'nameTaxonomy',collection:true},
+                {name:'afficher dans sitemap',field_name:'displayInSitemap',method:'displayInSitemap',sortable:false,type:'boolean'},
+                {name:'Articles page list',field_name:'has_list',method:'hasList',sortable:false,type:'boolean'},
+                {name:'Utuliser dans url',field_name:'slug_in_url',method:'slugInUrl',sortable:false,type:'boolean'},
             ] %}
             <thead>
                 {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
             </thead>
             {# list table body #}
             <tbody id="the-list">
-                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':modeles_posts,'entity_name':'modeles-post','is_view':false,'path_edit':'app_modeles_post_edit'} %}
+                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':post_types,'entity_name':'post-type','is_view':false,'path_edit':'app_post_type_edit'} %}
             </tbody>
             {# list table footer #}
             <tfoot>
@@ -57,10 +58,10 @@
 
         <div class="tablenav bottom">
             {# list actions grouper #}
-            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'modéles'} %}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'post type'} %}
             <div class="alignleft actions"></div>
             {# list pagination footer table  #}
-            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'ModelesPost'} %}
+            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'PostType'} %}
             
             <br class="clear" />
         </div>

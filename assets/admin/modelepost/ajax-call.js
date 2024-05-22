@@ -25,13 +25,13 @@ export function checkModelePostByName(name="",ele){
  */
 export function insertEditModelePost(data,id,ele){
     // start loadig
-    ele.siblings('.lds-ellipsis').addClass('show');
+    ele.parent().addClass('load');
     let url = id?"/api/post/modals/edit/"+id:"/api/post/modals/new";
     let check_modele_post = main_function.ajaxOperation(url,data,'POST');
     check_modele_post.done(function(response) {
         console.log('data',response)
         // end loadig
-        ele.siblings('.lds-ellipsis').removeClass('show');
+        ele.parent().removeClass('load');
     });
 }
 /***

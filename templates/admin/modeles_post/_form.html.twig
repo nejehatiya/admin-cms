@@ -15,7 +15,7 @@
             <tr>
                 <th scope="row">{{ form_label(form.image_preview) }}</th>
                 <td>
-                    <a href="#" class="open-media-action page-title-action  aria-button-if-js" role="button" aria-expanded="true">Ajouter un fichier média</a>
+                    {{imageMediaSelect("image-preview",false,1,modeles_post.getImagePreview)|raw}}
                 </td>
             </tr>
             <tr>

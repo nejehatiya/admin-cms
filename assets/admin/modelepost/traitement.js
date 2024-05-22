@@ -20,11 +20,13 @@ $(document).ready(function(){
         e.preventDefault();
         let name = $("#modeles_post_name_modele").val();
         let post_type = $("#modeles_post_used_in").val();
+        let media_selected = $(".media-selected.image-preview").val();
+
         console.log(post_type);
         let status = $("#modeles_post_status_modele").prop('checked');
         let blocks = JSON.stringify(main_function.getBlocks());
-        if(name.length ){
-            ajax_call.insertEditModelePost({name:name,post_type:post_type,status:status,blocks:blocks,image:null},id,$(this));
+        if(name.length ){ 
+            ajax_call.insertEditModelePost({name:name,post_type:post_type,status:status,blocks:blocks,image:media_selected},id,$(this));
         }
     });
 

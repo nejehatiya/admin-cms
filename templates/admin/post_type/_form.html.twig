@@ -1,0 +1,47 @@
+{{ form_start(form) }}
+    <table class="form-table" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.name_post_type) }}</th>
+                <td>
+                    {{ form_widget(form.name_post_type) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            <tr> 
+                <th scope="row">{{ form_label(form.slug_post_type) }}</th>
+                <td>{{ form_widget(form.slug_post_type) }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.is_draft) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.is_draft) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.displayInSitemap) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.displayInSitemap) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.has_list) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.has_list) }}</div>
+                </td>
+            </tr>
+            
+            <tr>
+                <th scope="row">{{ form_label(form.slug_in_url) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.slug_in_url) }}</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(form) }}
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </p>
+{{ form_end(form) }}

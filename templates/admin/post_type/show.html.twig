@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PostType{% endblock %}
+
+{% block body %}
+    <h1>PostType</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post_type.id }}</td>
+            </tr>
+            <tr>
+                <th>Name_post_type</th>
+                <td>{{ post_type.namePostType }}</td>
+            </tr>
+            <tr>
+                <th>Slug_post_type</th>
+                <td>{{ post_type.slugPostType }}</td>
+            </tr>
+            <tr>
+                <th>Type_post_type</th>
+                <td>{{ post_type.typePostType }}</td>
+            </tr>
+            <tr>
+                <th>StatutMenuSideBar</th>
+                <td>{{ post_type.statutMenuSideBar ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>OrderPostType</th>
+                <td>{{ post_type.OrderPostType }}</td>
+            </tr>
+            <tr>
+                <th>Is_draft</th>
+                <td>{{ post_type.isDraft }}</td>
+            </tr>
+            <tr>
+                <th>DisplayInSitemap</th>
+                <td>{{ post_type.displayInSitemap ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>PathParentSitemap</th>
+                <td>{{ post_type.pathParentSitemap }}</td>
+            </tr>
+            <tr>
+                <th>MetaTitleSeoSitmap</th>
+                <td>{{ post_type.metaTitleSeoSitmap }}</td>
+            </tr>
+            <tr>
+                <th>MetaDescriptionSeoSitemap</th>
+                <td>{{ post_type.metaDescriptionSeoSitemap }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_post_type_index') }}">back to list</a>
+
+    <a href="{{ path('app_post_type_edit', {'id': post_type.id}) }}">edit</a>
+
+    {{ include('admin/post_type/_delete_form.html.twig') }}
+{% endblock %}

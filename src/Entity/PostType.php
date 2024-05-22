@@ -33,7 +33,7 @@ class PostType
     #[ORM\Column(type: 'string', length: 255)]
     private $slug_post_type;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255,nullable: true)]
     private $type_post_type;
 
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'post_type')]
@@ -49,7 +49,7 @@ class PostType
     private $taxonomies;
 
     
-    #[ORM\Column(type: 'integer', nullable: true, options: ['default' => 0])]
+    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 0])]
     private $is_draft;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
@@ -67,12 +67,18 @@ class PostType
     #[ORM\ManyToMany(targetEntity: ModelesPost::class, mappedBy: 'used_in')]
     private Collection $modelesPosts;
 
+    #[ORM\Column]
+    private ?bool $has_list = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $slug_in_url = null;
+
     public function __construct()
     {
         $this->taxonomies = new ArrayCollection();
         $this->OrderPostType = 0;
         $this->statutMenuSideBar = 0;
-        $this->is_draft = 0;
+        $this->is_draft = false;
         $this->posts = new ArrayCollection();
         $this->modelesPosts = new ArrayCollection();
     }
@@ -229,12 +235,12 @@ class PostType
         return $this;
     }
 
-    public function getIsDraft(): ?int
+    public function getIsDraft(): ?bool
     {
         return $this->is_draft;
     }
 
-    public function setIsDraft(int $is_draft): self
+    public function setIsDraft(bool $is_draft): self
     {
         $this->is_draft = $is_draft;
 
@@ -322,6 +328,30 @@ class PostType
         if ($this->modelesPosts->removeElement($modelesPost)) {
             $modelesPost->removeUsedIn($this);
         }
+
+        return $this;
+    }
+
+    public function isHasList(): ?bool
+    {
+        return $this->has_list;
+    }
+
+    public function setHasList(bool $has_list): static
+    {
+        $this->has_list = $has_list;
+
+        return $this;
+    }
+
+    public function isSlugInUrl(): ?bool
+    {
+        return $this->slug_in_url;
+    }
+
+    public function setSlugInUrl(?bool $slug_in_url): static
+    {
+        $this->slug_in_url = $slug_in_url;
 
         return $this;
     }

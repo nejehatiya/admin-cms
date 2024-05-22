@@ -33,7 +33,7 @@
 						</div>
 					</div>
 					<div class="media-frame-content" data-columns="9" role="tabpanel" aria-labelledby="menu-item-browse" tabindex="0">
-						{% include "admin/global/media/uploader-tab-content-list.html.twig" %}
+						{% include "admin/global/media/uploader-tab-content-list.html.twig" with {list_selectionner:list_selectionner is defined ? list_selectionner : []} %}
 						{% include "admin/global/media/uploader-inline-popup.html.twig"  %}
 						
 						<p class="no-media no-media-popup {% if images|length != 0 %}d-none{% endif %}">Aucun média n’a été trouvé.</p>

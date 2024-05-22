@@ -137,14 +137,20 @@ class ApiAttachementController extends AbstractController
             'list_html'=>$list_html,
         ]);
     }
-    #[Route('/popup-media-selection', name: 'app_attachement_popup_slection', methods: ['GET'])]
+    #[Route('/popup-media-selection', name: 'app_attachement_popup_slection', methods: ['GET','POST'])]
     public function indexPoppupSelectionAttachement(Request $request): Response
-    {
+    {// get parametres
+        $params = $request->request->all();
+        $list_selectionner = null;
+        if(array_key_exists('list_selectionner',$params)){
+            $list_selectionner = array_filter($params['list_selectionner']);
+        }
         // recuperer l'image dans le base de données
-        $images = $this->em->getRepository(Images::class)->getListImages(1,[]);
+        $images = $this->em->getRepository(Images::class)->getListImages(1,[],50,$list_selectionner);
         // get items html
         $popup_media_select = $this->renderView('admin/global/media/popup-media-select.html.twig', [
             'images' => $images,
+            'list_selectionner'=>$list_selectionner,
         ]);
         
         // return response
@@ -152,6 +158,7 @@ class ApiAttachementController extends AbstractController
             'success'=>true,
             'message'=>"popup recupérer avec succés",
             'popup_media_select'=>$popup_media_select,
+            'id_current'=>!empty($list_selectionner)?$list_selectionner[0]:0,
         ]);
     }
     

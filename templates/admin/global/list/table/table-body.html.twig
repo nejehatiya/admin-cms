@@ -27,7 +27,7 @@
                     <span class="locked-avatar"></span>
                     <span class="locked-text"></span>
                 </div>
-                <strong><a class="row-title" href="{{path('app_modeles_post_edit',{'id':item['id']})}}" aria-label="{{item_value}} (Modifier)">{{ item_value }}</a></strong>
+                <strong><a class="row-title" href="{{path(path_edit,{'id':item['id']})}}" aria-label="{{item_value}} (Modifier)">{{ item_value }}</a></strong>
 
                 <div class="hidden" id="inline_1">
                     <div class="post_title">Bonjour tout le monde&nbsp;!</div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row-actions">
                     <span class="edit">
-                        <a href="{{path('app_modeles_post_edit',{'id':item['id']})}}" aria-label="{{item_value}} (Modifier)">Modifier</a>
+                        <a href="{{path(path_edit,{'id':item['id']})}}" aria-label="{{item_value}} (Modifier)">Modifier</a>
                         |
                     </span>
                     <span class="inline hide-if-no-js">

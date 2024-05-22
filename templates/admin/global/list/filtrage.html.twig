@@ -8,5 +8,8 @@
             {% endfor %}
         </select>
     {% endfor %}
-    <input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filtrer" />
+
+    {% if filters|length > 0 %}
+        <input type="submit" name="filter_action" id="post-query-submit" class="button" value="Filtrer" />
+    {% endif %}
 </div>

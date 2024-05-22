@@ -213,6 +213,11 @@ img{
 /***
 * style admin
 */
+form[name="modeles_post"] p.submit{
+    position: relative;
+    width: max-content;
+    padding: 0;
+}
 .media-frame.mode-grid .uploader-inline.load::after,
 .media-frame-content[data-columns="11"] .attachment.load::after,
 .media-frame.mode-grid .media-toolbar.wp-filter.load::after,
@@ -220,7 +225,8 @@ img{
 #__wp-uploader-id-2  .media-sidebar.load::after,
 #__wp-uploader-id-2 #media-search-input.load::after,
 .open-media-action.load::after,
-#__wp-uploader-id-2  .attachments-browser .media-toolbar.load::after  {
+#__wp-uploader-id-2  .attachments-browser .media-toolbar.load::after,
+form p.submit.load::after  {
     content: '';
     background-image: url(/assets/images/spinner.gif);
     position: absolute;
@@ -276,4 +282,23 @@ img{
     .media-frame-content[data-columns="9"] .attachment {
         width: calc( 100% / 6 );
     }
+}
+.previewimage img{
+    margin: 10px 0;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+#__wp-uploader-id-2 .attachments-browser .attachments {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#__wp-uploader-id-2 .attachments-browser .attachments .order-1{
+    order: -1 !important;
+}
+#__wp-uploader-id-2 .attachments-browser .attachments .attachment:focus{
+    box-shadow: none !important;
+}
+#__wp-uploader-id-2 .attachments-browser .attachments .attachment.selected{
+    box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #2271b1 !important;
 }

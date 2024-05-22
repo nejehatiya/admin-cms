@@ -51,6 +51,7 @@ class ApiPostModalsController extends AbstractController
         $post_type = $request->request->has('post_type')?$request->request->has('post_type'):[];
         // get image from request
         $image = (int)$request->request->get('image');
+        
         // get blocks from request
         $blocks = json_decode($request->request->get('blocks'),true);
         //$blocks = array_map('htmlspecialchars', $blocks);
