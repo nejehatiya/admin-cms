@@ -28,4 +28,8 @@ return [
         'path' => './assets/admin/mediatheque/media.js',
         'entrypoint' => true,
     ],
+    'post_type' => [
+        'path' => './assets/admin/post_type/traitement.js',
+        'entrypoint' => true,
+    ],
 ];

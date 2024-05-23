@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Post_title</th>
+                <th>Post_content</th>
+                <th>Post_excerpt</th>
+                <th>Post_name</th>
+                <th>Post_parent</th>
+                <th>Guide</th>
+                <th>Menu_ordre</th>
+                <th>Post_status</th>
+                <th>Comment_status</th>
+                <th>Date_add</th>
+                <th>Date_upd</th>
+                <th>Post_content_2</th>
+                <th>Post_order_content</th>
+                <th>Post_parent_migration</th>
+                <th>Post_id__migration</th>
+                <th>Page_template</th>
+                <th>Post_content_3</th>
+                <th>Post_content_4</th>
+                <th>Post_content_5</th>
+                <th>Post_order_content_preinsertion</th>
+                <th>Is_draft</th>
+                <th>Page_menu</th>
+                <th>Sommaire</th>
+                <th>Is_index</th>
+                <th>Is_follow</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.postTitle }}</td>
+                <td>{{ post.postContent }}</td>
+                <td>{{ post.postExcerpt }}</td>
+                <td>{{ post.postName }}</td>
+                <td>{{ post.postParent }}</td>
+                <td>{{ post.guide }}</td>
+                <td>{{ post.menuOrdre }}</td>
+                <td>{{ post.postStatus }}</td>
+                <td>{{ post.commentStatus ? 'Yes' : 'No' }}</td>
+                <td>{{ post.dateAdd ? post.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.dateUpd ? post.dateUpd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.postContent2 }}</td>
+                <td>{{ post.postOrderContent }}</td>
+                <td>{{ post.postParentMigration }}</td>
+                <td>{{ post.postIdMigration }}</td>
+                <td>{{ post.pageTemplate }}</td>
+                <td>{{ post.postContent3 }}</td>
+                <td>{{ post.postContent4 }}</td>
+                <td>{{ post.postContent5 }}</td>
+                <td>{{ post.postOrderContentPreinsertion }}</td>
+                <td>{{ post.isDraft }}</td>
+                <td>{{ post.pageMenu ? 'Yes' : 'No' }}</td>
+                <td>{{ post.sommaire }}</td>
+                <td>{{ post.isIndex ? 'Yes' : 'No' }}</td>
+                <td>{{ post.isFollow ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
+                    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="27">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_post_new') }}">Create new</a>
+{% endblock %}

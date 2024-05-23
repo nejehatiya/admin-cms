@@ -69,65 +69,27 @@ class PostTypeRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    public function findposttype()
-    {
-
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT pt.name_post_type, pt.id
-                FROM App\Entity\PostType pt  '
-            )
-            ->getResult();
-    }
-
-
-
-
-    public function findByPostTypeField()
-    {
-        //   return $this->createQueryBuilder('p')
-        //       ->andWhere('p.type_post_type in (:val)')
-        //       ->setParameter('val', ['blog','page','post'])
-        //       ->getQuery()
-        //       ->getResult()
-        //   ;
-
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT pt.type_post_type
-            FROM App\Entity\PostType pt where pt.type_post_type in (:val)'
-            )->setParameter('val', ['blog', 'page', 'post'])
-            ->getResult();
-    }
-
-    public function findOtherPostTypeField()
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.type_post_type not in (:val)')
-            ->andWhere('p.is_draft = 0')
-            /*  ->setParameter('val', ['page','post'])*/
-            ->setParameter('val', ['page', 'post', 'accueil'])
-            ->getQuery()
-            ->getResult()
+    public function findByName($nom,$id_current){
+        return $this->createQueryBuilder('m')
+        ->andWhere('m.name_post_type = :name_template')
+        ->setParameter('name_template', $nom)
+        ->andWhere('m.id != :id_current')
+        ->setParameter('id_current', $id_current)
+        ->getQuery()
+        ->getOneOrNullResult()
         ;
-
-
     }
 
-    public function findPostTypeAuteur()
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.type_post_type  in (:val)')
-            ->setParameter('val', 'page')
-            ->getQuery()
-            ->getResult()
+    public function findBySlug($nom,$id_current){
+        return $this->createQueryBuilder('m')
+        ->andWhere('m.slug_post_type = :name_template')
+        ->setParameter('name_template', $nom)
+        ->andWhere('m.id != :id_current')
+        ->setParameter('id_current', $id_current)
+        ->getQuery()
+        ->getOneOrNullResult()
         ;
-
-
     }
-
-
 
 
 

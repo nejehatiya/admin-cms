@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block body %}
+    <h1>Post</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Post_title</th>
+                <td>{{ post.postTitle }}</td>
+            </tr>
+            <tr>
+                <th>Post_content</th>
+                <td>{{ post.postContent }}</td>
+            </tr>
+            <tr>
+                <th>Post_excerpt</th>
+                <td>{{ post.postExcerpt }}</td>
+            </tr>
+            <tr>
+                <th>Post_name</th>
+                <td>{{ post.postName }}</td>
+            </tr>
+            <tr>
+                <th>Post_parent</th>
+                <td>{{ post.postParent }}</td>
+            </tr>
+            <tr>
+                <th>Guide</th>
+                <td>{{ post.guide }}</td>
+            </tr>
+            <tr>
+                <th>Menu_ordre</th>
+                <td>{{ post.menuOrdre }}</td>
+            </tr>
+            <tr>
+                <th>Post_status</th>
+                <td>{{ post.postStatus }}</td>
+            </tr>
+            <tr>
+                <th>Comment_status</th>
+                <td>{{ post.commentStatus ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_add</th>
+                <td>{{ post.dateAdd ? post.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_upd</th>
+                <td>{{ post.dateUpd ? post.dateUpd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Post_content_2</th>
+                <td>{{ post.postContent2 }}</td>
+            </tr>
+            <tr>
+                <th>Post_order_content</th>
+                <td>{{ post.postOrderContent }}</td>
+            </tr>
+            <tr>
+                <th>Post_parent_migration</th>
+                <td>{{ post.postParentMigration }}</td>
+            </tr>
+            <tr>
+                <th>Post_id__migration</th>
+                <td>{{ post.postIdMigration }}</td>
+            </tr>
+            <tr>
+                <th>Page_template</th>
+                <td>{{ post.pageTemplate }}</td>
+            </tr>
+            <tr>
+                <th>Post_content_3</th>
+                <td>{{ post.postContent3 }}</td>
+            </tr>
+            <tr>
+                <th>Post_content_4</th>
+                <td>{{ post.postContent4 }}</td>
+            </tr>
+            <tr>
+                <th>Post_content_5</th>
+                <td>{{ post.postContent5 }}</td>
+            </tr>
+            <tr>
+                <th>Post_order_content_preinsertion</th>
+                <td>{{ post.postOrderContentPreinsertion }}</td>
+            </tr>
+            <tr>
+                <th>Is_draft</th>
+                <td>{{ post.isDraft }}</td>
+            </tr>
+            <tr>
+                <th>Page_menu</th>
+                <td>{{ post.pageMenu ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Sommaire</th>
+                <td>{{ post.sommaire }}</td>
+            </tr>
+            <tr>
+                <th>Is_index</th>
+                <td>{{ post.isIndex ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Is_follow</th>
+                <td>{{ post.isFollow ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_post_index') }}">back to list</a>
+
+    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
+
+    {{ include('post/_delete_form.html.twig') }}
+{% endblock %}

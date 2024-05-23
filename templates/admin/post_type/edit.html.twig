@@ -7,8 +7,11 @@
     Modifier post type
 {% endblock %}
 {% block importmap %}
-    {{ importmap(['app']) }}
+    {{ importmap(['app','post_type']) }}
 {% endblock %}
 {% block contentAdmin %}
+    <script>
+        let id_post_type = "{{post_type.id}}";
+    </script>
     {{ include('admin/post_type/_form.html.twig') }}
 {% endblock %}

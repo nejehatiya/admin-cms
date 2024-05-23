@@ -10,7 +10,10 @@
             </tr>
             <tr> 
                 <th scope="row">{{ form_label(form.slug_post_type) }}</th>
-                <td>{{ form_widget(form.slug_post_type) }}</td>
+                <td>
+                    {{ form_widget(form.slug_post_type) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
             </tr>
             <tr>
                 <th scope="row">{{ form_label(form.is_draft) }}</th>
