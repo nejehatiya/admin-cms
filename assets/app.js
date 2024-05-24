@@ -13,9 +13,7 @@ import * as main_function from './js/main-functions.js';
 //import * as main_function from './js/main-functions.js';
 //window.main_function = main_function; 
 // init select picker
-if($('.selectpicker').length){
-    $('.selectpicker').selectpicker();
-}
+
 // import main function 
 //import './js/admin-post-modals.js';
 
@@ -23,6 +21,9 @@ if($('.selectpicker').length){
  * start js 
  */
 $(document).ready(function(){
+    if($('.selectpicker').length){
+        $('.selectpicker').select2();
+    }
     // init id_current_media_edit
     let id_current = 0;
     let load_actif = true;

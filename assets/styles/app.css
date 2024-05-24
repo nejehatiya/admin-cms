@@ -302,3 +302,6 @@ form p.submit.load::after  {
 #__wp-uploader-id-2 .attachments-browser .attachments .attachment.selected{
     box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #2271b1 !important;
 }
+
+.dropdown-menu.open{display: block;}
+.dropdown-menu.open .dropdown-menu{display: block;}

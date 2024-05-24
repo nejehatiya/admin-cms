@@ -26,7 +26,7 @@ $(document).ready(function(){
         let status = $("#modeles_post_status_modele").prop('checked');
         let blocks = JSON.stringify(main_function.getBlocks());
         if(name.length ){ 
-            ajax_call.insertEditModelePost({name:name,post_type:post_type,status:status,blocks:blocks,image:media_selected},id,$(this));
+            ajax_call.insertEditModelePost({name:name,post_type:JSON.stringify(post_type),status:status,blocks:blocks,image:media_selected},id,$(this));
         }
     });
 

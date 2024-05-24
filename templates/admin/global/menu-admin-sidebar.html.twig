@@ -46,8 +46,10 @@
     <li class="wp-not-current-submenu wp-menu-separator" aria-hidden="true">
       <div class="separator"></div>
     </li>
+
+
     <li class=" wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" id="menu-posts">
-      <a href="#" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" aria-haspopup="true">
+      <a href="{{path('app_post_index',{post_type:'post'})}}" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" aria-haspopup="true">
         <div class="wp-menu-arrow">
           <div></div>
         </div>
@@ -59,10 +61,10 @@
       <ul class="wp-submenu wp-submenu-wrap">
         <li class="wp-submenu-head" aria-hidden="true">Articles</li>
         <li class="wp-first-item">
-          <a href="edit.php" class="wp-first-item">Tous les articles</a>
+          <a href="{{path('app_post_index',{post_type:'post'})}}" class="wp-first-item">Tous les articles</a>
         </li>
         <li>
-          <a href="post-new.php">Ajouter un article</a>
+          <a href="{{path('app_post_new',{post_type:'post'})}}">Ajouter un article</a>
         </li>
         <li>
           <a href="edit-tags.php?taxonomy=category">Catégories</a>

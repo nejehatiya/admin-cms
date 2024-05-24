@@ -25,7 +25,7 @@ class ApiPostModalsController extends AbstractController
         $this->em = $EntityManagerInterface;
         $this->serializer = $serializer;
     }
-    #[Route('/check-name', name: 'app_post_modals_check_index', methods: ['POST'])]
+    #[Route('/check-name', name: 'app_post_modals_check_index_ss', methods: ['POST'])]
     public function indexCheckName(Request $request): Response
     {
         // get name from request
@@ -37,18 +37,19 @@ class ApiPostModalsController extends AbstractController
         return $this->json(['success'=>empty($check_name),'message'=>empty($check_name)?'modéle name autorisé':'modélé name existe déja']);
     }
     
-    #[Route('/new', name: 'app_post_modals_new_yyy', methods: ['POST'])]
+    #[Route('/new', name: 'app_post_modals_new_yyy_ss', methods: ['POST'])]
     public function indexNew(Request $request): Response
     {
         return $this->indexEdit($request,null);
     }
-    #[Route('/edit/{id}', name: 'app_post_modals_edit_dscsdcsd_test', methods: ['POST'])]
+    #[Route('/edit/{id}', name: 'app_post_modals_edit_dscsdcsd_test_dd', methods: ['POST'])]
     public function indexEdit(Request $request,$id): Response
     {
         // get name from request
         $name = strip_tags($request->request->get('name'));
         // get post type from request
-        $post_type = $request->request->has('post_type')?$request->request->has('post_type'):[];
+        $post_type = $request->request->has('post_type')?json_decode($request->request->get('post_type'),true):[];
+        
         // get image from request
         $image = (int)$request->request->get('image');
         
@@ -106,13 +107,13 @@ class ApiPostModalsController extends AbstractController
         return $this->json(['success'=>true,'message'=>$id ?'modèle mis à jour avec succés':'modèle créer avec succés']);
     }
 
-    #[Route('/get/{id}', name: 'app_post_modals_edit_dscsdcsd', methods: ['GET'])]
+    #[Route('/get/{id}', name: 'app_post_modals_edit_dscsdcsd_ccc', methods: ['GET'])]
     public function indexGetData(Request $request,$id): Response
     {
         
         // get modele post
         $model_post = $this->em->getRepository(ModelesPost::class)->find($id);
-        $model_post = json_decode($this->serializer->serialize($model_post, 'json', ['groups' =>[], DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s']), true);
+        $model_post = json_decode($this->serializer->serialize($model_post, 'json', ['groups' =>['show_api'], DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s']), true);
         
         if(empty($model_post)){
             return $this->json(['success'=>false,'message'=>'modélé n\'existe pas']);

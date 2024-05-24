@@ -1,83 +1,71 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/admin.html.twig' %}
 
-{% block title %}Post index{% endblock %}
+{% block title %}
+  Articles
+{% endblock %}
+{% block titreAdmin %}
+  Articles
+{% endblock %}
 
-{% block body %}
-    <h1>Post index</h1>
+{% block contentAdmin %}
+    {# header list #}
+    {% include "admin/global/list/list-header.html.twig" with {'path':'app_post_new',params:{post_type:'post'},'titre':'Ajouter un article'} %}
+    {# count list #}
+    {% include "admin/global/list/list-count.html.twig" with {'vars':{'all':{'name':'Tous','count':20},'publish':{'name':'Publié','count':20}}} %}
+    {# list content  #}
+    <form id="filter" method="get">
+        {# content search-box #}
+        {% include "admin/global/list/search-box.html.twig" with {'titre':'Article'} %}
+        {# list top  #}
+        <div class="tablenav top">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'Article'} %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Post_title</th>
-                <th>Post_content</th>
-                <th>Post_excerpt</th>
-                <th>Post_name</th>
-                <th>Post_parent</th>
-                <th>Guide</th>
-                <th>Menu_ordre</th>
-                <th>Post_status</th>
-                <th>Comment_status</th>
-                <th>Date_add</th>
-                <th>Date_upd</th>
-                <th>Post_content_2</th>
-                <th>Post_order_content</th>
-                <th>Post_parent_migration</th>
-                <th>Post_id__migration</th>
-                <th>Page_template</th>
-                <th>Post_content_3</th>
-                <th>Post_content_4</th>
-                <th>Post_content_5</th>
-                <th>Post_order_content_preinsertion</th>
-                <th>Is_draft</th>
-                <th>Page_menu</th>
-                <th>Sommaire</th>
-                <th>Is_index</th>
-                <th>Is_follow</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.id }}</td>
-                <td>{{ post.postTitle }}</td>
-                <td>{{ post.postContent }}</td>
-                <td>{{ post.postExcerpt }}</td>
-                <td>{{ post.postName }}</td>
-                <td>{{ post.postParent }}</td>
-                <td>{{ post.guide }}</td>
-                <td>{{ post.menuOrdre }}</td>
-                <td>{{ post.postStatus }}</td>
-                <td>{{ post.commentStatus ? 'Yes' : 'No' }}</td>
-                <td>{{ post.dateAdd ? post.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.dateUpd ? post.dateUpd|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.postContent2 }}</td>
-                <td>{{ post.postOrderContent }}</td>
-                <td>{{ post.postParentMigration }}</td>
-                <td>{{ post.postIdMigration }}</td>
-                <td>{{ post.pageTemplate }}</td>
-                <td>{{ post.postContent3 }}</td>
-                <td>{{ post.postContent4 }}</td>
-                <td>{{ post.postContent5 }}</td>
-                <td>{{ post.postOrderContentPreinsertion }}</td>
-                <td>{{ post.isDraft }}</td>
-                <td>{{ post.pageMenu ? 'Yes' : 'No' }}</td>
-                <td>{{ post.sommaire }}</td>
-                <td>{{ post.isIndex ? 'Yes' : 'No' }}</td>
-                <td>{{ post.isFollow ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="27">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {# list filtrage  #}
+            {% include "admin/global/list/filtrage.html.twig" with {'filters':[] } %}
+            
+            {# list pagination  #}
+            {% include "admin/global/list/pagination.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Post'} %}
 
-    <a href="{{ path('app_post_new') }}">Create new</a>
+            <br class="clear" />
+
+        </div>
+        
+        {# list table  #}
+        <table class="wp-list-table widefat fixed striped table-view-list posts">
+            <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
+            {# list table header #}
+            {% set fields = [
+                {name:'Titre',field_name:'post_title',method:'postTitle',sortable:true,type:'text'},
+                {name:'Slug',field_name:'post_name',method:'postName',sortable:true,type:'text'},
+                {name:'Parent',field_name:'post_parent',method:'postParent',sortable:false,type:'text'},
+                {name:'Auteur / autrice',field_name:'author',sortable:false,type:'entity',field_to_display:'email',collection:false},
+                {name:'Etat',field_name:'post_status',method:'postStatus',sortable:false,type:'text'},
+                {name:'Catégories',field_name:'terms',method:'terms',sortable:false,type:'entity',field_to_display:'name_terms',collection:true},
+                {name:'Date',field_name:'date_add',method:'dateAdd',sortable:true,type:'date'}
+            ] %}
+            <thead>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </thead>
+            {# list table body #}
+            <tbody id="the-list">
+                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':posts,'entity_name':'modeles-post','is_view':false,'path_edit':'app_post_edit'} %}
+            </tbody>
+            {# list table footer #}
+            <tfoot>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </tfoot>
+        </table>
+
+        <div class="tablenav bottom">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'modéles'} %}
+            <div class="alignleft actions"></div>
+            {# list pagination footer table  #}
+            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'ModelesPost'} %}
+            
+            <br class="clear" />
+        </div>
+    </form>
+    
 {% endblock %}

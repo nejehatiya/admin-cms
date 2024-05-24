@@ -1,2 +1,3 @@
-<a href="{{ path(path) }}" class="page-title-action {{class is defined ? class : '' }}">{{titre}}</a>
+{% set params = params is defined ? params : {} %}
+<a href="{{ path(path,params) }}" class="page-title-action {{class is defined ? class : '' }}">{{titre}}</a>
 <hr class="wp-header-end" />

@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Views;
 
 use App\Entity\Post;
-use App\Form\PostType;
+use App\Form\PostSingleType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

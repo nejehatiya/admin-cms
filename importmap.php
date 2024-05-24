@@ -32,4 +32,8 @@ return [
         'path' => './assets/admin/post_type/traitement.js',
         'entrypoint' => true,
     ],
+    'post' => [
+        'path' => './assets/admin/post/post.js',
+        'entrypoint' => true,
+    ],
 ];

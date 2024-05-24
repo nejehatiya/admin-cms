@@ -42,8 +42,8 @@ class ModelesPostType extends AbstractType
                 'class' => PostType::class,
             
                 // uses the User.username property as the visible option string
-                'choice_label' => 'post type',
-                'attr'=>['class'=>'selectpicker'],
+                'choice_label' => 'name_post_type',
+                'attr'=>['class'=>'selectpicker regular-text'],
                 // used to render a select box, check boxes or radios
                 'multiple' => true,
                 // 'expanded' => true,

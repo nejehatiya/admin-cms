@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PostType
 {
     /**
-     * @Groups({"id_posttype","data_front"})
+     * @Groups({"id_posttype","data_front","show_api"})
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,13 +22,13 @@ class PostType
     private $id;
 
     /**
-     * @Groups({"id_posttype","data_front"})
+     * @Groups({"id_posttype","data_front","show_api"})
      */
     #[ORM\Column(type: 'string', length: 255)]
     private $name_post_type;
 
     /**
-     * @Groups({"data_front"})
+     * @Groups({"data_front","show_api"})
      */
     #[ORM\Column(type: 'string', length: 255)]
     private $slug_post_type;
