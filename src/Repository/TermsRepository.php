@@ -50,173 +50,39 @@ class TermsRepository extends ServiceEntityRepository
     }
     */
 
-    public function findTermsParent($id)
-    {
-        return $this->createQueryBuilder('t')
-        ->select('t.name_terms, t.id, t.level, t.parentTerms')
-        ->andWhere('t.id_taxonomy = :id')
-        ->andWhere('t.is_draft = 0')
-        ->setParameter('id', $id)
-        ->getQuery()
-        ->getResult()
+    public function findByName($nom,$id_current){
+        $query = $this->createQueryBuilder('m')
+        ->andWhere('m.name_terms = :name')
+        ->setParameter('name', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        $query = $query->getQuery()
+        ->getOneOrNullResult()
         ;
-        
+        return $query;
     }
 
-    public function findTermsFils()
-    {
-        return $this->createQueryBuilder('t')
-        ->select('t.name_terms, t.id,  t.description_terms, t.parentTerms, t.name_terms as parent')
-        ->andWhere('t.parentTerms > :id')
-        ->setParameter('id', 0)
-        ->getQuery()
-        ->getResult()
-        ;
+    public function findBySlug($nom,$id_current){
+        $query = $this->createQueryBuilder('m')
+        ->andWhere('m.slug_terms = :slug')
+        ->setParameter('slug', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', (int)$id_current);
+        }
+        $query = $query->getQuery()->getOneOrNullResult();
+        return $query;
     }
 
-    public function getNameParent()
-    {
-        
-        return $this->createQueryBuilder('t')
-        ->select('t.id , t.name_terms')
-        ->andWhere('t.parentTerms = :id')
-        ->setParameter('id', 0)
-        ->getQuery()
-        ->getResult()
-        ;
+    // load items by taxonomy
+    public function findByTaxonomy($taxonomy){
+        $query = $this->createQueryBuilder('m')
+        ->join('m.id_taxonomy ','t')
+        ->andWhere('t.slug_taxonomy = :taxonomy')
+        ->setParameter('taxonomy', $taxonomy);
+        $query = $query->setFirstResult(0)->setMaxResults(20)->getQuery()->getResult();
+        return $query;
     }
-
-    public function findTermsSecondFils($id)
-    {
-        return $this->createQueryBuilder('t')
-        ->select('t.name_terms, t.id,  t.description_terms, t.parentTerms')
-        ->andWhere('t.parentTerms = :id')
-        ->setParameter('id', $id)
-        ->getQuery()
-        ->getResult()
-        ;
-
-       
-    }
-    /**
-     * get Terms Repo getTermRepo
-     */
-    public function getTermRepo($page_number){
-        $query= $this->createQueryBuilder('p')
-            ->andWhere('p.parent_migration  != :parent_migration')
-            ->setParameter('parent_migration', '0');
-        return $query->setFirstResult( $page_number )->setMaxResults(1)->getQuery()->getOneOrNullResult();;
-    }
-    /**
-     * get Post Repo getTermsCountRepo
-     */
-    public function getTermsCountRepo(){
-        $query= $this->createQueryBuilder('p')
-            ->select('count(p.id)')
-            ->andWhere('p.parent_migration  != :parent_migration')
-            ->setParameter('parent_migration', '0');
-        return $query->getQuery()->getSingleScalarResult();
-    }
-
-    public function findTermsByTaxonomySlug($taxo_slug, $search, $is_draft = 0)
-    {
-        return $this->createQueryBuilder('t')
-        ->select('t.name_terms, t.id, t.slug_terms')
-        ->innerJoin('t.id_taxonomy', 'taxo', 'WITH', 'taxo.slug_taxonomy like :taxo_slug')
-        ->andWhere('t.name_terms like :search')
-        ->andWhere('t.is_draft =:is_draft')
-
-        ->setParameters(new ArrayCollection([
-            new Parameter('taxo_slug', '%'.$taxo_slug.'%'),
-            new Parameter('search', '%'.$search.'%'),
-            new Parameter('is_draft', $is_draft)
-        ]))
-        ->setMaxResults(10)
-        ->getQuery()
-        ->getResult()
-        ;
-    }
-
-    public function getTermsTaxonomyblog()
-    {
-      
-        $result= $this->createQueryBuilder('t')
-        ->select('t.name_terms, t.id')
-        ->innerJoin('t.id_taxonomy', 'taxo', 'WITH', 'taxo.slug_taxonomy like :taxo_slug')
-        ->leftJoin('taxo.Posttype', 'pT', 'WITH', 'pT.slug_post_type like :posttype')
-        ->andWhere('t.is_draft =:is_draft')
-        ->setParameters(new ArrayCollection([
-            new Parameter('taxo_slug', 'etiquette'),
-            new Parameter('posttype', 'blog'),            
-            new Parameter('is_draft', 0)
-        ]))
-        ->getQuery()
-        ->getResult()
-        ;
-
-        return $result;
-        
-    }
-
-    public function getBlogbyTerms($id)
-    {
-      
-        $result= $this->createQueryBuilder('t')
-        ->select(' t')
-        ->innerJoin('t.id_post', 'post')
-        ->andWhere('t.id =:id')
-
-        ->setParameters(new ArrayCollection([
-            new Parameter('id', $id),
-        ]))
-        ->getQuery()
-        ->getResult()
-        ;
-        return $result;
-    }
-
-    public function getPageByTermQuestion() {
-        $response = $this->createQueryBuilder('t')
-            ->innerJoin('t.id_taxonomy', 'taxo', 'WITH', 'taxo.slug_taxonomy like :taxo_slug')
-            ->leftJoin('taxo.Posttype', 'pT', 'WITH', 'pT.slug_post_type like :posttype')
-            ->andWhere('t.parentTerms = :id')
-            ->setParameters(new ArrayCollection([
-                new Parameter('posttype', '%questions%'),
-                new Parameter('taxo_slug', '%categorie-questions%'),
-                new Parameter('id', 0),
-            ]))
-            ->orderBy('t.id', 'ASC')
-            ->getQuery()
-            ->getResult();
-        return $response;
-    }
-
-    public function getTermsByParent($id)
-    {
-        return $this->createQueryBuilder('t')
-        ->select('t')
-        ->andWhere('t.parentTerms = :id')
-        ->setParameter('id', $id)
-        ->getQuery()
-        ->getResult()
-        ;
-    }
-    
-    public function getTermsByPostId($id)
-    {
-      
-        $result= $this->createQueryBuilder('t')
-        ->select(' t')
-        ->innerJoin('t.id_post', 'post')
-        ->andWhere('post.id =:id')
-
-        ->setParameters(new ArrayCollection([
-            new Parameter('id', $id),
-        ]))
-        ->getQuery()
-        ->getResult()
-        ;
-        return $result;
-    }
-
 }

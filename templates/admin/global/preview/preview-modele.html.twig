@@ -1,0 +1,31 @@
+<section 
+    data-id="{{model.id_model}}" 
+    data-uuid="{{model.uuid is defined ? model.uuid : '' }}" 
+    data-element_type="section" data-model-cid="c54" 
+    class="elementor-element elementor-element-edit-mode elementor-element-3e856d4 elementor-section elementor-top-section elementor-section-boxed elementor-section-height-default elementor-section-content-middle exad-glass-effect-no exad-sticky-section-no elementor-reverse-tablet elementor-reverse-mobile"
+>
+    <div class="elementor-element-overlay">
+        <ul class="elementor-editor-element-settings elementor-editor-section-settings">
+            <li class="elementor-editor-element-setting elementor-editor-element-add" title="Dupliquer Section">
+                <i class="eicon-clone" aria-hidden="true"></i>
+                <span class="elementor-screen-only">Dupliquer Section</span>
+            </li>
+            <li class="elementor-editor-element-setting elementor-editor-element-edit ui-sortable-handle" title="Modifier Section">
+                <i class="eicon-edit" aria-hidden="true"></i>
+                <span class="elementor-screen-only">Modifier Section</span>
+            </li>
+            <li class="elementor-editor-element-setting elementor-editor-element-remove" title="Supprimer Section">
+                <i class="eicon-trash" aria-hidden="true"></i>
+                <span class="elementor-screen-only">Supprimer Section</span>
+            </li>
+            
+            <li class="elementor-editor-element-setting elementor-editor-element-move" title="Move Section">
+                <i class="eicon-cursor-move" aria-hidden="true"></i>
+                <span class="elementor-screen-only">Move Section</span>
+            </li>
+        </ul>
+    </div>
+    <div class="preview-content">
+        {{renderModalView(model, null,model.json_data)|raw}}
+    </div>
+</section>

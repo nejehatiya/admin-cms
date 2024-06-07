@@ -1,0 +1,272 @@
+.main-footer {
+    background: #28282B;
+    padding: 22px 0;
+
+}
+
+.main-footer p {
+    color: #ffffff;
+}
+
+
+.main-footer .footer-medium p {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.main-footer .footer-top>div {
+    width: calc((100% / 2) - 50px);
+}
+
+.main-footer .footer-top .liens-utiles {
+    width: 100%;
+}
+
+.main-footer .footer-top .description>p {
+    font: 500 18px/30px 'system-ui';
+}
+
+.main-footer .footer-top .nos-agences>p {
+    font: 600 18px/36px 'system-ui';
+}
+
+
+
+.main-footer .footer-top .nos-agences .inner {
+    margin-bottom: 20px;
+}
+
+.main-footer .footer-top .nos-agences .inner a {
+    font: 500 18px/26px 'system-ui';
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.main-footer .footer-top .nos-agences .inner p {
+    margin: 0;
+    font: 500 18px/26px 'system-ui';
+}
+
+
+.main-footer .footer-top .nos-agences .inner .email {
+    margin: 0 10px;
+}
+
+.main-footer .footer-top .nos-agences .all-agences>div {
+    width: calc((100% / 2) - 10px);
+}
+
+.main-footer .liens-utiles ul {
+    padding: 0;
+    display: flex;
+}
+
+.main-footer .liens-utiles ul li {
+    margin-right: 30px;
+    list-style-type: none;
+
+}
+
+.main-footer .liens-utiles ul li a {
+    color: #ffffff;
+    font: 500 16px/35px 'system-ui';
+}
+
+.main-footer .liens-utiles ul li:hover a {
+    color: #ed202b
+}
+
+/*.main-menu{
+    display: none;
+}*/
+.copyright p {
+    font: italic 600 14px/38px 'system-ui';
+    color: #686868;
+    text-align: center;
+}
+
+.menu-mobile-footer {
+    background: #fff;
+    bottom: -10px;
+    box-shadow: 0 -3px 6px rgb(0 0 0/16%);
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    left: 0;
+    max-height: 67px;
+    height: 67px;
+    padding: 5px 15px;
+    position: fixed;
+    right: 0;
+    z-index: 1000000;
+    width: 100%;
+}
+
+.menu-mobile-footer {
+    display: none !important;
+}
+
+@media (max-width:1600px) {
+    .main-footer .nos-agences .all-agences {
+        flex-wrap: nowrap !important;
+    }
+}
+
+@media(min-width:768px) and (max-width:993px) {
+    .main-footer .nos-agences .all-agences {
+        flex-wrap: wrap !important;
+    }
+}
+
+@media (max-width:768px) {
+    .menu-mobile-footer {
+        display: flex !important;
+    }
+
+    .menu-mobile-footer>.item:nth-child(2) {
+        max-width: 85px;
+    }
+
+    .menu-mobile-footer>.item:nth-child(2) a {
+        display: block;
+        background: #fff;
+        border-radius: 50%;
+        top: -15px;
+        position: relative;
+        left: 0;
+    }
+
+    .menu-mobile-footer>.item:nth-child(2) a::after {
+        background-image: url('/build/images/phone-mob.svg');
+        background-repeat: no-repeat;
+        content: "";
+        position: absolute;
+        top: 22px;
+        left: 22px;
+        width: 38px;
+        height: 38px;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-name: trin;
+        animation-timing-function: linear;
+    }
+
+    @keyframes trin {
+        from {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        20%,
+        32%,
+        44%,
+        56%,
+        68% {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        23%,
+        35%,
+        47%,
+        59%,
+        71% {
+            transform: rotate3d(0, 0, 1, 15deg);
+        }
+
+        26%,
+        38%,
+        50%,
+        62%,
+        74% {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+
+        29%,
+        41%,
+        53%,
+        65%,
+        77% {
+            transform: rotate3d(0, 0, 1, -15deg);
+        }
+
+        80% {
+            transform: rotate3d(0, 0, 1, 0deg);
+        }
+    }
+
+}
+
+@media(min-width:480px) and (max-width:768px) {
+    .avis-google .container .all-avis .slick-slide>div {
+        padding-right: 5px !important;
+    }
+
+
+    .main-footer .liens-utiles ul,
+    .main-footer .footer-medium,
+    .main-footer .footer-top {
+        flex-wrap: wrap;
+    }
+
+    .main-footer .footer-top>div {
+        width: 100%;
+    }
+
+    .main-footer .nos-agences .all-agences {
+        flex-direction: column;
+    }
+
+    .main-footer .footer-top .nos-agences .all-agences>div {
+        width: 100% !important;
+    }
+}
+
+@media (max-width:480px) {
+    .main-footer {
+        padding: 22px 0 70px 0 !important;
+    }
+
+    .copyright {
+        display: none !important;
+    }
+
+    .main-footer .footer-top {
+        flex-direction: column;
+    }
+
+    .main-footer .description {
+        width: 100% !important;
+    }
+
+    .main-footer .nos-agences {
+        width: 100% !important;
+    }
+
+    .main-footer .nos-agences .all-agences {
+        flex-wrap: wrap !important;
+        flex-direction: column !important;
+    }
+
+    .main-footer .footer-top .nos-agences .all-agences>div {
+        width: 100% !important;
+    }
+
+    .footer-medium {
+        flex-direction: column;
+    }
+
+    .footer-medium .sous-titre {
+        margin: 0 !important;
+    }
+
+    .footer-medium>ul {
+        flex-wrap: wrap;
+    }
+
+    .footer-medium>ul li {
+        width: calc(100% / 2);
+        margin-right: 0 !important;
+    }
+
+
+
+}

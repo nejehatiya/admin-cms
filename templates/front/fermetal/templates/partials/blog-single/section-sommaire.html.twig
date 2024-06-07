@@ -1,0 +1,90 @@
+<section class="content-sommaire d-flex flex-wrap">
+	<div class="container d-flex flex-wrap">
+		<div class="content-models">
+				<div class="blog-header">
+					{% if true %}
+						{% set image_original = imageOriginalUrl([post.id_feature_image])  %}
+						{#% set dimension = getImageSizetwig(base_url ~ image_original) %#}
+						{% set alt_image = get_alt_image([post.id_feature_image])  %}
+						<img {% if alt_image[2] is not null %} height="auto" {% endif %} width="auto"  alt="{{alt_image[0]}}" class="ytplayer-lazy" src="{{base_url ~ generate_webp_image(image_original,2)}}" data-src="{{base_url ~ generate_webp_image(image_original)}}"/>
+						<script>
+							var ytplayers = document.getElementsByClassName("ytplayer-lazy");
+							var loaded = [];
+							for (var i = 0; i < ytplayers.length; i++) {
+								loaded[i] = false;
+							}
+							window.addEventListener("scroll", function () {
+								for (var i = 0; i < ytplayers.length; i++) {
+									if (!loaded[i] && window.scrollY > 0) {
+										ytplayers[i].src = ytplayers[i].getAttribute("data-src");
+										loaded[i] = true;
+									}
+								}
+							});
+						</script>
+					{% endif %}
+					<h1>{{post.post_title}}</h1>
+				</div>
+				<section class="blog-content">
+					{{ include('front/fermetal/global/content-page.html.twig',{'post':post,'mode_affichage':'with-sidebar'}) }}
+					{% set device = getDeviceAgent() %}
+					{% if device == "mobile" %}
+						{{ include('front/fermetal/templates/partials/blog-single/auteur.html.twig',{'auteur':auteur}) }}
+					{% endif %}
+				</section>
+		</div>
+		<div class="sidebar">
+			<div class="sommaire d-flex direction-column align-items-end justify-flex-end" id="sommaire-page-service">
+				<div class="sommaire">
+					<div class="titre">
+						<p class="titre">Sommaire</p>
+					</div>
+					<div class="content-inner">
+						<ul>
+							{% set sommaire = post.sommaire|json_decode %}
+							{% for item in sommaire|keys %}
+								<li class="h2">
+									{{item}}
+									{% if sommaire[item]|length > 0 %}
+										<ul>
+											{% for item_h3 in sommaire[item]|keys %}
+												<li class="h3">{{item_h3}}</li>
+												{% if sommaire[item][item_h3]|length > 0 %}
+													<ul>
+														{% for item_h4 in sommaire[item][item_h3]|keys %}
+															<li class="h4">
+																{{item_h3}}
+																{% if sommaire[item][item_h3][item_h4]|length > 0 and false %}
+																	<ul>
+																		{% for item_h5 in sommaire[item][item_h3][item_h4]|keys %}
+																			<li class="h5">
+																				{{item_h5}}
+																				{% if sommaire[item][item_h3][item_h4][item_h5]|length > 0 %}
+																					<ul>
+																						{% for item_h6 in sommaire[item][item_h3][item_h4][item_h5]|keys %}
+																							<li class="h6">{{item_h6}}</li>
+																						{% endfor %}
+																					</ul>
+																				{% endif %}
+																			</li>
+																		{% endfor %}
+																	</ul>
+																{% endif %}
+															</li>
+														{% endfor %}
+													</ul>
+												{% endif %}
+											{% endfor %}
+										</ul>
+									{% endif %}
+								</li>
+
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				{{ include('front/fermetal/templates/partials/blog-single/auteur.html.twig',{'auteur':auteur}) }}
+			</div>
+		</div>
+	</div>
+</section>

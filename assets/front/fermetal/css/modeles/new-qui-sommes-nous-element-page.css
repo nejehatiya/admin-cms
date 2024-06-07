@@ -1,0 +1,160 @@
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .sec-title .h2 {
+    text-align: left;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous h4 {
+    color: #0a111e;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text .description,
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text .description {
+    width: calc(100% - 41.76%);
+    padding-right: 15px !important;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text .description {
+    width: calc(100% - 36.64%);
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text.left .description,
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text.left .description {
+    padding-right: 0px !important;
+    padding-left: 15px !important;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text iframe,
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text .image-1 {
+    width: 41.76%;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text iframe,
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text .image-1 {
+    width: 36.64%;
+    min-width: auto;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text iframe {
+    height: auto;
+    max-height: 650px;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text .description>div {
+    max-height: 500px;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous .button>div {
+    width: 100% !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous .button {
+    margin-top: 0px !important;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .button {
+    margin-top: 30px !important;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .sec-title .h2,
+.qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .sec-title p {
+    text-align: left;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous .image>img {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+}
+
+.section-qui-somme-nous .content-img-text a:-webkit-any-link:active,
+.section-qui-somme-nous .content-img-text a {
+    font-weight: 800;
+    color: #000;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous .content-img-text {
+    height: auto !important;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous .content-img-text .description>div p,
+.qui-somme-nous-page.section-qui-somme-nous .content-img-text .description>div li {
+    color: #0a111e;
+    font: normal normal 500 18px/30px 'system-ui' !important;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous .content-img-text .description>div ul li {
+    margin-bottom: 8px;
+}
+
+.section-qui-somme-nous.mode-1-2 .button a,
+.section-qui-somme-nous .button button,
+.section-qui-somme-nous .button a {
+    min-width: 265px;
+}
+
+.qui-somme-nous-page.section-qui-somme-nous.background-color {
+    padding: 20px 15px;
+    border-radius: 5px;
+}
+
+.section-qui-somme-nous.mode-1-2 .sec-title .pre_titre,
+.section-qui-somme-nous .content-img-text .description .sec-title .pre_titre {
+    text-align: left;
+}
+
+@media(max-width:1350px) {
+    .qui-somme-nous-page.section-qui-somme-nous .sec-title h2 {
+        font-size: 30px !important;
+    }
+
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .sec-title p {
+        font-weight: 600;
+    }
+}
+
+@media(max-width:768px) {
+    .qui-somme-nous-page.section-qui-somme-nous .content-img-text {
+        flex-direction: column !important;
+    }
+
+    body .qui-somme-nous-page.section-qui-somme-nous .content-img-text>*,
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text .description,
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text .description {
+        width: 100% !important;
+        padding-right: 0 !important;
+    }
+
+    .qui-somme-nous-page.section-qui-somme-nous>div>.content-img-text>*:first-child {
+        margin-bottom: 20px !important;
+    }
+
+    .qui-somme-nous-page.section-qui-somme-nous .button .btn-one:first-child {
+        margin-right: 10px;
+    }
+
+    .qui-somme-nous-page.section-qui-somme-nous .sec-title h2 {
+        font: normal normal 700 45px/50px 'system-ui';
+    }
+}
+
+@media(max-width:576px) {
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .sans-container {
+        padding: 0 0px !important;
+    }
+
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text .description,
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text .description {
+        margin-top: 0px !important;
+    }
+
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .content-img-text .description.background-color,
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-2 .content-img-text .description.background-color {
+        width: 100% !important;
+        padding-right: 15px !important;
+    }
+
+    .qui-somme-nous-page.section-qui-somme-nous.mode-1-3 .button {
+        margin-top: 15px !important;
+    }
+}

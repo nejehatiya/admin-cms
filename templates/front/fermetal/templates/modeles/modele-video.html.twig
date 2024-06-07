@@ -1,0 +1,29 @@
+{% set name_video = title_video is defined and title_video|length > 0 ? title_video : '' %}
+{% set thumbnailUrl = thumbnail_url_video is defined and thumbnail_url_video|length > 0 ? thumbnail_url_video : '' %}
+{% set username = app.user is defined and app.user|length > 0 ? app.user : '' %}
+{% set url_video = url_video is defined and url_video|length > 0 ? url_video : '' %}
+{% set description_video = description_video is defined and description_video|length > 0 ? description_video : '' %}
+<section class="section-video m-b-50">
+    <div class="container">
+        <div class="row">
+            {% if url_video is defined and url_video %}
+                <iframe id="ytplayer" class="ytplayer" width="100%" height="400" title="{{name_video}}"  data-src="{{url_video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="background: url({{base_url~asset('/build/images/loading-png.jpg')}});background-size:100%;background-position:center;"></iframe>
+                <script>
+                    var ytplayers = document.getElementsByClassName("ytplayer");
+                    var loaded = [];
+                    for (var i = 0; i < ytplayers.length; i++) {
+                    loaded[i] = false;
+                    }
+                    window.addEventListener("scroll", function () {
+                    for (var i = 0; i < ytplayers.length; i++) {
+                    if (! loaded[i] && window.scrollY > 0) {
+                    ytplayers[i].src = ytplayers[i].getAttribute("data-src");
+                    loaded[i] = true;
+                    }
+                    }
+                    });
+                </script>
+            {% endif %}
+        </div>
+    </div>
+</section>

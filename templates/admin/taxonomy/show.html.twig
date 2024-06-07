@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Taxonomy{% endblock %}
+
+{% block body %}
+    <h1>Taxonomy</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ taxonomy.id }}</td>
+            </tr>
+            <tr>
+                <th>Name_taxonomy</th>
+                <td>{{ taxonomy.nameTaxonomy }}</td>
+            </tr>
+            <tr>
+                <th>Slug_taxonomy</th>
+                <td>{{ taxonomy.slugTaxonomy }}</td>
+            </tr>
+            <tr>
+                <th>Description_taxonomy</th>
+                <td>{{ taxonomy.descriptionTaxonomy }}</td>
+            </tr>
+            <tr>
+                <th>Parent_taxonomy</th>
+                <td>{{ taxonomy.parentTaxonomy }}</td>
+            </tr>
+            <tr>
+                <th>Autre_taxonomy</th>
+                <td>{{ taxonomy.autreTaxonomy }}</td>
+            </tr>
+            <tr>
+                <th>OrderTaxonomy</th>
+                <td>{{ taxonomy.OrderTaxonomy }}</td>
+            </tr>
+            <tr>
+                <th>StatutSideBar</th>
+                <td>{{ taxonomy.StatutSideBar ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>StatutMenu</th>
+                <td>{{ taxonomy.statutMenu ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Is_draft</th>
+                <td>{{ taxonomy.isDraft }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_taxonomy_index') }}">back to list</a>
+
+    <a href="{{ path('app_taxonomy_edit', {'id': taxonomy.id}) }}">edit</a>
+
+    {{ include('taxonomy/_delete_form.html.twig') }}
+{% endblock %}

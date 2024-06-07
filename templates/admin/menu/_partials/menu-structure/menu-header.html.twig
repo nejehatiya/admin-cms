@@ -1,0 +1,21 @@
+<input type="hidden" name="nav-menu-data" />
+<input type="hidden" id="closedpostboxesnonce" name="closedpostboxesnonce" value="6cbd3088e5" />
+<input type="hidden" id="meta-box-order-nonce" name="meta-box-order-nonce" value="3485ae873b" />
+<input type="hidden" id="update-nav-menu-nonce" name="update-nav-menu-nonce" value="914c12e33a" />
+<input type="hidden" name="_wp_http_referer" value="/wp-admin/nav-menus.php" /> <input type="hidden" name="action" value="update" />
+<input type="hidden" name="menu" id="menu" value="74" />
+<div id="nav-menu-header">
+  <div class="major-publishing-actions wp-clearfix">
+    {% set men_name = "" %}
+    {% if menus|length  > 0 %}
+        {% set men_name = menus[0]['name_menu'] %}
+    {% endif %}
+    <label class="menu-name-label" for="menu-name">Nom du menu</label>
+    <input name="menu-name" id="menu-name" type="text" class="menu-name regular-text menu-item-textbox form-required" required="required" value="{{men_name}}" />
+    <div class="publishing-action">
+      <input type="submit" name="save_menu" id="save_menu_header" class="button button-primary button-large menu-save" value="Enregistrer le menu" />
+    </div>
+    <!-- END .publishing-action -->
+  </div>
+  <!-- END .major-publishing-actions -->
+</div>

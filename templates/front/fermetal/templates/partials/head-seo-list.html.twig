@@ -1,0 +1,15 @@
+<title>{{  title is defined ? title : '' }} </title>
+<meta name="description" content="{{description is defined ? description : ''}}"/>
+<meta name="title" content="{{ title is defined ? title : ''}}"/>
+<link rel="canonical" href="{{current_link is defined ? current_link : base_url }}"/>
+<meta property="og:locale" content="fr_FR"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="{{title is defined ? title : ''}}"/>
+<meta property="og:description" content="{{description is defined ? description : ''}}"/>
+<meta property="og:url" content="{{current_link is defined ? current_link : base_url }}"/>
+<meta property="og:site_name" content="FERMETAL - Dépanneur de rideaux métalliques"/>
+<meta property="article:modified_time" content=""/>
+<meta property="og:image" content="{{get_config_value("_home_site")}}{{ asset('/build/images/Blog.jpg')}}"/>
+<meta property="og:image:width" content="771"/>
+<meta property="og:image:height" content="247"/>
+<meta name="twitter:card" content="summary_large_image"/>

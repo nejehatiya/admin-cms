@@ -1,0 +1,16 @@
+{% if item_structure_structure|length %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {% for item in item_structure_structure %} 
+        "{{item}}"
+        {% if loop.index != item_structure_structure|length and item_structure_structure|length > 1 %}, {% endif %}
+    {% endfor %}
+  ],
+  "itemListOrder": "https://schema.org/ItemListOrderDescending",
+  "name": "{{article_structure.name}}"
+}
+</script>
+{% endif %}

@@ -1,0 +1,13 @@
+<li class="m-b-30">
+	<div class="question d-flex align-center justify-space-between m-0">
+		<div class="d-flex align-center">
+			{{loopinex}}.{{ urldecode(item.qq)|raw}}
+		</div>
+		<button class="open d-flex">
+			<img class="lazy" width="30" height="15" src="{{asset('/build/images/loading-png.png')}}" {% if (loopinex == 2 and nb_question > 2) or ( loopinex == 1 and nb_question < 3 ) %} data-src="{{asset('/build/images/Icon-fois.svg')}}" {% else %} data-src="{{asset('/build/images/Icon-Plus.svg')}}" {% endif %} alt="open" /> 
+		</button> 
+	</div> 
+	<div class="reponse close-response d-flex flex-wrap {% if post_type is defined and post_type.name_post_type == 'accueil' %}align-center{% endif %} m-0"> 
+		{{urldecode(item.rr)|raw}}
+	</div> 
+</li>

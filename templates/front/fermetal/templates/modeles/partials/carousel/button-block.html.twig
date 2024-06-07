@@ -1,0 +1,16 @@
+<div class="btns-box d-flex">
+	{% if button is not empty %}
+		<a class="btn-one d-flex justify-center align-center" href="tel:{{ button.url }}">
+			{% if device == "mobile" %}
+				<img data-lazy="{{ generate_webp_image('/build/images/phone.svg') }}" width="40" height="20" alt="phone"/>
+			{% else %}
+				<img class="lazy" src="{{ generate_webp_image('/build/images/loading-png.jpg')}}" data-src="{{ generate_webp_image('/build/images/phone.svg') }}" width="40" height="20" alt="phone"/>
+
+			{% endif %}
+			<span class="txt">{{ button.titre }}</span>
+		</a>
+	{% endif %}
+	<button class="btn-one d-flex justify-center align-center devis-gratuit">
+		<span class="txt">Devis Gratuit</span>
+	</button>
+</div>

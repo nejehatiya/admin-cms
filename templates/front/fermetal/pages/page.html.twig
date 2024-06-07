@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% set device = getDeviceAgent() %}
+{% set models_import = models_unique(post.post_order_content|json_decode,'with-sidebar') %}
+{% set models_import = ['braedcrumb','section-header','section-sommaires','formulaire-devis-page']|merge(models_import) %}
+{% block prealoadimages %}
+	{% if device == "desktop" %}
+		{% set image_original = imageOriginalUrl([post.id_feature_image])  %}
+		<link rel="preload" as="image" href="{{asset('/build/images/img-page-service.webp')}}" />
+	{% endif %}
+{% endblock %}
+{% if 'avis-google-element' not in  models_import %}
+	{% set models_import = ['avis-google-element']|merge(models_import) %}
+{% endif %}
+{# start metaseo #}
+{% block metaseo %}
+	{{ include('front/fermetal/templates/partials/head-seo.html.twig', {'post': post}) }}
+{% endblock %}
+{# start stylesheets #}
+{% block stylesheets %}
+	{{getCssLinkitem(post,models_import)|raw}}
+{% endblock %}
+
+{# start content #}
+{% block content %}
+	{# start breadcrumb #}
+	{{ include('front/fermetal/templates/partials/breadcrump.html.twig', {'breadcrumbes': breadcrumbes}) }}
+	{# end breadcrumb #}
+	{# start section header #}
+	{{ include('front/fermetal/templates/partials/page/section-header.html.twig', {'DefaultServisePage': true}) }}
+	{# end section header #}
+
+	{#start section header #}
+	{{ include('front/fermetal/templates/partials/page/section-avis-client.html.twig',{'mode_affichage': 'with-sidebar'}) }}
+	{# end section header #}
+
+	{# start section sommaire #}
+	{{ include('front/fermetal/templates/partials/page/section-sommaire.html.twig') }}
+	{# end section sommaire #}
+	{# start popup devis #}
+		{% if 'new-qui-sommes-nous-element' in models_import %}
+	{{ include('front/fermetal/templates/partials/page/formulaire.html.twig',{'class':'popup-devis formulaire-popup'}) }}
+{% endif  %}
+	{# end popup devis #}
+
+{% endblock %}
+
+{# start javascripts #}
+{% block javascripts %}
+	{{getJsScriptitem(post,models_import)|raw}}
+{% endblock %}

@@ -199,11 +199,14 @@ body {
 /**
 * input
 */
+input{
+    outline:  none !important;
+}
 input.success{
-    border-bottom: 5px solid green;
+    border-bottom: 5px solid green !important;
 }
 input.error{
-    border-bottom: 5px solid red;
+    border-bottom: 5px solid red !important;
 }
 
 img{
@@ -305,3 +308,329 @@ form p.submit.load::after  {
 
 .dropdown-menu.open{display: block;}
 .dropdown-menu.open .dropdown-menu{display: block;}
+
+#elementor-panel-elements-wrapper.section-sidebar-scroll{
+    overflow: scroll;
+    height: 100vh;
+    padding-bottom: 100px;
+}
+#elementor-panel-elements-wrapper.section-sidebar-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+#elementor-panel-elements-wrapper.section-sidebar-scroll::-webkit-scrollbar-thumb {
+    background-color: #000;
+    border-radius: 0px;
+}
+#elementor-panel-elements-wrapper.section-sidebar-scroll::-webkit-scrollbar-track {
+    background: hsla(0, 0%, 100%, .36);
+    border-radius: 0px;
+}
+p.submit{
+    position: relative;
+    max-width: max-content; 
+}
+.ck-editor__editable_inline:not(.ck-comment__input *) {
+    height: 300px;
+    overflow-y: auto;
+}
+.ck.ck-editor{
+    width: 350px;
+}
+
+#col-container{
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+}
+
+table.form-term td,
+table.form-term th{
+    padding: 5px 0;
+}
+table.form-term  .regular-text,
+table.form-term  .select2-container,
+table.form-term  .ck.ck-editor{
+    width: 99% !important;
+}
+table.form-term th label{
+    font-weight: 500;
+}
+#col-left form{
+    padding-right: 30px;
+}
+table.form-term .ck-editor__editable_inline:not(.ck-comment__input *) {
+    height: 150px;
+    overflow-y: auto;
+}
+
+#post-body-content{
+    overflow: hidden;
+}
+.menu-item-settings{
+    max-width: 381px;
+}
+.menu-settings-group.menu-theme-locations{
+    display: flex;
+}
+.menu-settings-group.menu-theme-locations .howto{
+    font-size: 17px;
+}
+.modal.template-menu{
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    background: rgba(0, 0, 0, 0.1);
+}
+.modal.template-menu.show{
+    display: flex;
+
+}
+.modal.template-menu .model-content{
+    display: block;
+    width: 50%;
+    height: 90vh;
+    border-radius: 0;
+    padding: 0;
+    background: #fff;
+}
+.modal.template-menu .model-content h2{
+    text-transform: capitalize;
+    padding: 10px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #eee;
+    font-size: 22px;
+}
+.modal.template-menu .model-content .form-footer{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 1px solid #eee;
+}
+.modal.template-menu .model-content .form-footer button:first-of-type{
+    margin-right: 20px;
+}
+.modal.template-menu .model-content .forms-generate{
+    overflow-y: overlay;
+    padding: 20px;
+    height: calc(100% - 100px);
+}
+.modal.template-menu .model-content .forms-generate>fieldset{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: 0.1px solid #f1f1f1;
+    background: #fff;
+}
+
+.modal.template-menu .model-content .forms-generate>fieldset{
+    margin-bottom: 25px;
+}
+.modal.template-menu .model-content .forms-generate>fieldset>legend{
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding: 5px 10px;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+.modal.template-menu .model-content .forms-generate>fieldset>legend button{
+    background: transparent;
+    border: transparent;
+    padding: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.modal.template-menu .model-content .forms-generate>fieldset>legend button svg{
+    width: 30px;
+    height: 30px;
+}
+.modal.template-menu .model-content .forms-generate>fieldset>legend button.delete-block img{
+    width: auto;
+    height: 30px;
+}
+.modal.template-menu .model-content .forms-generate>fieldset>legend button.delete-block{
+    margin-right: 15px;
+}
+.modal.template-menu .model-content .forms-generate>fieldset .fields-element{
+    padding: 10px;
+    display: none;
+}
+.modal.template-menu .model-content .forms-generate>fieldset.open .fields-element{
+    display: block;
+}
+.modal.template-menu .model-content .forms-generate>fieldset:not(.open){
+    background: #f5f5f5;
+}
+.modal.template-menu .model-content .forms-generate  .e-input-style, 
+.modal.template-menu .model-content .forms-generate  input, 
+.modal.template-menu .model-content .forms-generate select,
+.modal.template-menu .model-content .forms-generate textarea {
+    border-start-start-radius: 3px;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    border-end-start-radius: 3px;
+}
+.modal.template-menu .model-content .forms-generate  .e-input-style, 
+.modal.template-menu .model-content .forms-generate  input, 
+.modal.template-menu .model-content .forms-generate select,
+.modal.template-menu .model-content .forms-generate textarea {
+    color: #515962;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 100% !important;
+    background: none;
+    background-color: #fff;
+    box-shadow: none;
+    border: 1px solid #d5d8dc;
+    outline: none;
+    padding: 6px;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control {
+    --control-title-size: 12px;
+    position: relative;
+    padding: 0 0px 15px;
+    border-bottom: 1px dashed #aaa;
+    margin-bottom: 10px;
+
+}
+.modal.template-menu .model-content .forms-generate .elementor-control:last-of-type{
+    border-bottom: 0px dashed #aaa;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control label{
+    margin-bottom: 5px;
+}
+.modal.template-menu .model-content .forms-generate .elementor-label-block>.elementor-control-content>.elementor-control-field>.elementor-control-input-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-block-start: 10px;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media__content {
+    transition: all .2s ease-in-out;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media .elementor-control-media__content {
+    aspect-ratio: 21 / 9;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media-area {
+    background-image: linear-gradient(45deg, #d5d8dc 25%, transparent 0, transparent 75%, #d5d8dc 0, #d5d8dc), linear-gradient(45deg, #d5d8dc 25%, transparent 0, transparent 75%, #d5d8dc 0, #d5d8dc);
+    background-size: 16px 16px;
+    background-position: 0 0, calc(16px / 2) calc(16px / 2);
+    background-color: #fff;
+    border: 1px solid #d5d8dc;
+    aspect-ratio: 21 / 9;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media__content__remove {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    color: #fff;
+    background-color: rgb(0 0 0 / 50%);
+    border-radius: 3px;
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, .2);
+    transition: all .3s;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media-area:not(:hover) .elementor-control-media__remove {
+    display: none;
+}
+.modal.template-menu .model-content .forms-generate .elementor-screen-only, .screen-reader-text, .screen-reader-text span, .ui-helper-hidden-accessible {
+    position: absolute;
+    top: -10000em;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media__preview {
+    height: 100%;
+    background-size: cover;
+    background-position: 50%;
+    padding-block-end: 42.8571%;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control:not(.elementor-control-type-icons) .elementor-control-media__preview {
+    background-color: #d5d8dc;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media__content__upload-button {
+    background-color: #d5d8dc;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media.e-media-empty-placeholder .e-control-image-size, .elementor-control-media.e-media-empty .elementor-control-media-area .elementor-control-media__content__remove, .elementor-control-media.e-media-empty .elementor-control-media-area .elementor-control-media__remove, .elementor-control-media:not(.e-media-empty) .elementor-control-media__content__upload-button {
+    display: none;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-dynamic-switcher-wrapper {
+    display: flex;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media .elementor-control-media__content:not(:hover) .elementor-control-media__tools {
+    bottom: -30px;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media__tools {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 27px;
+    transition: all .2s ease-in-out;
+}
+.modal.template-menu .model-content .forms-generate .elementor-control-media__tool {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .9);
+    font-size: 11px;
+    transition: all .3s;
+}
+
+.modal.template-menu .model-content .forms-generate .elementor-control-media .elementor-control-media__content{
+    height: 75px;
+}
+.modal.template-menu .model-content .forms-generate  .ck.ck-editor {
+    width: 100%;
+}
+
+.modal.template-menu .model-content .forms-generate .checkbox-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.modal.template-menu .model-content .forms-generate .checkbox-container input{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.modal.template-menu .model-content .forms-generate .voire-plus label{
+    display: flex;
+    width: max-content;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 30px;
+}
+.modal.template-menu .model-content .forms-generate .select2-container{
+    width: 100% !important;
+}
+.modal.template-menu .model-content .forms-generate .select2-container textarea{
+    width: 100% !important;
+    border: 0px solid #000;
+}

@@ -1,0 +1,456 @@
+ .main-slider {
+     height: 640px;
+     padding-top: 85px;
+     position: relative;
+     margin-bottom: 42px;
+ }
+
+ .main-slider .error-message.white {
+     color: #000;
+ }
+
+ .main-slider .slide .image-layer {
+     height: 750px;
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     height: 100%;
+     left: 0;
+     top: 0;
+     position: absolute;
+     width: 100%;
+     z-index: 1;
+ }
+
+ .main-slider .slide-carousel-formulaire .formulaire-service {
+     visibility: hidden;
+ }
+
+ .main-slider .slide .auto-container {
+     z-index: 2;
+     position: relative;
+
+ }
+
+ .main-slider .slide .upper-title span {
+     color: #fff;
+     font: italic normal 600 20px/30px 'system-ui';
+     padding-left: 70px;
+ }
+
+ .main-slider .slide .upper-title span:before {
+     background: #fff;
+     content: "";
+     height: 2px;
+     left: 0;
+     position: absolute;
+     top: 13px;
+     width: 66px;
+ }
+
+ .main-slider .slide h1 {
+     color: #ffffff;
+     font: normal normal 700 47px/70px 'system-ui';
+     margin: 0;
+     text-shadow: 0 3px 3px rgba(0, 0, 0, 0.56);
+ }
+
+ .main-slider .slide .big-title p:first-child {
+     margin: 0;
+ }
+
+ .main-slider .slide .big-title {
+     width: 78%;
+ }
+
+ .main-slider .slide .big-title p {
+     color: #ffffff;
+     font: italic normal 600 20px/52px 'system-ui';
+     text-shadow: 0 3px 3px rgba(0, 0, 0, 0.56);
+ }
+
+ .main-slider .slide .avis p {
+     font: italic normal 600 21px/35px 'system-ui';
+     color: #ffffff;
+     text-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+ }
+
+ .main-slider .slide .avis .avis-svg {
+     margin-top: 10px;
+ }
+
+ .main-slider .slide .avis .avis-svg>span {
+     font: italic normal 500 16px/25px 'system-ui';
+     padding-top: 5px;
+ }
+
+ .main-slider .slide .avis .avis-svg>img {
+     margin-right: -5px;
+     margin-left: -12px;
+ }
+
+ .main-slider .slide .btns-box .btn-one.devis-gratuit {
+     color: #28282B;
+ }
+
+ .main-slider .slide .btns-box .btn-one {
+     min-width: 235px;
+     width: max-content;
+     font: normal normal 700 20px/29px 'system-ui';
+     background: #ffffff;
+     border-radius: 50px;
+     text-decoration: none;
+     color: #ED202B;
+     padding: 9px 30px;
+     border: none;
+     cursor: pointer;
+     margin-right: 30px;
+ }
+
+
+ .main-slider .slide .btns-box .btn-one img {
+     max-height: 22px;
+ }
+
+ .main-slider .slide .image-layer::after {
+     background-image: url("/build/images/Rectangle.svg");
+     background-size: cover;
+     bottom: 0;
+     content: "";
+     height: 100%;
+     left: 0;
+     opacity: .9;
+     position: absolute;
+     width: 65%;
+ }
+
+ .slide-carousel-formulaire {
+     width: 100%;
+     max-width: 100%;
+
+ }
+
+ .slide-carousel-formulaire .slick-track {
+     display: flex !important;
+ }
+
+ .slide-carousel-formulaire .slick-slide {
+     height: inherit !important;
+ }
+
+
+ .slide-carousel-formulaire .formulaire-service .row textarea,
+ .slide-carousel-formulaire .formulaire-service .row {
+     margin-bottom: 10px;
+     max-width: 100%;
+ }
+
+ .slide-carousel-formulaire .formulaire-service .row .input {
+     width: calc(50% - 10px);
+ }
+
+ .slide-carousel-formulaire .formulaire-service .row input,
+ .slide-carousel-formulaire .formulaire-service .row textarea {
+     background-color: #fff !important;
+     border: 1px solid rgba(0, 0, 0, .07) !important;
+     border-radius: 25px !important;
+     padding: 15px !important;
+     width: 100%;
+     resize: none;
+ }
+
+ .slide-carousel-formulaire .formulaire-service .row input:focus-visible,
+ .slide-carousel-formulaire .formulaire-service .row textarea:focus-visible {
+     outline: none;
+ }
+
+ .slide-carousel-formulaire .formulaire-service .btn-one {
+
+     border: none;
+     border-radius: 50px;
+     width: max-content;
+     padding: 10px 50px;
+     outline: none;
+     background-color: #E7BC1B;
+     cursor: pointer;
+     text-decoration: none;
+     font: normal normal 700 18px/22px 'system-ui';
+
+ }
+
+ .slide-carousel-formulaire .formulaire-service .back-btn {
+     background: transparent;
+     border: none;
+     cursor: pointer;
+     max-height: 47px;
+ }
+
+ .slide-carousel-formulaire .slick-prev,
+ .slide-carousel-formulaire .slick-next {
+     display: none !important;
+ }
+
+ .slide-carousel-formulaire .formulaire-service .back-btn svg {
+     width: 55px;
+ }
+
+ /* Add  styles  loading spinner here */
+ .main-slider .loading-devis-header.show {
+     display: block !important;
+ }
+
+ .slide-carousel-formulaire .formulaire-service form {
+     position: relative;
+     max-width: 655px;
+ }
+
+ .main-slider .slide-carousel-formulaire .formulaire-service:has(span.success-message) {
+     flex-direction: column-reverse;
+ }
+
+ .main-slider .slide-carousel-formulaire .formulaire-service .success-message {
+     color: #fff;
+     max-width: 655px;
+     text-align: center;
+     margin-bottom: 10px;
+     border: 1px solid #00c851;
+     background-color: #00c851;
+     border-radius: 5px;
+     padding: 10px;
+     font-weight: 700;
+ }
+
+ @media (max-width:1800px) {
+
+     .main-slider .slide .image-layer,
+     .main-slider {
+         height: 640px !important;
+     }
+
+
+ }
+
+ @media (max-width:1600px) {
+     .main-slider {
+         height: 640px !important;
+         margin-bottom: 30px !important;
+     }
+
+     .main-slider .slide .big-title p {
+         line-height: 42px !important;
+     }
+
+     .main-slider .slide .btns-box .btn-one {
+         font: normal normal 700 21px/31px 'system-ui' !important;
+         min-width: 212px !important;
+     }
+
+     .slide-carousel-formulaire .formulaire-service .row input,
+     .slide-carousel-formulaire .formulaire-service .row textarea {
+         padding: 10px !important;
+     }
+ }
+
+ @media (max-width:768px) {
+     .main-slider {
+         padding-top: 60px !important;
+     }
+
+     .main-slider .slide .btns-box .btn-one {
+         margin-right: 0 !important;
+     }
+
+     .main-slider .slide .avis {
+         display: flex;
+         align-items: center;
+         flex-direction: column;
+         margin-top: -25px !important;
+     }
+
+     .main-slider .slide .big-title p {
+         text-align: center;
+         line-height: 50px !important;
+     }
+
+     .main-slider .slide .sous-titre-mobile {
+         font: normal normal 700 28px/32px 'system-ui';
+         color: #ffffff;
+         margin: 0;
+     }
+
+     .main-slider .slide .big-title {
+         width: 100% !important;
+         margin-bottom: 15px;
+     }
+
+     .main-slider .slide .btn-one:first-child::after {
+         background-image: url("/build/images/btn-mobile-appel.svg");
+         background-repeat: no-repeat;
+         content: "";
+         height: 100%;
+         left: 0;
+         position: absolute;
+         width: 100%;
+     }
+
+     .main-slider .slide .devis-gratuit::after {
+         background-image: url("/build/images/btn-devis.svg");
+         background-repeat: no-repeat;
+         content: "";
+         height: 100%;
+         right: 0;
+         position: absolute;
+         width: 59px;
+     }
+
+     .main-slider .slide .btn-one {
+         position: relative;
+         margin-bottom: 25px !important;
+         width: 80% !important;
+
+     }
+
+
+     .main-slider .slide .btns-box {
+         flex-wrap: wrap;
+         justify-content: center;
+     }
+
+
+     .main-slider .slide .btns-box a {
+         margin-right: 0 !important;
+     }
+
+
+     .main-slider .slide .btn-one img {
+         display: none !important;
+     }
+
+     .main-slider .slide .btn-one span {
+         color: #E7BC1B;
+         font: normal normal 700 20px/29px 'system-ui';
+     }
+
+     .main-slider .slide .devis-gratuit span {
+         color: #28282B;
+     }
+
+     .main-slider .slide .formulaire-service .btn-one span {
+         color: #000000;
+     }
+
+     .slide-carousel-formulaire .slick-slide>div>div.formulaire-service {
+         margin-top: 5px;
+     }
+
+     .slide-carousel-formulaire .slick-slide>div>div {
+         padding-right: 5px;
+         margin-top: 15px;
+     }
+
+     .main-slider .slide .formulaire-service .input-textarea> {
+         margin-bottom: 10px;
+     }
+
+     .main-slider .slide .image-layer::after {
+
+         background-image: url("/build/images/bg-red.svg") !important;
+         width: 100% !important;
+     }
+ }
+
+
+ @media (max-width:576px) {
+     .main-slider .slide .sous-titre-mobile {
+         font: normal normal 700 21px/32px 'system-ui' !important;
+     }
+ }
+
+ @media (max-width:480px) {
+     .main-slider {
+         padding-top: 20px !important;
+         margin-bottom: 22px !important;
+         /*min-height: max-content !important;*/
+         max-height: 478px;
+     }
+
+
+     .main-slider .slide .image-layer {
+         height: 478px !important;
+     }
+
+     .main-slider .slide .big-title p {
+         font: italic normal 600 16px/34px 'system-ui' !important;
+     }
+
+
+     .main-slider .slide .upper-title {
+         display: none !important;
+     }
+
+     .main-slider .slide {
+         flex-direction: column-reverse !important;
+         align-items: center;
+     }
+
+     .main-slider .slide .note {
+         margin: 0 !important;
+         font: italic normal 600 20px/30px 'system-ui' !important;
+     }
+
+     .main-slider .slide .note>span {
+         font: italic normal 600 12px/18px 'system-ui' !important;
+     }
+
+
+
+     .main-slider .slide .btn-send-devis {
+         width: 75%;
+     }
+
+
+     .main-slider .slide .btn-send-devis {
+         margin-bottom: 0;
+
+     }
+
+     .main-slider .slide .formulaire-service .input-textarea {
+         margin-bottom: 15px;
+     }
+
+
+     .main-slider .formulaire-service .back-btn svg {
+         margin-left: -10px;
+     }
+
+     .main-slider .slide .btns-box,
+     .main-slider .slide .btn-one {
+         width: 100% !important;
+         margin-bottom: 10px !important;
+
+     }
+
+     .main-slider .slide .formulaire-service .btn-one {
+         padding: 7px !important;
+     }
+
+
+     .main-slider .slide .formulaire-service textarea {
+         height: 7em;
+     }
+
+     .main-slider .slide .formulaire-service textarea,
+     .main-slider .slide .formulaire-service input {
+         font: normal normal 600 12px/18px 'system-ui';
+         padding: 10px !important;
+     }
+
+
+     .main-slider .formulaire-service .btn-send-devis {
+         border: 1px solid #FFFFFF;
+     }
+
+     .main-slider .slide .avis {
+         margin-top: -15px !important;
+     }
+ }

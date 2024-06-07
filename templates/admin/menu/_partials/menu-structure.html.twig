@@ -1,0 +1,30 @@
+<div id="menu-management-liquid">
+  <div id="menu-management">
+    <form id="update-nav-menu" method="post" enctype="multipart/form-data">
+      <h2>Structure du menu</h2>
+      <div class="menu-edit">
+        {% include "admin/menu/_partials/menu-structure/menu-header.html.twig"  %}
+        <!-- END .nav-menu-header -->
+        <div id="post-body">
+          <div id="post-body-content" class="wp-clearfix">
+            
+
+            {% include "admin/menu/_partials/menu-structure/menu-action-grouper.html.twig"  %}
+
+            {% include "admin/menu/_partials/menu-structure/elements.html.twig"  %}
+
+            {% include "admin/menu/_partials/menu-structure/menu-action-grouper.html.twig"  %}
+            
+            {% include "admin/menu/_partials/menu-structure/emplaement-reglage-menu.html.twig"  %}
+          </div>
+          <!-- /#post-body-content -->
+        </div>
+        <!-- /#post-body -->
+        {% include "admin/menu/_partials/menu-structure/menu-footer.html.twig"  %}
+      </div>
+      <!-- /.menu-edit -->
+    </form>
+    <!-- /#update-nav-menu -->
+  </div>
+  <!-- /#menu-management -->
+</div>

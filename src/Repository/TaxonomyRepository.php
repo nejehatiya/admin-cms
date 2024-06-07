@@ -48,27 +48,45 @@ class TaxonomyRepository extends ServiceEntityRepository
     // }
     
 
-    public function findTaxonomyParent()
-    {
-       
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT t.name_taxonomy, t.id
-                FROM App\Entity\Taxonomy t  '
-            )
-            ->getResult();
+    public function findByName($nom,$id_current){
+        $query =  $this->createQueryBuilder('m')
+        ->andWhere('m.name_taxonomy = :name')
+        ->setParameter('name', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        $query = $query->getQuery()
+        ->getOneOrNullResult()
+        ;
+        return $query;
     }
 
-    public function findAllTaxo()
-    {
-      
-       
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT t.name_taxonomy,t.id, t.description_taxonomy, t.parent_taxonomy
-                FROM App\Entity\Taxonomy t 
-                '
-            )
-            ->getResult();
+    public function findBySlug($nom,$id_current){
+        $query =  $this->createQueryBuilder('m')
+        ->andWhere('m.slug_taxonomy = :slug')
+        ->setParameter('slug', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        $query = $query->getQuery()
+        ->getOneOrNullResult()
+        ;
+        return $query;
     }
+
+    // get all taxonomy  related to post type
+    public function findByPostType($post_type){
+        $query = $this->createQueryBuilder('m')
+        ->join('m.Posttype','pt')
+        ->andWhere('pt.slug_post_type = :slug_post_type')
+        ->setParameter('slug_post_type', $post_type);
+        
+        $query = $query->getQuery()
+        ->getResult()
+        ;
+        return $query;
+    }
+    
 }

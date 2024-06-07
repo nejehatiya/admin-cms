@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Modifier template
+{% endblock %}
+{% block titreAdmin %}
+    Modifier template
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','modeles-template-page']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+        let id_template_page = "{{template_page.id}}";
+    </script>
+    {{ include('admin/template_page/_form.html.twig') }}
+{% endblock %}

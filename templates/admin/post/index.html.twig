@@ -36,20 +36,20 @@
             <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
             {# list table header #}
             {% set fields = [
-                {name:'Titre',field_name:'post_title',method:'postTitle',sortable:true,type:'text'},
-                {name:'Slug',field_name:'post_name',method:'postName',sortable:true,type:'text'},
-                {name:'Parent',field_name:'post_parent',method:'postParent',sortable:false,type:'text'},
+                {name:'Titre',field_name:'post_title',method:'post_title',sortable:true,type:'text'},
+                {name:'Slug',field_name:'post_name',method:'post_name',sortable:true,type:'text'},
+                {name:'Parent',field_name:'post_parent',method:'post_parent',sortable:false,type:'text'},
                 {name:'Auteur / autrice',field_name:'author',sortable:false,type:'entity',field_to_display:'email',collection:false},
-                {name:'Etat',field_name:'post_status',method:'postStatus',sortable:false,type:'text'},
+                {name:'Etat',field_name:'post_status',method:'post_status',sortable:false,type:'text'},
                 {name:'Catégories',field_name:'terms',method:'terms',sortable:false,type:'entity',field_to_display:'name_terms',collection:true},
-                {name:'Date',field_name:'date_add',method:'dateAdd',sortable:true,type:'date'}
+                {name:'Date',field_name:'date_add',method:'date_add',sortable:true,type:'date'}
             ] %}
             <thead>
                 {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
             </thead>
             {# list table body #}
             <tbody id="the-list">
-                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':posts,'entity_name':'modeles-post','is_view':false,'path_edit':'app_post_edit'} %}
+                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':posts,'entity_name':'modeles-post','is_view':false,'path_edit':'app_post_edit','params_link':{post_type:'post'}} %}
             </tbody>
             {# list table footer #}
             <tfoot>

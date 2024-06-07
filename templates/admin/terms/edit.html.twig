@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Terms{% endblock %}
+
+{% block body %}
+    <h1>Edit Terms</h1>
+
+    {{ include('terms/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_terms_index') }}">back to list</a>
+
+    {{ include('terms/_delete_form.html.twig') }}
+{% endblock %}

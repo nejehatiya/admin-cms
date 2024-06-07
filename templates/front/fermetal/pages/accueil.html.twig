@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% set models_import = models_unique(post.post_order_content|json_decode,'full') %}
+{% block metaseo %}
+	{{ include('front/fermetal/templates/partials/head-seo.html.twig', { post: post }) }}
+{% endblock %}
+{% block stylesheets %}
+	{#{ parent() }}
+		{% for element in models_import %}
+			{{ encore_entry_link_tags('acuueil-front') }}
+		{% endfor %
+		<link rel="stylesheet" href="/buildjs/builded-900.min.css">#}
+	{{getCssLinkitem(post,models_import)|raw}}
+{% endblock %}
+
+{% block content %}
+	{#{minifyCSS(models_import)}}
+		{{minifyJS(models_import)}#}
+	{{ include('front/fermetal/global/content-page.html.twig',{'mode_affichage':'full'}) }}
+	{# start popup devis #}
+	{% if 'new-qui-sommes-nous-element' in models_import %}
+		{{ include('front/fermetal/templates/partials/page/formulaire.html.twig',{'class':'popup-devis formulaire-popup'}) }}
+	{% endif  %}
+	{# end popup devis #}
+{% endblock %}
+
+{% block javascripts %}
+	{#{ parent() }}
+		{% for element in models_import %}
+			{{ encore_entry_script_tags(element) }}
+		{% endfor %#}
+	{{getJsScriptitem(post,models_import)|raw}}
+{% endblock %}

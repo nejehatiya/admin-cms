@@ -1,0 +1,111 @@
+{% set sous_titres = [
+	sous_titre_1 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_1) :  sous_titre_1) : '',
+	sous_titre_2 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_2) :  sous_titre_2) : '',
+	sous_titre_3 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_3) :  sous_titre_3) : '',
+	sous_titre_4 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_4) :  sous_titre_4) : '' 
+] %}
+{% set sous_titres_balise = [
+	sous_titre_1_balise is defined ? sous_titre_1_balise : 'h3',
+	sous_titre_2_balise is defined ? sous_titre_2_balise : 'h3',
+	sous_titre_3_balise is defined ? sous_titre_3_balise : 'h3',
+	sous_titre_4_balise is defined ? sous_titre_4_balise : 'h3' 
+] %}
+{% set descriptions = [
+	description_1 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_1) :  description_1) : '',
+	description_2 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_2) :  description_2) : '',
+	description_3 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_3) :  description_3) : '',
+	description_4 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_4) :  description_4) : '' 
+] 
+
+%}
+{% set images = [
+	icon_1 is defined ? icon_1 : '',
+	icon_2 is defined ? icon_2 : '',
+	icon_3 is defined ? icon_3 : '',
+	icon_4 is defined ? icon_4 : '' 
+] 
+%}
+{% set listvilles = [
+	[	
+		choisit_pages_1 is defined  ? choisit_pages_1 : [],
+		sous_titre_choisit_pages_1 is defined ? sous_titre_choisit_pages_1 : '',
+	],
+	[	
+		choisit_pages_2 is defined  ? choisit_pages_2 : [],
+		sous_titre_choisit_pages_2 is defined ? sous_titre_choisit_pages_2 : '',
+	],
+	[	
+		choisit_pages_3 is defined  ? choisit_pages_3 : [],
+		sous_titre_choisit_pages_3 is defined ? sous_titre_choisit_pages_3 : '',
+	],
+	[	
+		choisit_pages_4 is defined  ? choisit_pages_4 : [],
+		sous_titre_choisit_pages_4 is defined ? sous_titre_choisit_pages_4 : '',
+	]
+] 
+%}
+{% set titre_balise = titre_balise is defined ? titre_balise : 'h2' %}
+<section class="modele-nos-services">
+	<div class="container">
+		<div class="sec-title text-center">
+			{% if titre is defined and titre|length > 0 %}
+				<{{titre_balise}} class="h2">{{ urldecode(titre) }}</{{titre_balise}}>
+			{% endif %}
+			{% if description_titre is defined and description_titre|length > 0 %}
+				<div class="description">{{urldecode(description_titre)|removeEmptyP|raw}}</div>
+			{% endif %}
+		</div>
+
+		<div class="tabs-box">
+			{% for key,item in sous_titres %}
+				<div class="single-btn {{ key == 0 ? 'active-btn' : ''}}" id="single-btn-{{loop.index}}">
+					<div class="tab-btn" data-tab="#tab-{{key + 1}}">
+						<{{sous_titres_balise[key]}} class="h3">{{item}}</{{sous_titres_balise[key]}}>
+					</div>
+				</div>
+				{% set description_item = descriptions[key] %}
+				<div class="tabs-content  {{ key == 0 ? 'active-tab' : ''}}" id="tab-{{key + 1}}">
+					<div class="content-inner">
+						<div class="section-image-text d-flex">
+							<div class="image-column">
+								{% set image = images[key] is not empty ? images[key] |json_decode : '' %}
+								{% set altImage = get_alt_image(image) %}
+								{% set image_original = imageOriginalUrl(image) %}
+								{#% set dimension = getImageSizetwig(base_url~image_original) %#}
+								{% if image is not empty %}
+									<figure class="image image-2">
+										<img width="{{altImage[1]}}" {% if altImage[2] is not null %} height="{{altImage[2]}}" {% endif %} class="lazy" data-src="{{generate_webp_image(image_original)}}" src="{{generate_webp_image('/build/images/loading-png.jpg')}}" alt="{{altImage[0]}}">
+									</figure>
+								{% endif %}
+							</div>
+							<div class="text-column">
+								<div class="content-box ">
+									<div class="text">
+										<div>{{urldecode(description_item)|removeEmptyP|raw }}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% set count = listvilles[key][0]|length %}
+						{% if count > 0 %}
+							<div class="liste-ville">
+								<p>{{listvilles[key][1]}}</p>
+								<ul class="list" style="column-count: {{count <= 4 ? count : 4}}">
+									{% for item in listvilles[key][0]  %}
+										{% set getpost = getpost(item["id"]) %}
+										{% if getpost %}
+											{# {% set image = imageSize(getpost.image, 'full',true)  %} #}
+											<li>
+												<a href="{{getpost.path}} ">{{getpost.name}}</a>
+											</li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>

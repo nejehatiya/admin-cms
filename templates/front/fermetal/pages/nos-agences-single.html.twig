@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% set device = getDeviceAgent() %}
+{% set models_import = models_unique(post.post_order_content|json_decode,'contact') %}
+{% set models_import = ['braedcrumb','section-agence-header']|merge(models_import) %}
+{% block metaseo %}
+	{{ include('front/fermetal/templates/partials/head-seo.html.twig', { post: post }) }}
+{% endblock %}
+{# start stylesheets #}
+{% block stylesheets %}
+	{{getCssLinkitem(post,models_import)|raw}}
+{% endblock %}
+{# start content #}
+{% block content %}
+	{# start section header #}
+	{{ include('front/fermetal/templates/partials/agence/section-header.html.twig') }}
+	{# end section header #}
+
+	{# start section content #}
+	{{ include('front/fermetal/global/content-page.html.twig',{'post':post,'mode_affichage':'full'}) }}
+	{# end section content #}
+	{# start popup devis #}
+		{% if 'new-qui-sommes-nous-element' in models_import %}
+	{{ include('front/fermetal/templates/partials/page/formulaire.html.twig',{'class':'popup-devis formulaire-popup'}) }}
+{% endif  %}
+	{# end popup devis #}
+{% endblock %}
+
+
+{# start javascripts #}
+{% block javascripts %}
+	{{getJsScriptitem(post,models_import)|raw}}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% set device = getDeviceAgent() %}
+{% set models_import = ['braedcrumb','blog-list','auteur'] %}
+{% set post_type_slug = post_type_input is defined  ? post_type_input : post_type.slugPosttype %}
+{% block metaseo %}
+	{{ include('front/fermetal/templates/partials/head-seo-list.html.twig', {
+		'title':get_option_value('_meta_title_'~ post_type_slug),
+		'description':get_option_value('_meta_description_'~ post_type_slug),
+		'current_link':'/'~ post_type_slug
+	}) }}
+{% endblock %}
+{# start stylesheets #}
+{% block stylesheets %}
+	{{getCssLinkitem(null,models_import,post_type_input is defined  ? post_type_input : post_type.slugPosttype~'-list')|raw}}
+{% endblock %}
+{# start content #}
+{% block content %}
+	<input type="hidden" class="post_type" value="{{post_type_input is defined  ? post_type_input : post_type.slugPosttype}}" />
+	{# start section header #}
+	    {% include 'front/fermetal/templates/partials/blog/section-header.html.twig' with {page_title: block('page_title') is defined ? block('page_title') : '' } %}
+		
+	{# end section header #}
+
+	{# start section content #}
+	    {{ include('front/fermetal/templates/partials/blog/section-blogs.html.twig',{'author_block':block('author_block') is defined ? block('author_block') : '','posts':posts,'is_author_single':is_author_single is defined ? is_author_single : false,'post_type_slug':post_type_input is defined  ? post_type_input : post_type.slugPosttype}) }}
+		
+	{# end section content #}
+{% endblock %}
+
+{# start javascripts #}
+{% block javascripts %}
+	{{getJsScriptitem(null,models_import,post_type_input is defined  ? post_type_input : post_type.slugPosttype~'-list')|raw}}
+{% endblock %}

@@ -10,10 +10,19 @@
 	{{ importmap(['app','post']) }}
 {% endblock %}
 {% block body %}
+	{% if post is defined and post.id is defined and post.id %}
+		<script>
+			let id_post = "{{ post.id}}";
+		</script>
+	{% endif %}
 	{# loading chargement post data #}
 	{% include "admin/post/_partial/loading-single.html.twig"  %}
 	<div id="elementor-editor-wrapper">
+		<input type="hidden" value="{{post_type}}" id="post_type_slug" />
 		<aside id="elementor-panel" class="elementor-panel ui-resizable" aria-labelledby="elementor-panel-header-title">
+			<div id="elementor-preview-loading-side-bar">
+				<i class="eicon-loading eicon-animation-spin" aria-hidden="true"></i>
+			</div>
 			<div id="elementor-panel-inner">
 				<div id="elementor-panel-state-loading">
 					<i class="eicon-loading eicon-animation-spin"></i>
@@ -32,30 +41,33 @@
 
                         {# notice zone #}
                         {#% include "admin/post/_partial/notice-utulisation.html.twig"  %#}
-						<div id="elementor-panel-elements-wrapper">
+						<div id="elementor-panel-elements-wrapper" class="section-sidebar-scroll">
 							<div id="elementor-panel-elements-categories">
 								<div id="elementor-panel-categories">
-                                    {# titre|slug|excerpt|template page | parent page #}
-									<div id="elementor-panel-category-layout" class="elementor-panel-category">
+                                    {# titre|slug|excerpt|template page | parent page|feature image|post status #}
+									<div id="elementor-panel-category-layout" class="elementor-panel-category open">
 										<button class="elementor-panel-heading elementor-panel-category-title">
 											<span class="elementor-panel-heading-toggle">
 												<i class="eicon" aria-hidden="true"></i>
 											</span>
-											<span class="elementor-panel-heading-title">Mise en page</span>
+											<span class="elementor-panel-heading-title">Basique</span>
 
 										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-container" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Conteneur</div>
-													</div>
-												</div>
-											</div>
+										<div class="elementor-panel-category-items">
+											{# titre de page #}
+											{% include "admin/post/_partial/element-post-field/post-title.html.twig" with {is_post_admin:true} %}
+											{# slug de page #}
+											{% include "admin/post/_partial/element-post-field/post-name.html.twig" with {is_post_admin:true} %}
+											{# excerpt de page #}
+											{% include "admin/post/_partial/element-post-field/post-excerpt.html.twig" with {is_post_admin:true} %}
+											{# temlate de page #}
+											{% include "admin/post/_partial/element-post-field/template-page.html.twig" with {is_post_admin:true} %}
+											{# page parent #}
+											{% include "admin/post/_partial/element-post-field/page-parent.html.twig" with {is_post_admin:true} %}
+											{# page status #}
+											{% include "admin/post/_partial/element-post-field/post-status.html.twig" %}
+											{# page feature #}
+											{% include "admin/post/_partial/element-post-field/post-feature.html.twig" with {is_post_admin:true} %}
 										</div>
 									</div>
                                     {# catégories #}
@@ -64,109 +76,12 @@
 											<span class="elementor-panel-heading-toggle">
 												<i class="eicon" aria-hidden="true"></i>
 											</span>
-											<span class="elementor-panel-heading-title">Basique</span>
+											<span class="elementor-panel-heading-title">Catégories</span>
 
 										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-t-letter" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Titre</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-image" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Image</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-text" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Éditeur de texte</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-youtube" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Vidéo</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-button" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Bouton</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-divider" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Séparateur</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-spacer" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Espaceur</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-google-maps" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Google Maps</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-favorite" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Icône</div>
-													</div>
-												</div>
-											</div>
+										<div class="elementor-panel-category-items elementor-responsive-panel">
+											{# page feature #}
+											{% include "admin/post/_partial/element-post-field/post-category.html.twig" with {taxonomies:taxonomies,is_post_admin:true} %}
 										</div>
 									</div>
                                     {# author page #}
@@ -175,10 +90,10 @@
 											<span class="elementor-panel-heading-toggle">
 												<i class="eicon" aria-hidden="true"></i>
 											</span>
-											<span class="elementor-panel-heading-title">Pro</span>
+											<span class="elementor-panel-heading-title">Author</span>
 
 										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
+										<div class="elementor-panel-category-items elementor-responsive-panel">
 											<div class="elementor-element-wrapper">
 												<div class="elementor-element" draggable="true">
 
@@ -550,1070 +465,59 @@
 											<span class="elementor-panel-heading-toggle">
 												<i class="eicon" aria-hidden="true"></i>
 											</span>
-											<span class="elementor-panel-heading-title">Général</span>
+											<span class="elementor-panel-heading-title">Post meta</span>
 
 										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-image-box" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Boîte d’image</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-icon-box" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Boîte d’icône</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-slider-push" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Carrousel d’images</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-gallery-grid" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Galerie basique</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-bullet-list" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Liste d’icône</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-counter" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Compteur</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-skill-bar" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Barre de progression</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-testimonial" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Témoignage</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-tabs" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Onglets</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-accordion" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Accordéon</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-toggle" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Va-et-vient</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-social-icons" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Icônes réseaux sociaux</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-alert" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Alerte</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-headphones" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">SoundCloud</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-shortcode" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Code court</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-code" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">HTML</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-anchor" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Ancre de menu</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-sidebar" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Colonne latérale</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-post-excerpt" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Lire plus</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-rating" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Notation</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-code" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Widget projets woocomerce</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordart" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Chemin du texte</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div id="elementor-panel-category-theme-elements" class="elementor-panel-category">
-										<button class="elementor-panel-heading elementor-panel-category-title">
-											<span class="elementor-panel-heading-toggle">
-												<i class="eicon" aria-hidden="true"></i>
-											</span>
-											<span class="elementor-panel-heading-title">Site</span>
-
-										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-site-logo" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Site Logo</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-site-title" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Site Title</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-archive-title" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Page Title</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-nav-menu" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">WordPress Menu</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-site-search" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Search Form</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-sitemap" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Sitemap</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-cart" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Menu Cart</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div id="elementor-panel-category-theme-elements-single" class="elementor-panel-category">
-										<button class="elementor-panel-heading elementor-panel-category-title">
-											<span class="elementor-panel-heading-toggle">
-												<i class="eicon" aria-hidden="true"></i>
-											</span>
-											<span class="elementor-panel-heading-title">Unique</span>
-
-										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-post-title" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Post Title</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-post-excerpt" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Post Excerpt</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-featured-image" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Featured Image</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-table-of-contents" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Table of Contents</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-person" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Author Box</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-comments" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Post Comments</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-post-navigation" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Post Navigation</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-post-info" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Post Info</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-progress-tracker" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Progress Tracker</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div id="elementor-panel-category-woocommerce-elements" class="elementor-panel-category">
-										<button class="elementor-panel-heading elementor-panel-category-title">
-											<span class="elementor-panel-heading-toggle">
-												<i class="eicon" aria-hidden="true"></i>
-											</span>
-											<span class="elementor-panel-heading-title">WooCommerce</span>
-
-										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-products" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Products</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-product-breadcrumbs" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">WooCommerce Breadcrumbs</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-woocommerce" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Custom Add To Cart</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-product-pages" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">WooCommerce Pages</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-product-categories" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Product Categories</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-cart" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Menu Cart</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-purchase-summary" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Purchase Summary</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-checkout" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Checkout</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-woo-cart" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Cart</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-my-account" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">My Account</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-woocommerce-notices" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">WooCommerce Notices</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div id="elementor-panel-category-hfe-widgets" class="elementor-panel-category">
-										<button class="elementor-panel-heading elementor-panel-category-title">
-											<span class="elementor-panel-heading-toggle">
-												<i class="eicon" aria-hidden="true"></i>
-											</span>
-											<span class="elementor-panel-heading-title">Elementor Header &amp; Footer Builder</span>
-
-										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-retina-image" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Image retina</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-copyright-widget" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Copyright</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-navigation-menu" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Menu de navigation</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-page-title" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Titre de la page</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-site-title" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Titre du site</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-site-tagline" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Slogan du site</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-site-logo" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Logo du site</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-search" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Recherche</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="hfe-icon-menu-cart" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Panier</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div id="elementor-panel-category-wordpress" class="elementor-panel-category">
-										<button class="elementor-panel-heading elementor-panel-category-title">
-											<span class="elementor-panel-heading-toggle">
-												<i class="eicon" aria-hidden="true"></i>
-											</span>
-											<span class="elementor-panel-heading-title">WordPress</span>
-
-										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel" style="display: none;">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Formulaire MailPoet</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Pages</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Calendrier</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Archives</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Sons</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Image</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Galerie</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Vidéo</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Méta</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Rechercher</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Texte</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Catégories</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Articles récents</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Commentaires récents</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Flux</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Nuage d’étiquettes</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Menu de navigation</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">HTML personnalisé</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Bloc</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Widget Akismet</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Ninja Forms Widget</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Panier</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Filtres de produit actifs</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Filtrer les produits par attribut</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Filtrer les produits par prix</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Catégories de produit</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Rechercher un produit</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Nuage d’étiquettes produits</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Liste des produits</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Liste Derniers produits consultés</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Liste Produits par note obtenue</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Avis récents sur les produits</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-wordpress" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Filtrer les produits par note obtenue</div>
-													</div>
-												</div>
-											</div>
+										<div class="elementor-panel-category-items post-meta-section elementor-responsive-panel">
+											{% for form_item in postmeta_forms %}
+												{% set data = post.postMetaJson|json_decode %}
+												{# page feature #}
+												{% include "admin/global/forms/forms-builder.html.twig" with {fields:form_item.fields|json_decode,data_set:data} %}
+											{% endfor %}
 										</div>
 									</div>
 								</div>
 							</div>
+
+							<div id="elementor-panel-elements-modals" class="hide-pannel open elementor-panel-category">
+								<div class="elementor-panel-category-items post-meta-section elementor-responsive-panel">
+									{% for form_item in post_modals %}
+										{# page feature #}
+										<div class="elementor-element-wrapper">
+											{% if form_item.is_new %}
+												<span><img src="/uploads/2024/06/label-new-yellow.png" /></span>
+											{% endif %}
+											<div class="elementor-element">
+												<input class="modele-id" type="hidden" value="{{form_item.id}}" data-image-preview="{{getImagesUrl(form_item.image_preview)}}" />
+												
+												<div class="popup-image-preview" style="background-image: url({{getImagesUrl(form_item.image_preview)}});">
+												
+												</div>
+												<div class="icon">
+													<i class="eicon-container" aria-hidden="true"></i>
+												</div>
+												<div class="title-wrapper">
+													<div class="title">{{form_item.name_modele}}</div>
+												</div>
+											</div>
+										</div>
+										{#% include "admin/global/forms/forms-builder.html.twig" with {fields:form_item.fields|json_decode} %#}
+									{% endfor %}
+								</div>
+								<div class="form-html-container">
+									<div class="form"></div>
+									<div class="form-footer">
+										<button class="button button-primary enregister">enregistrer</button>
+										<button class="button button-danger close">annuler</button>
+										<div class="checkbox-container options-enregistrement">
+											<input type="checkbox"  id="post-default-content-2" class="elementor-control-tag-area elementor-input ui-autocomplete-input" data-setting="post-radio" autocomplete="off"  name="post-default-content" >
+											<label>Options enregistrement : Définire contenu par defaut</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="elementor-panel-elements-seo"></div>
+							<div id="elementor-panel-elements-history"></div>
 						</div>
 					</div>
 				</main>
@@ -1623,5 +527,28 @@
                 {% include "admin/post/_partial/elementor-panneau-toggle.html.twig"  %}
 			</div>
 		</aside>
+		<main id="elementor-preview" aria-label="Aperçu">
+			<div id="elementor-preview-responsive-wrapper" class="elementor-device-desktop elementor-device-rotate-portrait">
+				<div id="elementor-preview-loading">
+					<i class="eicon-loading eicon-animation-spin" aria-hidden="true"></i>
+				</div>
+				<div class="load-css-modal">
+					{% set modele_names = [] %}
+					{% for form_item in post_modals %}
+						{{loadCssModalsWithParentClass(form_item.class_sortable)|raw}}
+					{% endfor %}
+				</div>
+				<section class="preview-modal-list">
+					{% set post_content = post.getPostOrderContent|json_decode %}
+					{% for model in post_content %}
+						{% include "admin/global/preview/preview-modele.html.twig" with {model:model} %}
+					{% endfor %}
+				</section>
+				{#<iframe id="elementor-preview-iframe" src="?elementor-preview=15021&ver=1717508987" allowfullscreen="1" class="dialog-iframe dialog-simple-iframe"></iframe>"#}
+			</div>
+		</main>
+		{# stucture de contenu #}
+		{% include "admin/post/_partial/post-structures.html.twig" with {post_content:post_content} %}
+		
 	</div>
 {% endblock %}

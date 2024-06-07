@@ -1,0 +1,22 @@
+<div class="elementor-revision-item">
+  <input type="hidden" value="{{history.id}}" class="id-revision" />
+  <div class="elementor-revision-item__wrapper revision">
+
+    <div class="elementor-revision-item__gravatar">
+      <img alt="" src="https://secure.gravatar.com/avatar/e140f4b8b863c141bdb9d3642265a8e5?s=22&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/e140f4b8b863c141bdb9d3642265a8e5?s=44&amp;d=mm&amp;r=g 2x" class="avatar avatar-22 photo" height="22" width="22" decoding="async" />
+    </div>
+
+    <div class="elementor-revision-item__details">
+      <div class="elementor-revision-date" title="Wed May 15 2024 18:00:04 GMT+0100 (heure normale d’Europe centrale)">Il y a {{timeAgo(history.date)}} ({{history.date|date("Y, d F @ H:i")}})</div>
+      <div class="elementor-revision-meta">
+        <span>Révision</span>
+        Par Mohamed
+        <span>(#{{history.id}})</span>&nbsp;
+      </div>
+    </div>
+
+    <div class="elementor-revision-item__tools">
+      <i class="elementor-revision-item__tools-spinner eicon-loading eicon-animation-spin" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>

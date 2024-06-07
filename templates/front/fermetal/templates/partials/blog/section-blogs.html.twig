@@ -1,0 +1,15 @@
+<section class="section-blogs">
+	{# start blogs list #}
+	<div class="container">
+		{{author_block|raw}}
+		<div class="list d-flex justify-space-between flex-wrap">
+			{# start items blog #}
+				{{ include('front/fermetal/templates/partials/blog/blog-item.html.twig', {'posts': posts,'post_type_slug':post_type_slug}) }}
+			{# end items blog #}
+		</div>
+        <div class="loading-load d-flex justify-center align-center">
+            <div class="lds-ripple"><div></div><div></div></div>
+        </div>
+	</div>
+	{# end blogs list #}
+</section>

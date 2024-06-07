@@ -1,0 +1,77 @@
+{% set device = getDeviceAgent() %}
+{% set titre = titre is defined ? urldecode(titre) : '' %}
+{% set sous_titre = sous_titre is defined ? urldecode(sous_titre) : '' %}
+{% set sous_titre_balise = sous_titre_balise is defined and sous_titre_balise|length > 0 ? sous_titre_balise : 'p' %}
+{% set titre_balise = titre_balise is defined and titre_balise|length > 0 ? titre_balise : 'h2' %}
+{% set description_1 = description_1 is defined ? urldecode(description_1):'' %}
+<section class="faq  mb-80  {% if mode_affichage is defined and mode_affichage == 'with-sidebar'  %} faq-page {% endif %}">
+	<div class="container">
+		<div class="block-text d-flex flex-wrap">
+			<div class="content d-flex align-center">
+				{% if (mode_affichage is defined and mode_affichage == "with-sidebar") or (post_type is defined and post_type.name_post_type == "accueil")  %}
+					<div class="inner  {% if description_1|length == 0 %} w-100 {% endif %}">
+						{% if (sous_titre_inclut_h2 is defined and sous_titre_inclut_h2) and (titre_balise == 'h2') and (titre is defined and titre|length > 0 ) %}
+							<{{titre_balise}} class="titre m-0 d-flex direction-column">
+								{% if sous_titre is defined and sous_titre|length > 0 %}
+									<span class="sous-titre m-0">{{sous_titre}}</span> 
+								{% endif %}
+								{{titre}}
+							</{{titre_balise}}>
+						{% else %}
+							{% if sous_titre is defined and sous_titre|length > 0 %}
+								<{{sous_titre_balise}} class="sous-titre m-0">{{sous_titre}}</{{sous_titre_balise}}>
+							{% endif %}
+							{% if titre is defined and titre|length > 0 %}
+								<{{titre_balise}} class="titre m-0">{{titre}}</{{titre_balise}}>
+							{% endif %}
+						{% endif %}
+					</div>
+
+				{% else %}
+					{% if titre is defined and titre|length > 0 %}
+						<{{titre_balise}} class="titre m-0">{{titre}}</{{titre_balise}}>
+					{% endif %}
+				{% endif %}
+				<div class="description {% if description_1|length == 0 %} w-0 {% endif %}">
+					<p class=" m-0">{{description_1|raw}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="block-question">
+			<div class="list-question {% if device == 'mobile' %} carousel-faq {% endif %}">
+				{% if questions_reponses is defined and questions_reponses is not empty %}
+					{% set nb_question = questions_reponses|length %}
+					{% set end = (nb_question / 2)|number_format  %}
+					{% if device == 'mobile' %}
+						<div>
+							<div>
+							{% endif %}
+							<ul class="column1">
+								{% for key,item in questions_reponses|slice(0, end) %}
+									{{ include('front/fermetal/templates/modeles/partials/list-faq.html.twig',{'loopinex':loop.index}) }}
+								{% endfor %}
+							</ul>
+							{% if device == 'mobile' %}
+							</div>
+						</div>
+					{% endif %}
+					{% if  questions_reponses|slice( end) is not empty %}
+						{% if device == 'mobile' %}
+							<div>
+								<div>
+								{% endif %}
+								<ul class="column2">
+									{% for key,item in questions_reponses|slice( end) %}
+										{{ include('front/fermetal/templates/modeles/partials/list-faq.html.twig',{'loopinex':loop.index +  end}) }}
+									{% endfor %}
+								</ul>
+								{% if device == 'mobile' %}
+								</div>
+							</div>
+						{% endif %}
+					{% endif %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>

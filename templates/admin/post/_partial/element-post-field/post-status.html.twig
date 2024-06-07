@@ -1,0 +1,21 @@
+{% if post_status is defined and post_status|length %}
+<div class="elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
+  <div class="elementor-control-content">
+    <div class="elementor-control-field elementor-control-url-external-show">
+      <label for="elementor-control-default-c1482" class="elementor-control-title">Page Status</label>
+      <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper">
+        <select id="post-status" data-setting="post-status" class="selectpicker">
+            {% for status in post_status %}
+                <option 
+                  {% if post is defined and post.postStatus is defined and is_post_admin is defined and is_post_admin and post.postStatus == status %}
+                    selected
+                  {% endif %} 
+                  value="{{status}}"
+                >{{status}}</option>
+            {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,23 @@
+<div id="menu-settings-column" class="metabox-holder">
+  <div class="clear"></div>
+
+  <form id="nav-menu-meta" class="nav-menu-meta" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="menu" id="nav-menu-meta-object-id" value="74" />
+    <input type="hidden" name="action" value="add-menu-item" />
+    <input type="hidden" id="menu-settings-column-nonce" name="menu-settings-column-nonce" value="1ad879addf" />
+    <input type="hidden" name="_wp_http_referer" value="/wp-admin/nav-menus.php" /> <h2>Ajouter des éléments de menu</h2>
+    <div id="side-sortables" class="accordion-container">
+      <ul class="outer-border">
+
+        {% include "admin/menu/_partials/post-type-selection.html.twig"  %}
+
+        {% include "admin/menu/_partials/lien-personaliser.html.twig"  %}
+        
+
+        <!-- .accordion-section -->
+      </ul>
+      <!-- .outer-border -->
+    </div>
+    <!-- .accordion-container -->
+  </form>
+</div>

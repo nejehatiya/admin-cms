@@ -1,0 +1,14 @@
+{% set meta_title_header_service = posts_metas._meta_title_header_service is defined   ? posts_metas._meta_title_header_service : '' %}
+{% set meta_description_header_service = posts_metas._meta_description_header_service is defined   ? posts_metas._meta_description_header_service  : '' %}
+{% set meta_price_header_service = posts_metas._meta_price_header_service is defined   ? posts_metas._meta_price_header_service  : '' %}
+<section class="h1-mobile section-header-service d-flex f-direction-column-reverse">
+    <div class="container">
+        {% if device == "mobile" %}
+            <h1>{{post.post_title}}</h1>
+        {% endif %}
+        <section class="service-deblocage d-flex justify-space-between flex-wrap">
+            {{ include('front/fermetal/templates/partials/page/formulaire-services.html.twig') }}
+            {{ include('front/fermetal/templates/partials/page/image-avis.html.twig') }}
+        </section>
+    </div>
+</section>

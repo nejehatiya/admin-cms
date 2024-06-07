@@ -1,0 +1,24 @@
+ <aside id="elementor-navigator" aria-labelledby="elementor-navigator__header__title" class="ui-draggable ui-resizable" style="display: block;">
+  <div id="elementor-navigator__inner">
+    <div id="elementor-navigator__header" class="ui-draggable-handle">
+      <button id="elementor-navigator__toggle-all" data-elementor-action="expand">
+        <i class="eicon-expand" aria-hidden="true"></i>
+        <span class="elementor-screen-only"></span>
+      </button>
+      <h2 id="elementor-navigator__header__title">Structure</h2>
+      <button id="elementor-navigator__close">
+        <i class="eicon-close" aria-hidden="true"></i>
+        <span class="elementor-screen-only">Fermer la structure</span>
+      </button>
+    </div>
+    <div id="elementor-navigator__elements">
+      <div data-model-cid="c244" class="elementor-navigator__element elementor-navigator__element--has-children">
+        <div class="elementor-navigator__elements" id="list2" >
+            {% for model in post_content %}
+                {% include "admin/post/_partial/post-structures-item.html.twig" with {model:model} %}
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

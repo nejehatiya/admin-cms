@@ -1,0 +1,60 @@
+{% set current_path = app.request.pathInfo %}
+
+{% if "children" in item|keys and item.children|length > 0 %}
+	<div class="menu-body d-flex w-70 default">
+		<ul class="d-flex flex-wrap">
+			{% for child in  children %}
+				{% set path = "static_link" in child and child.static_link == true ? child.url_custom : getPathPost(child) %}
+				<li {% if child.css_id|length > 0 %} id="{{ child.css_id }}" {% endif %} class="d-flex  {% if child.css_class|length > 0 %}{{ child.css_class }}{% endif %} {% if 'children' in child|keys and child.children|length > 0 %} has-child {% endif %}">
+					<a href="{{path}}" class="d-block {% if path == current_path %} active {% endif %}">{{child.name_post}}</a>
+					{% if "children" in child|keys and child.children|length > 0 %}
+						<ul>
+							{% for child_level_3 in  child.children %}
+								<li {% if child_level_3.css_id|length > 0 %} id="{{ child_level_3.css_id }}" {% endif %} {% if child_level_3.css_class|length > 0 %} class="{{ child_level_3.css_class }}" {% endif %}>
+									{% set path_level_3 = "static_link" in child_level_3 and child_level_3.static_link == true ? child_level_3.url_custom : getPathPost(child_level_3) %}
+									<a href="{{path_level_3}}" {% if path_level_3 == current_path %} class="active" {% endif %}>{{child_level_3.name_post}}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}
+
+{% if data_footer is not empty and nombre_entree > 0 and true %}
+	<div class="menu-footer w-30 default">
+		{% for key,data in  data_footer %}
+			{% if ( key + 1 ) <= nombre_entree %}
+				<div class="one-data {% if key != 0 %} d-none {% endif %} {% if data.type_form == 'post' %} d-flex-center {% endif %}">
+					{% if data.type_form == "image" %}
+						<div class="simulateur_menu post" data-image-default="{{ asset(data.url_im|json_decode[0].path['thumb_medium']) }}">
+							<a class="mega-menu-link" href="{{data.link_but}}">
+								{% for image in data.url_im|json_decode %}
+									<img src="{{ asset(image.path['thumb_medium']) }}" alt="{{image.alt }}"/>
+								{% endfor %}
+							</a>
+
+						</div>
+					{% elseif  data.type_form == "post" %}
+						{% set post_data = data.id_post|get_post %}
+						<div class="post1 post">
+							{% if post_data[2] is not empty %}
+								<img alt="Accueil" src="{{asset('/build/images/' ~ post_data[2]|url_image )}}">
+							{% endif %}
+							<div class="infos ">
+								<a href="{{post_data[0]}}">
+									<span>{{post_data[1]}}</span>
+								</a>
+								<a class="btn_orange" href="{{post_data[0]}}">{{data.label_button}}
+									<i aria-hidden="true" class="fa fa-arrow-right fa-1"></i>
+								</a>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}

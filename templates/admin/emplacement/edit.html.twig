@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Modifier un emplacement
+{% endblock %}
+{% block titreAdmin %}
+    Modifier un emplacement
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','emplacement']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+        let id_emplacement = "{{emplacement.id}}";
+    </script>
+    {{ include('admin/emplacement/_form.html.twig') }}
+{% endblock %}

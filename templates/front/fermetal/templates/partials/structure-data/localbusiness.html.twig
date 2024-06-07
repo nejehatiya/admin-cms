@@ -1,0 +1,43 @@
+<script  type="application/ld+json">
+    {
+        "@context":"https://schema.org",
+        "@type":"LocalBusiness",
+        "image":"{{logo_url}}",
+        "@id":"{{current_link}}",
+        "url":"{{current_link}}",
+        "name":"FERMETAL - Dépanneur de rideaux métalliques",
+        "description": "{{meta_decription}}",
+        "address":{
+            "@type":"PostalAddress",
+            "streetAddress":"{{address|length ? address : '54 Rue Championnet'}}",
+            "addressLocality":"{{address_locality}}",
+            "addressRegion":"île de France",
+            "postalCode":"{{postal_code}}",
+            "addressCountry":"FR"
+        },
+        "telephone":"{{phone}}",
+        "aggregateRating":{
+            "@type": "AggregateRating",
+            "ratingValue":"{{rating_views}}",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount":"{{comments_number}}",
+            "itemReviewed":"{{current_link}}"
+        },
+        "openingHoursSpecification":[
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                "opens": "08:00",
+                "closes": "22:00"
+            }
+        ],
+        "geo":{
+            "latitude":"48.8529309",
+            "longitude":"2.389864",
+            "@context":"https://schema.org",
+            "@type":"GeoCoordinates"
+        },
+        "priceRange":"180 €"
+    }
+</script>

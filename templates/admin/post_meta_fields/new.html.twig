@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Ajouter un acf
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un acf
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','admin-post-modals','acf']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {{ include('admin/post_meta_fields/_form.html.twig') }}
+{% endblock %}

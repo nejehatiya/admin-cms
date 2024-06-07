@@ -1,0 +1,17 @@
+<div class="menu-settings">
+  <h3>Réglages du menu</h3>
+
+  <fieldset class="menu-settings-group menu-theme-locations">
+    <legend class="menu-settings-group-name howto">Afficher l’emplacement</legend>
+    <span class="theme-location-set">Actuellement réglé sur : 
+      <span class="emplacements-name">
+        {% if menus is defined and menus|length  > 0 %}
+            {% set emplacement = menus[0]['id_emplacement'] %}
+            {% if emplacement %}
+              {{emplacement[0].key_emplacement}}
+            {% endif %}
+        {% endif %}
+      </span>
+    </span>
+  </fieldset>
+</div>

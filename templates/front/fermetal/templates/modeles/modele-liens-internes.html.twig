@@ -1,0 +1,28 @@
+{% set titre_balise = titre_balise is defined ? titre_balise : 'h2' %}
+<section class="{% if is_background is defined and is_background %}background-gree{% endif %} liens-interne-model {{ post_type is defined and post_type.slug_post_type == "accueil" ? 'liens-interne-model-accueil':''}}">
+	<div class="container">
+		<div class="titre-section">
+			<div class="content-column">
+				<div class="content_block_one">
+					<div class="content-box">
+						<div class="sec-title">
+                            {% if titre is defined and titre|length %}
+							    <{{titre_balise}} class="h2">{{titre is defined ? (is_modal_post is defined and is_modal_post ? urldecode(titre) :  titre) : ''}}</{{titre_balise}}>
+                            {% endif %}
+						</div>
+                        {% if description_1 is defined and description_1|length %}
+                            <div class="text">
+                                {{description_1 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_1) :  description_1)|removeEmptyP|raw : '' }}
+                            </div>
+                        {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+        {% if description_2 is defined and description_2|length %}
+            <div class="liens-internes">
+                {{description_2 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_2) :  description_2)|removeEmptyP|raw : '' }}
+            </div>
+        {% endif %}
+	</div>
+</section>

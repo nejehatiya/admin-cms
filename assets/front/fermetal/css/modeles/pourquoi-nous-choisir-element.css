@@ -1,0 +1,124 @@
+.pourquoi-nous-choisir {
+    background-color: #fff;
+    margin-bottom: 50px;
+}
+
+.pourquoi-nous-choisir .inner-content>div {
+    width: 50%;
+}
+
+.pourquoi-nous-choisir .inner-content>div:first-child {
+    padding-right: 30px;
+}
+
+.pourquoi-nous-choisir .sub-title * {
+    color: #f00;
+    font: normal normal 600 19px/24px 'system-ui';
+}
+
+.pourquoi-nous-choisir h3 {
+    font: normal normal 700 30px/42px 'system-ui';
+    margin-bottom: 10px;
+    color: #ed202b;
+}
+
+.pourquoi-nous-choisir h4 {
+    font: normal normal 700 26px/42px 'system-ui';
+    margin-bottom: 10px;
+}
+
+.pourquoi-nous-choisir h2 {
+    margin: 0 0 10px;
+    width: 100%;
+    font: normal normal bold 47px/69px 'system-ui';
+    color: #ed202b;
+}
+
+.pourquoi-nous-choisir .icons {
+    background-image: url(/build/images/shape-10.png);
+    background-size: 35%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+.pourquoi-nous-choisir .icons>div {
+    background: #f8f5ee;
+    border-radius: 20px;
+    display: block;
+    overflow: hidden;
+    padding: 30px 10px;
+    position: relative;
+    text-align: center;
+    width: calc(50% - 15px);
+    cursor: pointer;
+}
+
+.pourquoi-nous-choisir .icons>div:nth-child(1),
+.pourquoi-nous-choisir .icons>div:nth-child(2) {
+    margin-bottom: 30px;
+}
+
+.pourquoi-nous-choisir .icons>div .icon-box {
+    margin-bottom: 10px;
+}
+
+.pourquoi-nous-choisir .icons>div .icon-box img {
+    box-shadow: none !important;
+}
+
+.pourquoi-nous-choisir .icons>div .icon-box>span {}
+
+.pourquoi-nous-choisir .icons>div>.overlay-text {
+    display: block !important;
+    position: absolute;
+    background: #f8f5ee;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    transition: left 0.3s ease-in-out;
+}
+
+.pourquoi-nous-choisir .icons>div:hover>.overlay-text {
+    left: 0;
+}
+
+.pourquoi-nous-choisir .icons>div:hover>.overlay-text>span {
+    color: #f00;
+}
+
+.pourquoi-nous-choisir .icons>div .overlay-text>div {
+    height: 82%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pourquoi-nous-choisir .icons>div .overlay-text>div p {
+    color: #0a111e;
+    font: normal normal 500 16px/30px 'system-ui' !important;
+}
+
+.pourquoi-nous-choisir .inner-content>div iframe,
+.pourquoi-nous-choisir .inner-content>div img,
+.pourquoi-nous-choisir .inner-content>div figure {
+    max-width: 100%;
+}
+
+@media(max-width:768px) {
+    .pourquoi-nous-choisir .inner-content>div {
+        width: 100%;
+        padding-right: 0px !important;
+    }
+
+    .pourquoi-nous-choisir .inner-content>div:first-child {
+        margin-bottom: 20px;
+    }
+
+    .pourquoi-nous-choisir h2 {
+        font: normal normal bold 39px/56px 'system-ui';
+    }
+}

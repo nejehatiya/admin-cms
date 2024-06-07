@@ -1,0 +1,78 @@
+{% set device = getDeviceAgent() %}
+
+{% set sous_titres = [
+	sous_titre_1 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_1) :  sous_titre_1) : '',
+	sous_titre_2 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_2) :  sous_titre_2) : '',
+	sous_titre_3 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_3) :  sous_titre_3) : '',
+	sous_titre_4 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_4) :  sous_titre_4) : '',
+
+] %}
+{% set sous_titres_balise = [
+	sous_titre_1_balise is defined and sous_titre_1_balise|length > 0 ? sous_titre_1_balise : 'span',
+	sous_titre_2_balise is defined and sous_titre_2_balise|length > 0 ? sous_titre_2_balise : 'span',
+	sous_titre_3_balise is defined and sous_titre_3_balise|length > 0 ? sous_titre_3_balise : 'span',
+	sous_titre_4_balise is defined and sous_titre_4_balise|length > 0 ? sous_titre_4_balise : 'span' 
+] %}
+{% set titre_balise = titre_balise is defined and titre_balise|length > 0 ? titre_balise : 'h2' %}
+{% set pre_titre_balise = pre_titre_balise is defined  and pre_titre_balise|length > 0  ? pre_titre_balise : 'p' %}
+{% set descriptions = [
+	description_1 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_1) :  description_1) : '',
+	description_2 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_2) :  description_2) : '',
+	description_3 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_3) :  description_3) : '',
+	description_4 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_4) :  description_4) : '',
+] %}
+{% set icons = [
+	icon_1 is defined ?  urldecode(icon_1) : '',
+	icon_2 is defined ?  urldecode(icon_2) : '',
+	icon_3 is defined ? urldecode(icon_3): '',
+	icon_4 is defined ? urldecode(icon_4) : '',
+
+] %}
+<section class="section-nos-engagements mb-80 {% if  device == 'desktop' and  mode_affichage is defined and mode_affichage == 'with-sidebar'  %} section-nos-engagements-page {% endif %}">
+	<div class="container">
+		{% if (sous_titre_inclut_h2 is defined and sous_titre_inclut_h2) and (titre_balise == 'h2') and (titre is defined and titre|length > 0) %}
+			<{{titre_balise}} class="h2 text-center d-flex direction-column">
+				{% if pre_titre is defined and pre_titre|length > 0 %}
+					<span class="p pre-titre m-0">{{ urldecode(pre_titre)}}</span>
+				{% endif %}
+				{{  urldecode(titre) }}
+			</{{titre_balise}}>
+		{% else %}
+			{% if pre_titre is defined and pre_titre|length > 0 %}
+				<{{pre_titre_balise}} class="p pre-titre text-center m-0">{{ urldecode(pre_titre)}}</{{pre_titre_balise}}>
+			{% endif %}
+			{% if titre is defined and titre|length > 0 %}
+				<{{titre_balise}} class="h2 text-center">{{ urldecode(titre) }}</{{titre_balise}}>
+			{% endif %}
+		{% endif %}
+		<div class="nos-engagement-content d-flex justify-space-between  {% if device == 'mobile' %} carousel-nos-engagement {% endif %}">
+			{% for key, item in descriptions %}
+				{% if device == 'mobile' %}
+					<div>
+						<div>
+						{% endif %}
+
+						<div class="content d-flex justify-center align-center flex-wrap">
+							{% set icon = icons[key] is not empty ? icons[key]|json_decode : '' %}
+							<div class="img-content d-flex">
+								{% set image_original = '/build/images/icon-engagement-'~ loop.index ~'.svg' %}
+								{% set altImage = get_alt_image(icon) %}
+								<div class="icon-box d-flex justify-flex-end">
+									<img width="100" height="50" class="lazy" src="{{generate_webp_image('/build/images/loading-nos-engagement.jpg')}}" data-src="{{generate_webp_image(image_original)}}" alt="{{altImage[0]}}">
+								</div>
+
+								<div class="overlay-text">
+									<p>{{(urldecode(item)|raw)}}</p>
+								</div>
+							</div>
+							<{{sous_titres_balise[key]}} class="span">{{urldecode(sous_titres[key])}}</{{sous_titres_balise[key]}}>
+
+						</div>
+						{% if device == 'mobile' %}
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</section>

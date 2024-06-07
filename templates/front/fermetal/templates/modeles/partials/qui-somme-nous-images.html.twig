@@ -1,0 +1,30 @@
+{% if ( image_1 is not empty or image_2 is not empty ) and url_video|length == 0   %}
+	<figure class="image image-1 paroller">
+		{% if ( device == "desktop" and image_1 is not empty) or ( image_2 is  empty and image_1 is not empty ) %}
+			{{getImages(image_1)|raw}}
+		{% elseif  image_2 is not empty %}
+			{{getImages(image_2)|raw}}
+		{% endif %}
+	</figure>
+{% elseif url_video|length > 0  %}
+	{% if device == "desktop" and false %}
+		<iframe loading="lazy" class="lazy" width="100" height="100" data-src="{{url_video}}" title="Fermetal video player" frameborder="0" allowfullscreen></iframe>
+	{% else %}
+		<iframe id="ytplayer" class="ytplayer" width="100" height="685" title="Fermetal video player" src="" data-src="{{url_video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="background: url({{base_url~asset('/build/images/loading-png.jpg')}});background-size:100%;background-position:center;"></iframe>
+		<script>
+			var ytplayers = document.getElementsByClassName("ytplayer");
+			var loaded = [];
+			for (var i = 0; i < ytplayers.length; i++) {
+				loaded[i] = false;
+			}
+			window.addEventListener("scroll", function () {
+				for (var i = 0; i < ytplayers.length; i++) {
+					if (! loaded[i] && window.scrollY > 0) {
+						ytplayers[i].src = ytplayers[i].getAttribute("data-src");
+						loaded[i] = true;
+					}
+				}
+			});
+		</script>
+	{% endif %}
+{% endif %}

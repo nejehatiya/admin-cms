@@ -13,125 +13,85 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post 
 {
-    /**
-     * @Groups({"user_post_list", "post_details", "parentsPermalink", "comment_show", "post_rapid","template_page","etiquette","blog_search","cat_search","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @Groups({"user_post_list", "post_details" ,"parentsPermalink", "comment_show", "post_rapid","template_page","etiquette","blog_search","cat_search","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'text')]
     private $post_title;
 
-    /**
-     * @Groups({"post_rapid","page_search","data_front"})
-     */
-    #[ORM\Column(type: 'text')]
+    #[Groups(['show_api','post_data'])]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $post_content;
 
-    /**
-     * @Groups({"post_rapid","blog_search","cat_search","page_search","data_front"})
-     */
-    #[ORM\Column(type: 'text')]
+    #[Groups(['show_api','post_data'])]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $post_excerpt;
 
-    /**
-     * @Groups({"parentsPermalink", "comment_show", "post_rapid","template_page","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'text')]
     private $post_name;
 
-    /**
-     * @Groups({"post_rapid","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'bigint', nullable: true)]
     private $post_parent;
 
-    /**
-     * @Groups({"post_rapid","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $guide;
 
-    /**
-     * @Groups({"post_rapid","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'bigint', nullable: true)]
     private $menu_ordre;
 
-    /**
-     * @Groups({"post_details", "post_rapid","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'text')]
     private $post_status;
 
-    /**
-     * @Groups({"post_rapid","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'boolean')]
     private $comment_status;
 
-    /**
-     * @Groups({"post_details", "post_rapid","blog_search","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'datetime')]
     private $date_add;
 
-    /**
-     * @Groups({"post_details", "post_rapid","blog_search","cat_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'datetime')]
     private $date_upd;
 
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'id_post')]
     private $commentaires;
 
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\ManyToMany(targetEntity: Images::class, mappedBy: 'id_post')]
     private $images;
 
-    /**
-     * @Groups({"template_page","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\OneToMany(targetEntity: PostMeta::class, mappedBy: 'id_post')]
     private $postMetas;
 
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\ManyToMany(targetEntity: Terms::class, mappedBy: 'id_post')]
     private $terms;
 
-    /**
-     * @Groups({"post_rapid","page_search","data_front"})
-     */
-    #[ORM\Column(type: 'text')]
+    #[Groups(['show_api','post_data'])]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $post_content_2;
 
-    /**
-     *@Groups({"blog_search","cat_search","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\ManyToOne(targetEntity: Images::class, inversedBy: 'posts_features')]
     private $id_feature_image;
 
-    /**
-     * @Groups({"post_details","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     private $author;
 
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\JoinColumn(nullable: true)]
     #[ORM\ManyToOne(targetEntity: PostType::class, inversedBy: 'posts')]
     private $post_type;
@@ -139,9 +99,7 @@ class Post
     #[ORM\OneToMany(targetEntity: PostModals::class, mappedBy: 'post')]
     private $postModals;
 
-    /**
-     * @Groups({"template_page","page_search","data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $post_order_content;
 
@@ -151,9 +109,7 @@ class Post
     #[ORM\Column(type: 'integer', nullable: true)]
     private $post_id__migration;
 
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api','post_data'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $page_template;
 
@@ -169,9 +125,7 @@ class Post
     #[ORM\Column(type: 'text', nullable: true)]
     private $post_order_content_preinsertion;
 
-    /**
-     * @Groups({"template_page","page_search"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\OneToMany(targetEntity: Revision::class, mappedBy: 'post', cascade: ['remove'])]
     private $revisions;
 
@@ -181,28 +135,22 @@ class Post
     #[ORM\Column(type: 'boolean')]
     private $page_menu;
 
-    /**
-     * @Groups({"post_rapid","page_search"})
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api'])]
     public $my_parent_slug; // not for doctrine but it useful for template service in ApiGeneratePageOneByOne
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $sommaire;
 
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean', options: ['default' => 1])]
     private $is_index;
 
-    /**
-     * @Groups({"data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean', options: ['default' => 1])]
-    private $is_follow; 
+    private $is_follow;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $post_meta_json = null; 
 
     public function slugify($text)
     {
@@ -815,5 +763,17 @@ class Post
     public function isIsFollow(): ?bool
     {
         return $this->is_follow;
+    }
+
+    public function getPostMetaJson(): ?string
+    {
+        return $this->post_meta_json;
+    }
+
+    public function setPostMetaJson(?string $post_meta_json): static
+    {
+        $this->post_meta_json = $post_meta_json;
+
+        return $this;
     }
 }

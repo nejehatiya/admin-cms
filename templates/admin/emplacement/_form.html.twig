@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+    <table class="form-table" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.key_emplacement) }}</th>
+                <td>
+                    {{ form_widget(form.key_emplacement) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.status) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.status) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.menu) }}</th>
+                <td>{{ form_widget(form.menu) }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(form) }}
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </p>
+{{ form_end(form) }}

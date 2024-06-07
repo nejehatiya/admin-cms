@@ -36,12 +36,12 @@
             <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
             {# list table header #}
             {% set fields = [
-                {name:'Titre',field_name:'name_post_type',method:'namePostType',sortable:true,type:'text'},
-                {name:'Slug',field_name:'slug_post_type',method:'slugPostType',sortable:false,type:'text'},
+                {name:'Titre',field_name:'name_post_type',method:'name_post_type',sortable:true,type:'text'},
+                {name:'Slug',field_name:'slug_post_type',method:'slug_post_type',sortable:false,type:'text'},
                 {name:'taxonomies',field_name:'taxonomies',method:'taxonomies',sortable:false,type:'entity',field_to_display:'nameTaxonomy',collection:true},
                 {name:'afficher dans sitemap',field_name:'displayInSitemap',method:'displayInSitemap',sortable:false,type:'boolean'},
-                {name:'Articles page list',field_name:'has_list',method:'hasList',sortable:false,type:'boolean'},
-                {name:'Utuliser dans url',field_name:'slug_in_url',method:'slugInUrl',sortable:false,type:'boolean'},
+                {name:'Articles page list',field_name:'has_list',method:'has_list',sortable:false,type:'boolean'},
+                {name:'Utuliser dans url',field_name:'slug_in_url',method:'slug_in_url',sortable:false,type:'boolean'},
             ] %}
             <thead>
                 {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}

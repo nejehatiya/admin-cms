@@ -57,14 +57,17 @@ class ModelesPostRepository extends ServiceEntityRepository
     }
     */
     public function findByName($nom_de_modele,$id_current){
-        return $this->createQueryBuilder('m')
+        $query = $this->createQueryBuilder('m')
         ->andWhere('m.name_modele = :name_template')
-        ->setParameter('name_template', $nom_de_modele)
-        ->andWhere('m.id != :id_current')
-        ->setParameter('id_current', $id_current)
-        ->getQuery()
+        ->setParameter('name_template', $nom_de_modele);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        $query = $query->getQuery()
         ->getOneOrNullResult()
         ;
+        return $query;
     }
     /**
      * find by tarifs
@@ -77,5 +80,16 @@ class ModelesPostRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult()
         ;
+    }
+
+    // get all post meta fields  for menues
+    public function findByPostType($post_type){
+        $query = $this->createQueryBuilder('m')
+        ->join('m.used_in','p')
+        ->andWhere('p.slug_post_type = :slug_post_type')
+        ->setParameter('slug_post_type', $post_type);
+        $query = $query->getQuery()
+        ->getResult();
+        return $query;
     }
 }

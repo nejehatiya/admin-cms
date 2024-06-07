@@ -1,0 +1,65 @@
+{{ form_start(form) }}
+    <table class="form-table" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.name_taxonomy) }}</th>
+                <td>
+                    {{ form_widget(form.name_taxonomy) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            <tr> 
+                <th scope="row">{{ form_label(form.slug_taxonomy) }}</th>
+                <td>
+                    {{ form_widget(form.slug_taxonomy) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            
+            <tr>
+                <th scope="row">{{ form_label(form.Posttype) }}</th>
+                <td> 
+                    {{ form_widget(form.Posttype) }}
+                </td>
+            </tr>
+            <tr> 
+                <th scope="row">{{ form_label(form.description_taxonomy) }}</th>
+                <td>
+                    {{ form_widget(form.description_taxonomy) }}
+                </td>
+            </tr>
+            
+            <tr> 
+                <th scope="row">{{ form_label(form.OrderTaxonomy) }}</th>
+                <td>
+                    {{ form_widget(form.OrderTaxonomy) }}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.StatutSideBar) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.StatutSideBar) }}</div>
+                </td>
+            </tr>
+            
+            <tr>
+                <th scope="row">{{ form_label(form.statutMenu) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.statutMenu) }}</div>
+                </td>
+            </tr>
+            
+            <tr>
+                <th scope="row">{{ form_label(form.is_draft) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.is_draft) }}</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(form) }}
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </p>
+{{ form_end(form) }}

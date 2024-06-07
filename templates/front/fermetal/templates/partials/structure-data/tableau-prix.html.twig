@@ -1,0 +1,41 @@
+{% if tableau_prix_structure is defined and tableau_prix_structure|length > 0 %}
+    <script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "Service",
+        "serviceType": "{{post_title}}",
+        "provider": {
+            "@type": "Organization",
+            "name": "FERMETAL",
+            "telephone": "{{phone}}",
+            "image":"{{logo_url}}",
+            "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{address|length ? address : '54 Rue Championnet'}}",
+            "addressLocality": "{{address_locality}}",
+            "postalCode": "{{postal_code}} ",
+            "addressCountry": "FR"
+            }
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Catalogue des services de {{post_title|lower}}",
+            "itemListElement": [
+            {% for ligne in tableau_prix_structure %}
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                    "@type": "Service",
+                    "name": "{{post_title}}"
+                    },
+                    "price": "{{ ligne.price }}",
+                    "priceCurrency": "EUR",
+                    "description": "{{ ligne.description }}"
+                }{% if not loop.last %},{% endif %}
+            {% endfor %}
+            ]
+            
+        }
+        }
+    </script>
+{% endif %}

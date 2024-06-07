@@ -1,0 +1,219 @@
+.section-header {
+  background: rgb(235 235 235 / 42%);
+  padding: 30px 0 70px;
+  margin-bottom: 50px;
+}
+
+.section-header .breadcrumb-menu.services {
+  background: transparent;
+  padding: 0;
+}
+
+.section-header .breadcrumb-menu.services .container {
+  padding: 0 !important;
+}
+
+.section-header .inner-content>div.section-infos {
+  width: 100%;
+}
+
+.section-header .inner-content>div.section-formulaire {
+  width: calc(100% - 45.03%);
+}
+
+.section-header h1 {
+  font: normal normal 800 44px/58px 'system-ui';
+  margin: 0 0 29px;
+  padding: 0;
+  color: #545454;
+}
+
+.section-header .description {
+  font: normal normal 400 18px/30px 'system-ui';
+  padding: 0;
+  color: #686868;
+  margin-bottom: 44px;
+}
+
+.section-blogs .list,
+.section-blogs .list-auteur {
+  margin-top: -110px;
+}
+
+.section-blogs .list-auteur+div {
+  margin-top: 70px;
+}
+
+.section-blogs .list .item {
+  width: calc((100% / 3) - 20px);
+  height: auto;
+  margin-bottom: 40px;
+}
+
+.section-blogs .list .item>div {
+  width: 100%;
+  height: 100%;
+}
+
+.section-blogs .list .item>div>a {
+  display: block;
+  height: 398px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  box-shadow: 0px 4px 6px rgb(0 0 0 / 16%);
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+
+.section-blogs .list .item>div>div.infos {
+  padding-left: 20px;
+  min-height: calc(100% - 398px);
+}
+
+.section-blogs .list .item>div>div.infos a.titre {
+  color: #163235;
+  font: normal normal 700 24px/40px 'system-ui';
+  margin-bottom: 5px;
+}
+
+.section-blogs .list .item>div>div.infos a.lire-la-suite {
+  color: #ed202b;
+  font: normal normal 700 15px/27px 'system-ui';
+  padding-right: 10px;
+}
+
+.section-blogs .list .item>div>div.infos a.lire-la-suite img {
+  max-width: 15px;
+  margin-left: 5px;
+}
+
+.section-blogs .loading-load {
+  display: none !important;
+}
+
+.section-blogs .loading-load.show {
+  display: flex !important;
+}
+
+.section-blogs .list .item>div>div.infos div.description {
+  color: #163235;
+  font: normal normal 400 18px/27px 'system-ui';
+}
+
+.section-blogs .lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.section-blogs .lds-ripple div {
+  position: absolute;
+  border: 4px solid #f00;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.section-blogs .lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1600px) {
+  .section-blogs .list .item>div>a {
+    height: 250px;
+  }
+
+  .section-blogs .list .item>div>div.infos {
+    min-height: calc(100% - 250px);
+  }
+
+  .section-blogs .list .item>div>div.infos a.titre {
+    font: normal italic 700 24px/40px 'system-ui';
+  }
+}
+
+@media(max-width:1200px) {
+  .section-blogs .list .item>div>div.infos {
+    padding-left: 5px;
+  }
+}
+
+@media(max-width:992px) {
+  .section-blogs .list .item {
+    width: calc((100% / 2) - 10px);
+  }
+}
+
+@media(max-width:768px) {
+  .section-blogs .list .item>div>div.infos a.titre {
+    font: normal italic 700 19px/35px 'system-ui';
+  }
+
+  .section-blogs .list .item>div>div.infos div.description {
+    font: normal normal 400 16px/28px 'system-ui';
+  }
+}
+
+@media(max-width:576px) {
+  .breadcrumb-menu.services {
+    margin-bottom: 7px;
+  }
+
+  .section-header h1 {
+    margin: 0 0 15px;
+  }
+
+  .section-blogs .list .item {
+    width: 100%;
+  }
+
+  .section-blogs .list,
+  .section-blogs .list-auteur {
+    margin-top: -70px;
+  }
+
+  .section-header .description {
+    margin-bottom: 0;
+  }
+
+  .section-blogs .list-auteur+div {
+    margin-top: 40px;
+  }
+}

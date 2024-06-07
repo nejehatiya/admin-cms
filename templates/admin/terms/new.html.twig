@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Terms{% endblock %}
+
+{% block body %}
+    <h1>Create new Terms</h1>
+
+    {{ include('terms/_form.html.twig') }}
+
+    <a href="{{ path('app_terms_index') }}">back to list</a>
+{% endblock %}

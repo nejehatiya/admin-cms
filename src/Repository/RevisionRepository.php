@@ -57,14 +57,16 @@ class RevisionRepository extends ServiceEntityRepository
         ->setParameter('post_id', $post_id);
         return $query->getQuery()->getSingleScalarResult();
     }
-    /**
-     * select first revision
-     */
-    public function selectFirstRevision($post_id){
+
+    //
+    public function findById($post_id,$first_result=0,$max_result=100){
         $query= $this->createQueryBuilder('r');
-        $query=$query->leftJoin('r.post','p')->andWhere('p.id like :post_id')
+        $query = $query->leftJoin('r.post','p')
+        ->andWhere('p.id like :post_id')
         ->setParameter('post_id', $post_id);
-        $query=$query->orderBy('r.date', 'ASC')->setMaxResults(1);
-        return $query->getQuery()->getOneOrNullResult();
+        $query = $query->orderBy('r.date', 'DESC')
+        ->setMaxResults(100)
+        ->setFirstResult($first_result);
+        return $query->getQuery()->getResult();
     }
 }

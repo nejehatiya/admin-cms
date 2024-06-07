@@ -1,0 +1,338 @@
+.avis-google {
+    margin-bottom: 30px;
+}
+
+.avis-google .avis-clients {
+    width: 350px;
+}
+
+.avis-google .avis-clients .nb-avis {
+    position: relative;
+}
+
+.avis-google .avis-clients .nb-avis .half-start::after {
+    background-image: url("/build/images/half.svg");
+    background-size: cover;
+    bottom: 0;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: .9;
+    position: absolute;
+    width: 50%;
+}
+
+.avis-google .avis-clients .nb-avis img {
+    /*margin-right: 5px;*/
+}
+
+.avis-google .avis-clients .nb-avis img,
+.avis-google .head-comment .etoils img {
+    margin-left: -15px;
+    margin-right: -7px;
+}
+
+.avis-google .avis-clients .nb-avis p {
+    font: italic normal 800 38px/57px 'system-ui';
+    color: #28282B;
+    margin: 0;
+    margin-left: 15px;
+}
+
+.avis-google .avis-clients p {
+    margin: 0;
+    font: italic normal 800 49px/73px 'system-ui';
+    color: #182846;
+}
+
+.avis-google .all-avis {
+    width: calc(100% - 350px);
+    overflow: hidden;
+}
+
+.avis-google .all-avis .slick-next,
+.avis-google .all-avis .slick-prev {
+    height: 25px;
+    width: 25px;
+    z-index: 2;
+}
+
+.avis-google .container .all-avis .slick-track {
+    display: flex !important;
+    margin-left: 0;
+    margin: 0;
+}
+
+.avis-google.all-avis-left .container .all-avis .slick-track {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.avis-google .container .all-avis .slick-list {
+    padding: 0px 150px 0px 0;
+    width: 100%;
+}
+
+.avis-google .container .all-avis .slick-slide {
+    height: inherit !important;
+}
+
+.avis-google .container .all-avis .slick-slide>div {
+    width: 100%;
+    padding-right: 20px;
+    height: 100%;
+    padding-bottom: 2px;
+}
+
+.avis-google .container .all-avis .slick-slide>div>div {
+    height: 100%;
+    width: 100% !important;
+    min-width: 306px !important;
+    max-width: 100%;
+    padding-bottom: 10px;
+}
+
+.avis-google .all-avis .slick-next {
+    background-image: url("/build/images/next.svg");
+    right: 0;
+
+}
+
+.avis-google .all-avis .slick-prev {
+    background-image: url("/build/images/prev.svg");
+    left: 0;
+}
+
+.avis-google .all-avis .slick-next::before,
+.avis-google .all-avis .slick-prev::before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.avis-google .all-avis .slick-next::before {
+    content: url("/build/images/f-next.svg");
+
+}
+
+.avis-google .all-avis .slick-prev::before {
+    content: url("/build/images/f-prev.svg");
+}
+
+.avis-google .all-avis .slick-list .slick-track .slick-slide>div {
+    height: 100%;
+}
+
+.avis-google .all-avis .commentaire {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(24 40 70 / 13%);
+    min-width: 436px;
+    width: 100%;
+    margin-right: 10px;
+}
+
+
+
+.avis-google .all-avis .commentaire .head {
+    width: 100%;
+}
+
+.avis-google .all-avis .commentaire .head .image {
+    margin-right: 15px;
+}
+
+.avis-google .all-avis .commentaire .head .image img {
+    border-radius: 50%;
+    width: 50px;
+    object-fit: cover;
+}
+
+.avis-google .all-avis .commentaire .head .head-comment p {
+    margin: 0;
+    font: normal normal 600 20px/30px 'system-ui';
+    color: #000000;
+}
+
+.avis-google .all-avis .commentaire .comment-content {
+    padding: 25px 12px;
+}
+
+.avis-google .all-avis .commentaire .comment-content p {
+    font: normal normal 500 18px/24px 'system-ui';
+    color: #000000;
+    margin: 0;
+
+}
+
+.avis-google.avis-google-page .all-avis .commentaire .comment-content p {
+    font: normal normal 500 18px/30px 'system-ui' !important;
+}
+
+.avis-google .all-avis .commentaire .google-icon img {
+    padding-right: 10px;
+}
+
+.avis-google .all-avis .commentaire .google-icon p {
+    font: normal normal 600 18px/27px 'system-ui';
+    margin: 0;
+}
+
+.avis-google .all-avis .commentaire .google-icon p span {
+    color: #000;
+    font-weight: 700;
+
+}
+
+.avis-google .all-avis .slick-track {
+    display: flex;
+}
+
+@media (max-width:1800px) {
+
+    .avis-google .all-avis .commentaire {
+        min-width: 352px !important;
+    }
+
+}
+
+@media(min-width:480px) and (max-width:1450px) {
+
+    .avis-google .all-avis,
+    .avis-google .container .all-avis .slick-slide>div>div {
+        width: 100% !important;
+    }
+
+    .avis-google .avis-clients p {
+        font: italic normal 800 30px/73px 'system-ui';
+    }
+}
+
+@media(max-width:992px) {
+    .avis-google .all-avis .avis-clients .lien-avis {
+        color: #000;
+        font: normal normal 700 18px/30px 'system-ui';
+
+    }
+}
+
+@media(max-width:768px) {
+
+    .avis-google .all-avis .slick-next,
+    .avis-google .all-avis .slick-prev {
+        display: none !important;
+    }
+
+    .avis-google .all-avis .slick-slide .avis-clients {
+        border: 1px solid rgb(24 40 70 / 13%);
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    .avis-google .all-avis.carousel .commentaire {
+        min-width: 100%;
+
+    }
+
+    .avis-google .all-avis .commentaire {
+        min-width: 306px !important;
+    }
+
+
+
+    .avis-google .slick-slide .avis-clients .nb-avis p {
+        margin-left: 0 !important;
+    }
+
+    .avis-google .slick-slide .avis-clients .nb-avis img {
+        width: 40px !important;
+    }
+
+    .avis-google .slick-slide:has(~ div>.avis-clients) {
+        min-width: 350px;
+    }
+
+    h1 {
+        color: #ed202b;
+        font: normal normal 700 32px/40px 'system-ui';
+        padding: 0 36px;
+    }
+
+    .avis-google .avis-clients p {
+        font-size: 40px !important;
+    }
+}
+
+@media(max-width:576px) {
+    h1 {
+        padding: 0 15px;
+    }
+
+
+}
+
+@media (max-width:480px) {
+    .avis-google .container .all-avis .slick-list {
+        padding: 0 50px 0 0;
+    }
+
+
+
+    .avis-google .container .all-avis .slick-slide>div>div {
+        width: 306px !important;
+        min-width: 100% !important;
+    }
+
+    .avis-google .avis-google-one-slide.all-avis .slick-slide>div>div {
+        width: 100% !important;
+    }
+
+    .avis-google {
+        position: relative;
+    }
+
+
+
+    .avis-google .google-icon>p,
+    .avis-google .head-comment>p {
+        font: normal normal 600 15px/24px 'system-ui' !important;
+    }
+
+    .avis-google .google-icon img {
+        width: 40px;
+    }
+
+    .avis-google .image {
+        margin-right: 5px !important;
+    }
+
+    .avis-google .comment-content {
+        padding: 15px 10px !important;
+    }
+
+    .avis-google .comment-content p {
+        font: normal normal 500 16px/24px 'system-ui' !important;
+    }
+
+    /* .avis-google .head-comment .etoils img {
+        width: 20px;
+    }*/
+
+    .avis-google .all-avis {
+        width: 100% !important;
+    }
+
+
+
+    .avis-google .slick-slide:has(> div>div.avis-clients) {
+        /*min-width: 330px;*/
+    }
+
+    .avis-google .container .all-avis .slick-slide>div {
+        padding-right: 5px !important;
+        padding-left: 0px;
+    }
+
+
+}

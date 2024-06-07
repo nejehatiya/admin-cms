@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_template_page_delete', {'id': template_page.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ template_page.id) }}">
+    <button class="btn">Delete</button>
+</form>

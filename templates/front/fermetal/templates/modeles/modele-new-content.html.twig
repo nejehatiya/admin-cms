@@ -1,0 +1,32 @@
+
+{% set titre_balise = titre_balise is defined and titre_balise|length > 0 ? titre_balise : 'h2' %}
+{% set alignement_text = alignement_text is defined and alignement_text|length > 0 ? alignement_text : 'center' %}
+{% set sous_titre_balise = sous_titre_balise is defined and sous_titre_balise|length > 0 ? sous_titre_balise : 'span' %}
+<section class="{% if mode_affichage is defined and mode_affichage == 'with-sidebar' %} left {% else %}{{alignement_text}} {% endif %} {% if sous_titre is defined and sous_titre|length > 0 or titre is defined and titre|length > 0 or urldecode(text_contenu)|length > 0 %}mb-80 {% else %}mb-0{% endif %} {% if is_background is defined and is_background %}background-color {% endif %} text-normal {% if read_more is defined and read_more %}lire-suite {% endif %} {% if mode_affichage is defined and mode_affichage == "with-sidebar" %} text-normal-page {% endif %}">
+	<div class="container">
+		{% if (sous_titre_inclut_h2 is defined and sous_titre_inclut_h2) and (titre_balise == 'h2') and ( titre is defined and titre|length > 0 ) %}
+			<{{titre_balise}} class="h2 text-center d-flex direction-column">
+				{% if sous_titre is defined and sous_titre|length != 0 %}
+					<span class="p sous-titre text-center m-0">{{sous_titre is defined ? urldecode(sous_titre) : '' }}</span>
+				{% endif %}
+				{{titre is defined ? urldecode(titre) : '' }}
+			</{{titre_balise}}>
+		{% else %}
+			{% if sous_titre is defined and sous_titre|length != 0 %}
+			 	<{{sous_titre_balise}} class="sous-titre text-center m-0">{{sous_titre is defined ? urldecode(sous_titre) : '' }}</{{sous_titre_balise}}>
+			{% endif %}
+			{% if titre is defined and titre|length != 0 %}
+				<{{titre_balise}} class="h2 text-center">{{titre is defined ? urldecode(titre) : '' }}</{{titre_balise}}>
+			{% endif %}
+		{% endif %}
+		<div class="content-text-image d-flex direction-column {% if mode_affichage is defined and mode_affichage == 'with-sidebar' %} align-left {% else %} align-center {% endif %} ">
+			<div class="content overflow-text d-flex direction-column show">
+				<div>{{(urldecode(text_contenu)|lazyImageFromContent)|removeEmptyTags|raw}}</div>
+			</div>
+			{% if read_more is defined and read_more %}
+				<button class="lire-suite-text d-flex weight-bold size-18" id="lire_suite{{loopIndex is defined ? loopIndex : 1}}">Lire la suite</button>
+			{% endif %}
+		</div>
+	</div>
+
+</section>

@@ -41,8 +41,8 @@ export function createUniqueID(){
  * function ajax
  * @param [data,action,url]
  */
-export function ajaxOperation(url,data,method){
-    if (ajax_operation != null) {
+export function ajaxOperation(url,data,method,is_same=true){
+    if (ajax_operation != null && is_same) {
         ajax_operation.abort();
     }
     // start ajax call
@@ -179,4 +179,200 @@ export function uploadFileFormData(file,i,selector=""){
         $(selector+".media-sidebar").addClass('d-block');
         $(selector+".media-frame.mode-grid .uploader-inline").removeClass('load');
     }
+}
+
+/***
+ * convert text riche to ckeidtor
+ */
+export async function textareaToCkeidtor(id,data=""){
+    return  ClassicEditor
+    .create( document.querySelector( '#'+id ) );
+}
+
+/***
+ * convert text riche to ckeidtor
+ */
+export function structureMenu(data_template){
+    //console.log('testeee is pko');
+    /**
+     * structure menu item
+     * {id:item_id,parent:item_parent,position:item_position,type:item_type,titre:titre_navigation}
+     
+     * let object = {
+        id:item_id,
+        parent:item_parent,
+        position:item_position,
+        type:item_type,
+        titre:titre_navigation,
+        'description':'',
+        target_blanck:'',
+        attr_title:'',
+        css_class:'',
+        id_class:'',
+        template_parent:'',
+        data_json:{},
+        'child':[]
+    };*/
+    let structure_json = [];
+    let eles_menu = $("#menu-to-edit").find('li');
+    for(let i = 0;i<eles_menu.length;i++){
+        //
+        let ele = eles_menu.eq(i).find('.menu-item-settings.wp-clearfix');
+        let item_id = ele.find(".menu-item-data-db-id").val();
+        let description = ele.find(".edit-menu-item-description").val();
+        let item_parent = ele.find(".menu-item-data-parent-id").val();
+        let item_position = ele.find(".menu-item-data-position").val();
+        let item_type = ele.find(".menu-item-data-type").val();
+        let titre_navigation = ele.find(".edit-menu-item-title").val();
+        let target_blanck = ele.find(".edit-menu-item-target").prop('checked');
+        let no_follow = ele.find(".edit-menu-no-follow-attr").prop('checked');
+        let attr_title = ele.find(".edit-menu-item-attr-title").val();
+        let css_class = ele.find(".edit-menu-item-classes").val();
+        let id_class = ele.find(".edit-menu-item-id").val();
+        let template_parent = ele.find(".edit-menu-mega-template").val();
+        let url =  ele.find(".edit-menu-item-url").val();
+        //console.log('data_template',data_template);
+        let data_jon = [];
+        console.log('Object.keys(data_template)',Object.keys(data_template));
+        console.log('data_template',data_template);
+        if(Object.keys(data_template).indexOf(item_id)!==-1){
+            /*let keys = Object.keys(data_template[item_id]);
+            for(let index_key=0;keys.length<index_key;index_key++){
+                
+            }*/
+            data_jon = data_template[item_id];
+            console.log('data_jon',data_jon);
+        }
+        // object
+        let object = {
+            id:item_id,
+            parent:item_parent,
+            position:parseInt(item_position),
+            type:item_type,
+            titre:titre_navigation,
+            description:description,
+            target_blanck:target_blanck,
+            attr_title:attr_title,
+            css_class:css_class,
+            id_class:id_class,
+            template_parent:template_parent,
+            data_json:data_jon,
+            child:[],
+            url:url,
+            no_follow:no_follow,
+        };
+        console.log('object',object);
+        // structure json
+        structure_json.push(object);
+    }
+    console.log('structure_json',structure_json);
+    // organiser json
+    return organizeJSON(structure_json);
+    
+}
+function organizeJSON(structure_json) {
+    let map = {};
+    let new_json = [];
+
+    // Créer une map des éléments par ID pour un accès plus rapide
+    structure_json.forEach(ele => {
+        ele.child = [];
+        map[ele.id] = ele;
+    });
+
+    // Organiser la structure hiérarchique
+    structure_json.forEach(ele => {
+        if (ele.parent == 0 || ele.parent == "0") {
+            new_json.push(ele);
+        } else if (map[ele.parent]) {
+            map[ele.parent].child.push(ele);
+        }
+    });
+    console.log('new_json',new_json);
+    // new_json
+    return new_json;
+}
+export function flattenJSON(json, parentIndex = "0", depth = 0, result = []) {
+    json.forEach((item, index) => {
+        const currentIndex = `${parentIndex}.${index}`;
+        result.push({
+            ...item,
+            parentIndex: parentIndex === "0" ? "0" : parentIndex,
+            currentIndex: currentIndex,
+            depth: depth
+        });
+
+        if (item.child && item.child.length > 0) {
+            flattenJSON(item.child, currentIndex, depth + 1, result);
+        }
+    });
+    return result;
+}
+// colect data from fields list
+export function collectData(fields_ele,editor_var){
+    let data_json = [];
+    if(fields_ele.length){
+        for (let index = 0; index < fields_ele.length; index++) {
+            let item_container = fields_ele.eq(index);
+            let key_block =  item_container.find('.ref-block-hidden').val();
+            let data_key_val = {};
+            let inputs = item_container.find('input,textarea,select');
+            $.each(inputs,function(ele){
+                let var_name = inputs.eq(ele).attr('data-var-name');
+                if(var_name !== "undefined" && var_name?.length){
+                    let val = inputs.eq(ele).val();
+                    if(inputs.eq(ele).is('textarea') && inputs.eq(ele).hasClass('post-text-riche')){
+                        let id = inputs.eq(ele).attr('id');
+                        if(Object.keys(editor_var).indexOf(id)!==-1){
+                            val = editor_var[id]?.getData();
+                            
+                            data_key_val[var_name]  = val;
+                        }else{
+                            data_key_val[var_name]  = "";
+                        }
+                            
+                    }else if(inputs.eq(ele).is('input') && inputs.eq(ele).attr('type')=="checkbox"){
+                        if(inputs.eq(ele).prop('checked')){
+                            if(Object.keys(data_key_val).indexOf(var_name) !== -1){
+                                data_key_val[var_name] = data_key_val[var_name].concat(val);
+                            }else{
+                                data_key_val[var_name] = [val];
+                            }
+                        }
+                    }else if(inputs.eq(ele).is('input') && inputs.eq(ele).attr('type')=="radio"){
+                        if(inputs.eq(ele).prop('checked')){
+                            data_key_val[var_name] = val;
+                        }else if(Object.keys(data_key_val).indexOf(var_name) === -1){
+                            data_key_val[var_name] = "";
+                        }
+                    }else if(inputs.eq(ele).is('input') && inputs.eq(ele).hasClass('lien-button-lien')){
+                        if(Object.keys(data_key_val).indexOf(var_name) !== -1){
+                            data_key_val[var_name] = Object.assign(data_key_val[var_name], {'lien':val});
+                        }else{
+                            data_key_val[var_name]={'lien':val};
+                        }
+                    }else if(inputs.eq(ele).is('input') && inputs.eq(ele).hasClass('titre-button-titre')){
+                        if(Object.keys(data_key_val).indexOf(var_name) !== -1){
+                            data_key_val[var_name] = Object.assign(data_key_val[var_name], {'titre':val});
+                        }else{
+                            data_key_val[var_name]={'titre':val};
+                        }
+                    }else{
+                        data_key_val[var_name]  = val;
+                    }
+                }
+            });
+            data_key_val['ref_block']  = key_block;
+            
+            data_json.push(data_key_val);
+        }
+    }
+    return data_json;
+}
+// delete delete deleteButton Html
+export function deleteButtonHtml(){
+    let html = "<button type='button' class='delete-block button button-primary'>";
+            html += '<img src="http://localhost:8500/assets/images/delete-icon.png"  />';
+    html += '</button>';
+    return html;
 }

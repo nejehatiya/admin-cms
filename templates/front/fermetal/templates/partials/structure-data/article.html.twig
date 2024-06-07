@@ -1,0 +1,74 @@
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@type": "BlogPosting",
+    "@id": "{{current_link}}#BlogPosting",
+    "mainEntityOfPage": "{{current_link}}",
+    "headline": "{{article_structure.headline}}",
+    "name": "{{article_structure.name}}",
+    "description": "{{article_structure.description}}",
+    "datePublished": "{{article_structure.datePublished}}",
+    "dateModified": "{{article_structure.dateModified}}",
+    "author": {
+        "@type": "Person",
+        "@id": "{{article_structure.author.url}}#Person",
+        "name": "{{article_structure.author.name}}",
+        "url": "{{article_structure.author.url}}",
+        "image": {
+            "@type": "ImageObject",
+            "@id": "{{article_structure.author.image}}",
+            "url": "{{article_structure.author.image}}",
+            "height": "{{article_structure.author.height}}",
+            "width": "{{article_structure.author.width}}"
+        }
+    },
+    "publisher": {
+        "@type": "Organization",
+        "@id": "{{url_site}}",
+        "name": "{{site_name}}",
+        "logo": {
+            "@type": "ImageObject",
+            "@id": "{{logo_url}}",
+            "url": "{{logo_url}}",
+            "width": "600",
+            "height": "60"
+        }
+    },
+    "image": {
+        "@type": "ImageObject",
+        "@id": "{{article_structure.images_post.image}}",
+        "url": "{{article_structure.images_post.image}}",
+        "height": "{{article_structure.images_post.height}}",
+        "width": "{{article_structure.images_post.width}}"
+    },
+    "url": "{{current_link}}",
+    "isPartOf": {
+        "@type" : "Blog",
+        "@id": "{{url_site}}blog",
+        "name": "Blog",
+        "publisher": {
+             "@type": "Organization",
+             "@id": "{{url_site}}",
+             "name": "{{site_name}}"
+        }
+    },
+    "commentCount": "{{comments_number}}",
+    "comment": [
+        {% for comment in comments %}
+        {
+            "@type": "Comment",
+            "@id": "{{current_link}}#Comment{{loop.index}}",
+            "dateCreated": "2019-06-23 17:31:15",
+            "description": "{{ comment.comment_content }}",
+            "author": {
+                "@type": "Person",
+                "name": "{{comment.first_name is defined ? comment.first_name : ''}} {{comment.last_name is defined ? comment.last_name : ''}}"
+            }
+        }
+        {% if loop.index != comments|length  and comments|length > 1 %}, {% endif %}
+        {% endfor %}
+    ],
+    "wordCount": "1000",
+    "keywords": []
+}
+</script>

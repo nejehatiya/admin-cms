@@ -1,0 +1,68 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+  Emplacement menu list
+{% endblock %}
+{% block titreAdmin %}
+  Emplacement menu list
+{% endblock %}
+
+{% block contentAdmin %}
+    {# header list #}
+    {% include "admin/global/list/list-header.html.twig" with {'path':'app_emplacement_new','titre':'Ajouter un emplacement'} %}
+    {# count list #}
+    {% include "admin/global/list/list-count.html.twig" with {'vars':{'all':{'name':'Tous','count':20},'publish':{'name':'Publié','count':20}}} %}
+    {# list content  #}
+    <form id="filter" method="get">
+        {# content search-box #}
+        {% include "admin/global/list/search-box.html.twig" with {'titre':'emplacement'} %}
+        {# list top  #}
+        <div class="tablenav top">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'emplacement'} %}
+
+            {# list filtrage  #}
+            {% include "admin/global/list/filtrage.html.twig" with {'filters':[] } %}
+            
+            {# list pagination  #}
+            {% include "admin/global/list/pagination.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Emplacement'} %}
+
+            <br class="clear" />
+
+        </div>
+        
+        {# list table  #}
+        <table class="wp-list-table widefat fixed striped table-view-list posts">
+            <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
+            {# list table header #}
+            {% set fields = [
+                {name:'Titre',field_name:'key_emplacement',method:'key_emplacement',sortable:true,type:'text'},
+                {name:'Statut',field_name:'status',method:'status',sortable:false,type:'boolean'},
+                {name:'Utuliser dans',field_name:'menu',method:'menu',sortable:false,type:'entity',field_to_display:'nameMenu',collection:false},
+                {name:'Date',field_name:'date_add',method:'date_add',sortable:true,type:'date'}
+            ] %}
+            <thead>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </thead>
+            {# list table body #}
+            <tbody id="the-list">
+                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':emplacements,'entity_name':'emplacement','is_view':false,'path_edit':'app_emplacement_edit'} %}
+            </tbody>
+            {# list table footer #}
+            <tfoot>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </tfoot>
+        </table>
+
+        <div class="tablenav bottom">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'emplacement'} %}
+            <div class="alignleft actions"></div>
+            {# list pagination footer table  #}
+            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Emplacement'} %}
+            
+            <br class="clear" />
+        </div>
+    </form>
+    
+{% endblock %}

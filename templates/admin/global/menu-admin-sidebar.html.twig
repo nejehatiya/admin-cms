@@ -36,10 +36,23 @@
       <ul class="wp-submenu wp-submenu-wrap">
         <li class="wp-submenu-head" aria-hidden="true">Tableau de bord</li>
         <li class="wp-first-item current">
-          <a href="{{path('app_modeles_post_index')}}" class="wp-first-item current" aria-current="page">Models List</a>
+          <a href="{{path('app_modeles_post_index')}}" class="wp-first-item" aria-current="page">Models List</a>
         </li>
         <li class="wp-first-item current">
-          <a href="{{path('app_post_type_index')}}" class="wp-first-item current" aria-current="page">Post type List</a>
+          <a href="{{path('app_post_type_index')}}" class="wp-first-item" aria-current="page">Post type List</a>
+        </li>
+        <li class="wp-first-item current">
+          <a href="{{path('app_template_page_index')}}" class="wp-first-item" aria-current="page">Template Page</a>
+        </li>
+        <li class="wp-first-item current">
+          <a href="{{path('app_post_meta_fields_index')}}" class="wp-first-item" aria-current="page">ACF</a>
+        </li>
+        <li class="wp-first-item current">
+          <a href="{{path('app_taxonomy_index')}}" class="wp-first-item" aria-current="page">Taxonomy</a>
+        </li>
+
+        <li class="wp-first-item current">
+          <a href="{{path('app_emplacement_index')}}" class="wp-first-item" aria-current="page">Emplacement menu</a>
         </li>
       </ul>
     </li>
@@ -48,7 +61,7 @@
     </li>
 
 
-    <li class=" wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" id="menu-posts">
+    <li class="wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" id="menu-posts">
       <a href="{{path('app_post_index',{post_type:'post'})}}" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" aria-haspopup="true">
         <div class="wp-menu-arrow">
           <div></div>
@@ -67,10 +80,10 @@
           <a href="{{path('app_post_new',{post_type:'post'})}}">Ajouter un article</a>
         </li>
         <li>
-          <a href="edit-tags.php?taxonomy=category">Catégories</a>
+          <a href="{{path('app_terms_index',{taxonomy:'category'})}}">Catégories</a>
         </li>
         <li>
-          <a href="edit-tags.php?taxonomy=post_tag">Étiquettes</a>
+          <a href="{{path('app_terms_index',{taxonomy:'etiquettes'})}}">Étiquettes</a>
         </li>
       </ul>
     </li>
@@ -130,7 +143,7 @@
     <li class="wp-not-current-submenu wp-menu-separator" aria-hidden="true">
       <div class="separator"></div>
     </li>
-    <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-appearance menu-top-first" id="menu-appearance">
+    <li class="wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open  wp-has-submenu wp-not-current-submenu menu-top menu-icon-appearance menu-top-first" id="menu-appearance">
       <a href="themes.php" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-appearance menu-top-first" aria-haspopup="true">
         <div class="wp-menu-arrow">
           <div></div>
@@ -143,7 +156,7 @@
       <ul class="wp-submenu wp-submenu-wrap">
         <li class="wp-submenu-head" aria-hidden="true">Apparence</li>
         <li class="wp-first-item">
-          <a href="themes.php" class="wp-first-item">Thèmes <span class="update-plugins count-0"><span class="theme-count">0</span></span></a>
+          <a href="{{path('app_menu_index')}}" class="wp-first-item">Menu <span class="update-plugins count-0"><span class="theme-count">0</span></span></a>
         </li>
         <li>
           <a href="site-editor.php">Éditeur</a>

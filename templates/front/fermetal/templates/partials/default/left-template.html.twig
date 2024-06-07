@@ -1,0 +1,64 @@
+{% set current_path = app.request.pathInfo %}
+
+
+
+{% if data_footer is not empty and nombre_entree > 0 and true %}
+    <div class="menu-footer w-30 defaul m-r-50">
+        {% for key,data in  data_footer %}
+            {% if ( key + 1 ) <= nombre_entree %}
+                <div class="one-data {% if data.type_form == 'post' %} d-flex-center {% endif %}" >
+                    {% if data.type_form == "image" %}
+                        <div class="simulateur_menu post">
+                            <a class="mega-menu-link" href="{{data.link_images}}">
+                                {% for image in data.url_images|json_decode %}
+                                    <img src="{{ asset(image.path['large_small']) }}" alt="{{image.alt }}" />
+                                {% endfor %}
+                            </a>
+                            <div class="infos ">
+                                <a href="{{data.link_images}}" target="_blank">
+                                    <span style="font-weight:600;">{{data.label_imaes}}</span>
+                                </a>
+                                <a class="btn_orange" href="{{data.link_button}}" target="_blank">{{data.label_button}} <i aria-hidden="true" class="fa fa-arrow-right fa-1 lazyloaded"></i></a>
+                            </div>
+                        </div>
+                    {% elseif  data.type_form == "post" %}
+                        {% set post_data = data.id_post|get_post %}
+                        <div class="post1 post">
+                            {% if post_data[2] is not empty %}
+                                <img alt="Accueil" src="{{asset('/build/images/' ~ post_data[2]|url_image )}}">
+                            {% endif %}
+                            <div class="infos ">
+                                <a href="{{post_data[0]}}">
+                                    <span>{{post_data[1]}}</span>
+                                </a>
+                                <a class="btn_orange" href="{{post_data[0]}}">{{data.label_button}} <i aria-hidden="true" class="fa fa-arrow-right fa-1"></i></a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+{% if "children" in item|keys and item.children|length > 0 %}
+    <div class="menu-body w-70 default"> 
+        <ul>
+            {% for child in  children %}
+                {% set path = "static_link" in child and child.static_link == true ? child.url_custom : getPathPost(child) %}
+                <li {% if child.css_id|length > 0 %}id="{{ child.css_id }}"{% endif %} {% if child.css_class|length > 0 %}class="{{ child.css_class }}"{% endif %}>
+                    <a href="{{path}}"  class="{% if path == current_path %} active {% endif %} {% if 'children' in child|keys and child.children|length > 0 %} has-child {% endif %}">{{child.name_post}}</a>
+                    {% if "children" in child|keys and child.children|length > 0 %}
+                        <ul>
+                            {% for child_level_3 in  child.children %}
+                                <li  {% if child_level_3.css_id|length > 0 %}id="{{ child_level_3.css_id }}"{% endif %} {% if child_level_3.css_class|length > 0 %}class="{{ child_level_3.css_class }}"{% endif %}>
+                                    {% set path_level_3 = "static_link" in child_level_3 and child_level_3.static_link == true ? child_level_3.url_custom : getPathPost(child_level_3) %}
+                                    <a href="{{path_level_3}}"  {% if path_level_3 == current_path %} class="active" {% endif %}>{{child_level_3.name_post}}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

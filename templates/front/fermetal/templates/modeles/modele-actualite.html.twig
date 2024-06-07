@@ -1,0 +1,58 @@
+{% set choisit_pages =
+[
+	choisit_pages_1 is defined and choisit_pages_1 is not empty ? choisit_pages_1 : "",
+	choisit_pages_2 is defined and choisit_pages_2 is not empty ? choisit_pages_2 : "",	
+	choisit_pages_3 is defined and choisit_pages_3 is not empty ? choisit_pages_3 : ""
+] %}
+{% set pretitre_balise = pretitre_balise is defined ? pretitre_balise : 'p' %}
+{% set titre_balise = titre_balise is defined ? titre_balise : 'h2' %}
+<section class="section-actualite">
+	<div class="container">
+		<div class="sec-title text-center">
+			<div class="sub-title">
+				<{{pretitre_balise}} class="p">{{pretitre is defined ? urldecode(pretitre) : '' }}</{{pretitre_balise}}>
+			</div>
+			<{{titre_balise}} class="h2">{{titre is defined ?  urldecode(titre ): '' }}</{{titre_balise}}>
+		</div>
+		<div class="articles-list d-flex direction-row flex-wrap justify-space-between">
+			{% if choisit_pages is defined and choisit_pages is not empty %}
+				{% for choisit_page in choisit_pages %}
+					{% for item in choisit_page %}
+						{% if item is not empty %}
+							{% set getpost = getpost(item.id) %}
+							{% if getpost %}
+								{% set image = imageSize(getpost.image, 'full',true)  %}
+								<div class="single-blog-style1  d-flex direction-column flex-wrap justify-space-between">
+                                    <div class="img-holder">
+                                        {% if image is not empty %}
+                                            {% set altImage = get_alt_image(image) %}
+                                            <div class="inner lazy" data-bg="{{generate_webp_image(image)}}">
+                                                <div class="date-box d-flex justify-center align-center">
+                                                    <div style="z-index: 9;">
+                                                        <a href="{{getpost.path}}">{{getpost.date|date("d M")}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="text-holder">
+
+                                        <h3 class="blog-title">
+                                            <a href="{{getpost.path}}">{{getpost.name}}</a>
+                                        </h3>
+                                        <div class="text">
+                                            <p>{{getpost.excerpt}}</p>
+                                        </div>
+                                    </div>
+                                    <a class="voire-plus" href="{{getpost.path}}">
+                                        <span class="txt">Voir plus</span>
+                                    </a>
+                                </div>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+</section>

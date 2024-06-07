@@ -70,25 +70,32 @@ class PostTypeRepository extends ServiceEntityRepository
     }
     */
     public function findByName($nom,$id_current){
-        return $this->createQueryBuilder('m')
+        $query =  $this->createQueryBuilder('m')
         ->andWhere('m.name_post_type = :name_template')
-        ->setParameter('name_template', $nom)
-        ->andWhere('m.id != :id_current')
-        ->setParameter('id_current', $id_current)
-        ->getQuery()
+        ->setParameter('name_template', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        $query = $query->getQuery()
         ->getOneOrNullResult()
         ;
+        return $query;
     }
 
     public function findBySlug($nom,$id_current){
-        return $this->createQueryBuilder('m')
-        ->andWhere('m.slug_post_type = :name_template')
-        ->setParameter('name_template', $nom)
-        ->andWhere('m.id != :id_current')
-        ->setParameter('id_current', $id_current)
-        ->getQuery()
+        $query =  $this->createQueryBuilder('m')
+        ->andWhere('m.slug_post_type = :slug_post_type')
+        ->setParameter('slug_post_type', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        
+        $query = $query->getQuery()
         ->getOneOrNullResult()
         ;
+        return $query;
     }
 
 

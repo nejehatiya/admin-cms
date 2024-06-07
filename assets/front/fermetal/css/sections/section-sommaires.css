@@ -1,0 +1,104 @@
+.content-sommaire .content-models {
+    width: calc(100% - 393px);
+    max-width: calc(100% - 393px);
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+.content-sommaire .sidebar {
+    width: 393px;
+    padding-left: 20px;
+}
+
+.content-sommaire .sidebar>div {
+    /* Layout Properties */
+    left: 0;
+    width: 377px;
+    height: 713px;
+    background: transparent 0% 0% no-repeat padding-box;
+    box-shadow: 3px 3px 13px #E200000D;
+    border-radius: 15px;
+    position: sticky;
+    top: calc(((100vh - 713px) / 2) + 33.5px);
+    overflow: hidden;
+}
+
+.content-sommaire .sidebar>div::after {
+    content: '';
+    background-image: url(/build/images/degrader-banner-sommaire.svg);
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 320px;
+}
+
+.content-sommaire .content-models p:empty,
+.content-sommaire .content-models span:empty {
+    display: none;
+}
+
+.content-sommaire .content-models .container {
+    padding: 0 !important;
+}
+
+.content-sommaire .content-models .container.text-center {
+    text-align: left;
+}
+
+.content-sommaire .sidebar>div .text-btn-sommaire {
+    z-index: 1;
+    padding: 0 33px 40px;
+    text-align: center;
+}
+
+.content-sommaire .sidebar>div .text-btn-sommaire>span {
+    font: normal normal 800 45px/60px 'system-ui';
+    color: #fff;
+    margin-bottom: 41px;
+}
+
+.content-sommaire .sidebar>div .text-btn-sommaire>a {
+    background-color: #EAC434;
+    width: max-content;
+    border-radius: 50px;
+    color: #000;
+    font: italic normal 700 20px/29px 'system-ui';
+    padding: 9px 30px;
+    margin: 0 auto;
+}
+
+/*.content-sommaire .sidebar>div .text-btn-sommaire>a img {
+    margin-right: 10px;
+    max-height: 22px;
+}*/
+
+@media(max-width:1600px) {
+    .content-sommaire .sidebar>div {
+        height: 600px;
+        position: sticky;
+        top: calc(((100vh - 600px) / 2) + 33.5px);
+    }
+}
+
+@media(max-width:480px) {
+    .content-sommaire .content-models {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .content-sommaire .sidebar {
+        display: none;
+    }
+}
+
+@media(max-width:1200px) {
+    .content-sommaire .sidebar {
+        display: none !important;
+    }
+
+    .content-sommaire .content-models {
+        width: 100%;
+        max-width: 100%;
+    }
+}

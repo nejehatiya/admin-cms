@@ -5,29 +5,35 @@ namespace App\Entity;
 use App\Repository\EmplacementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: EmplacementRepository::class)]
 class Emplacement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['show_api'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['show_api'])]
     private $key_emplacement;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['show_api'])]
     private $status;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['show_api'])]
     private $date_add;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['show_api'])]
     private $date_upd;
 
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     #[ORM\ManyToOne(targetEntity: Menu::class, inversedBy: 'id_emplacement')]
+    
     private $menu;
 
     #[ORM\ManyToOne(targetEntity: User::class)]

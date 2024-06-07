@@ -1,0 +1,43 @@
+<script  type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Locksmith",
+        "@id": "Locksmith",
+        "actionableFeedbackPolicy":"{{current_link}}",
+        "additionalType": "Service",
+        "name":"{{meta_title}}",
+        "description": "{{article_structure.description}}",
+        "image": "{{article_structure.images_post.image}}",
+        "address":{
+            "@type":"PostalAddress",
+            "addressLocality":"{{address_locality}}",
+            "addressRegion":"île de France",
+            "postalCode":"{{postal_code}}",
+            "streetAddress":"{{address|length ? address : '54 Rue Championnet'}}",
+            "addressCountry":"FR"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude":"48.8529309",
+            "longitude":"2.389864"
+        },
+        "openingHoursSpecification":[
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                "opens": "08:00","closes": "22:00"
+            }
+        ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue":"{{rating_views}}",
+            "ratingCount":"{{comments_number}}"
+        },
+        "brand": {
+            "@type": "Brand",
+            "name": "FERMETAL"
+        },
+        "telephone":"{{phone}}",
+        "priceRange":"{{price}} €"
+    }
+</script>

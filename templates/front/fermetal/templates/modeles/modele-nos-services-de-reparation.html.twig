@@ -1,0 +1,93 @@
+{% set blogs = [
+	[
+		sous_titre_1 is defined ? sous_titre_1 : '' ,
+		sous_titre_1_balise is defined and sous_titre_1_balise|length > 0 ? sous_titre_1_balise : 'h3' ,
+		description_1 is defined ? description_1: '',
+		date_1 is defined ? date_1 : '',
+	],
+	[
+		sous_titre_2 is defined ? sous_titre_2 : '' ,
+		sous_titre_2_balise is defined and sous_titre_2_balise|length > 0 ? sous_titre_2_balise : 'h3' ,
+		description_2 is defined ? description_2: '',
+		date_2 is defined ? date_2 : '',
+	],
+	[
+		sous_titre_3 is defined ? sous_titre_3 : '' ,
+		sous_titre_3_balise is defined and sous_titre_3_balise|length > 0 ? sous_titre_3_balise : 'h3' ,
+		description_3 is defined ? description_3: '',
+		date_3 is defined ? date_3 : '',
+	],
+	[
+		sous_titre_4 is defined ? sous_titre_4 : '' ,
+		sous_titre_4_balise is defined and sous_titre_4_balise|length > 0 ? sous_titre_4_balise : 'h3' ,
+		description_4 is defined ? description_4: '',
+		date_4 is defined ? date_4 : '',
+	],
+	[
+		sous_titre_5 is defined ? sous_titre_5 : '' ,
+		sous_titre_5_balise is defined and sous_titre_5_balise|length > 0 ? sous_titre_5_balise : 'h3' ,
+		description_5 is defined ? description_5: '',
+		date_2 is defined ? date_2 : '',
+	],
+	[
+		sous_titre_6 is defined ? sous_titre_6 : '' ,
+		sous_titre_6_balise is defined and sous_titre_6_balise|length > 0 ? sous_titre_6_balise : 'h3' ,
+		description_6 is defined ? description_6: '',
+		date_6 is defined ? date_6 : '',
+	],
+	[
+		sous_titre_7 is defined ? sous_titre_7 : '' ,
+		sous_titre_7_balise is defined and sous_titre_7_balise|length > 0 ? sous_titre_7_balise : 'h3' ,
+		description_7 is defined ? description_7: '',
+		date_7 is defined ? date_7 : '',
+	],
+	[
+		sous_titre_8 is defined ? sous_titre_8 : '' ,
+		sous_titre_8_balise is defined and sous_titre_8_balise|length > 0 ? sous_titre_8_balise : 'h3' ,
+		description_8 is defined ? description_8: '',
+		date_8 is defined ? date_8 : '',
+	],
+	[
+		sous_titre_9 is defined ? sous_titre_9 : '' ,
+		sous_titre_9_balise is defined and sous_titre_9_balise|length > 0 ? sous_titre_9_balise : 'h3' ,
+		description_9 is defined ? description_9: '',
+		date_9 is defined ? date_9 : '',
+	]
+]
+ %}
+{% set titre_balise = titre_balise is defined and titre_balise|length > 0 ? titre_balise : 'h2' %}
+
+<section class="nos-service-reparation">
+    <div class="container">
+        <div class="sec-title">
+            {% if titre  is defined and  titre|length > 0 %}
+                <{{titre_balise}} class="h2">{{urldecode(titre)}}</{{titre_balise}}>
+            {% endif %}
+            {% if description_detail is defined and  description_detail|length > 0 %}
+                <div class="description">
+                    {{ urldecode(description_detail)|removeEmptyP|raw }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="inner-content">
+            <div class="carousel-items">
+                {% for item in blogs %}
+                    {% if item[0]|length > 0 or item[2]|length > 0 %}
+                        <div class="single-testimonials-style2">
+                            <div class="inner">
+                                <div class="client-info">
+                                    {% if item[0]|length > 0 %}
+                                        <{{item[1]}} class="h3">{{urldecode(item[0])}}</{{item[1]}}>
+                                    {% endif %}
+                                    {% if item[2]|length > 0 %}
+                                        <div>{{urldecode(item[2])|raw}}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

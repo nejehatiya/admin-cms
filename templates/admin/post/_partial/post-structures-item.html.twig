@@ -1,0 +1,12 @@
+<div data-id="{{model.id_model}}" data-uuid="{{model.uuid}}" class=" elementor-navigator__element elementor-navigator__element-section elementor-navigator__element--has-children ui-sortable-handle">
+    <div class="elementor-navigator__item" data-locked="false" tabindex="0" style="padding-inline-start: 10px;">
+        <div class="elementor-editor-element-move elementor-navigator__element__list-toggle">
+            <i class="eicon-sort-down" aria-hidden="true"></i>
+            <span class="elementor-screen-only">Montrer/cacher éléments internes</span>
+        </div>
+
+        <div class="elementor-navigator__element__title">
+            <span class="elementor-navigator__element__title__text">{{loop.index is defined  ? loop.index : ''}}-{{getModeleNameById(model.id_model)}}</span>
+        </div>
+    </div>
+</div>

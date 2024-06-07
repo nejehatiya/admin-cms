@@ -1,0 +1,32 @@
+{% set titre = titre is defined ? urldecode(titre) : '' %}
+{% set titre_tableau = titre_tableau is defined ? urldecode(titre_tableau) : '' %}
+{% set titre_balise = titre_balise is defined ? titre_balise : 'h2' %}
+{% set titre_balise_tableau = titre_balise_tableau is defined ? titre_balise_tableau : 'h2' %}
+<div class="tableau-prix">
+	<div class="container">
+		<div class="content">
+			<div class="sec-title text-center">
+				{% if titre is not empty and titre is defined %}
+				<{{titre_balise}} class="h2">{{ titre is defined ? urldecode(titre): '' }}</{{titre_balise}}>
+				{% endif %}
+				{% if description is not empty and description is defined %}
+				<div class="description_table_prix">
+					{{description is defined ?  urldecode(description) |removeEmptyP|raw : '' }}
+				</div>
+				{% endif %}
+			</div>
+			{% if description_tableau_prix is not empty and description_tableau_prix is defined %}
+			 <div class="tableau-responsive" >
+			 {% if titre_tableau is not empty and titre_tableau is defined %}
+			   <div>
+               <{{titre_balise_tableau}} class="h2" id="titre-tableau">{{ titre_tableau is defined ? urldecode(titre_tableau): '' }}</{{titre_balise_tableau}}>
+			   </div>
+			   {% endif %}
+			   <div class="table_tbody">
+			   		{{description_tableau_prix is defined ?  urldecode(description_tableau_prix) |removeEmptyP|raw : '' }}
+			   </div>
+            </div>
+			{% endif %}
+		</div>
+	</div>
+</div>

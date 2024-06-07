@@ -1,0 +1,91 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+  {{taxonomy_object.getNameTaxonomy|lower|capitalize}}
+{% endblock %}
+{% block titreAdmin %}
+  {{taxonomy_object.getNameTaxonomy|lower|capitalize}}
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','modele-term']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {# header list #}
+    {#% include "admin/global/list/list-header.html.twig" with {'path':'app_terms_new','params':{taxonomy:taxonomy},'titre':'Ajouter une nouvelle term','show':false} %}
+    {# count list #}
+    {#% include "admin/global/list/list-count.html.twig" with {'vars':{'all':{'name':'Tous','count':20},'publish':{'name':'Publié','count':20}}} %}
+    {# list content  #}
+    <script>
+        let id_taxonomy = "{{taxonomy_object.id}}";
+    </script>
+    <div id="col-container" class="wp-clearfix">
+        <div id="col-left">
+            <div class="col-wrap">
+                <div class="form-wrap">
+                    <h2>Ajouter une catégorie</h2>
+                    {{ include('admin/terms/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+        <div id="col-right">
+            <div class="col-wrap">            
+                <form id="filter" method="get">
+                    {# content search-box #}
+                    {% include "admin/global/list/search-box.html.twig" with {'titre':'Terms'} %}
+                    {# list top  #}
+                    <div class="tablenav top">
+                        {# list actions grouper #}
+                        {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'Terms'} %}
+
+                        {# list filtrage  #}
+                        {% include "admin/global/list/filtrage.html.twig" with {'filters':[{'field':'is_draft','list':{'1':'Activer','0':'Désactiver'},'name':'Statut'} ] } %}
+                        
+                        {# list pagination  #}
+                        {% include "admin/global/list/pagination.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Terms'} %}
+
+                        <br class="clear" />
+
+                    </div>
+                    
+                    {# list table  #}
+                    <table class="wp-list-table widefat fixed striped table-view-list posts">
+                        <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
+                        {# list table header #}
+                        {% set fields = [
+                            {name:'Titre',field_name:'name_terms',method:'name_terms',sortable:true,type:'text'},
+                            {name:'slug',field_name:'slug_terms',method:'slug_terms',sortable:false,type:'text'},
+                            {name:'Parent',field_name:'parentTerms',method:'parentTerms',sortable:false,type:'entity',field_to_display:'name_terms',collection:false,generate_self_entity:true,'entity_name':'Terms'},
+                            {name:'Statut',field_name:'is_draft',method:'is_draft',sortable:false,type:'boolean'},
+                            {name:'Date',field_name:'date',method:'date',sortable:true,type:'date'}
+                        ] %}
+                        <thead>
+                            {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+                        </thead>
+                        {# list table body #}
+                        <tbody id="the-list">
+                            {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':terms,'entity_name':'Terms','is_view':false,'path_edit':'app_terms_edit','params_link':{taxonomy:taxonomy}} %}
+                        </tbody>
+                        {# list table footer #}
+                        <tfoot>
+                            {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields,'params':{taxonomy:taxonomy}} %}
+                        </tfoot>
+                    </table>
+
+                    <div class="tablenav bottom">
+                        {# list actions grouper #}
+                        {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'Terms'} %}
+                        <div class="alignleft actions"></div>
+                        {# list pagination footer table  #}
+                        {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Terms'} %}
+                        
+                        <br class="clear" />
+                    </div>
+                </form>         
+                <div class="form-wrap edit-term-notes">
+                    <p>Supprimer une catégorie ne supprime pas les articles de cette catégorie. Les articles ayant été assignés uniquement à cette catégorie se voient assignés à la catégorie par défaut, <strong>Non classé</strong>  La catégorie par défaut ne peut pas être supprimée.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

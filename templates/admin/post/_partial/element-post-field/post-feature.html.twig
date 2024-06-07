@@ -1,0 +1,5 @@
+{% set image_selected = null %}
+{% if post is defined and post.idFeatureImage is defined and is_post_admin is defined and is_post_admin and post.idFeatureImage.id is defined %}
+    {% set image_selected = post.idFeatureImage %}
+{% endif %}
+{{imageMediaSelect('image-post-feature',false,1,image_selected,true)|raw}}

@@ -1,0 +1,18 @@
+{% if action_button is defined and action_button == 'avec-button' %}
+	<div class="button d-flex justify-space-around align-center ">
+		<div class=" d-flex justify-space-evenly align-center">
+			{% if device == "desktop" %}
+				<a class="btn-one d-flex justify-center align-center" href="tel:{#{get_option_value('_phone')}#}">
+					<img class="lazy" src="{#{generate_webp_image('/build/images/loading-phone-qui-somme-nous.jpg')}#}" data-src="{#{ generate_webp_image('/build/images/phone-calling.svg') }#}" height="25" width="50" alt="phone-calling"/>
+					<span class="phone">{#{get_option_value("_phone")}#}</span>
+				</a>
+			{% endif %}
+			<button class="btn-one-devis d-flex justify-center align-center">
+				<span class="devis">
+					{% if  device == 'mobile' %}
+						Mon
+					{% endif %}Devis Gratuit</span>
+			</button>
+		</div>
+	</div>
+{% endif %}

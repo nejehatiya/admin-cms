@@ -1,0 +1,15 @@
+<div class="elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
+  <div class="elementor-control-content">
+    <div class="elementor-control-field elementor-control-url-external-show">
+      <label for="elementor-control-default-c1482" class="elementor-control-title">Template page</label>
+      <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper">
+          <select id="post-template" data-setting="post-template">
+                <option value="">default</option>
+                {% for template in template_pages %}
+                    <option {% if post is defined and post.pageTemplate is defined and is_post_admin is defined and is_post_admin and post.pageTemplate == template.id %}selected{% endif %} value="{{template.id}}">{{template.name}}</option>
+                {% endfor %}
+          </select>
+      </div>
+    </div>
+  </div>
+</div>

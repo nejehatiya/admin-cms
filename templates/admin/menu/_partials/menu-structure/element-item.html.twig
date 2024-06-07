@@ -1,0 +1,112 @@
+<li id="menu-item-{{ item }}" class="menu-item menu-item-depth-{{indice is defined ? indice : 0 }} menu-item-page menu-item-edit-inactive">
+  <div class="menu-item-bar">
+    <div class="menu-item-handle ui-sortable-handle">
+      <label class="item-title" for="menu-item-checkbox-{{ item }}">
+        <input id="menu-item-checkbox-{{ item }}" type="checkbox" class="menu-item-checkbox" data-menu-item-id="{{ item }}" disabled="disabled" />
+        <span class="menu-item-title">{{menu_item['titre']}} {{ item }}</span>
+        <span class="is-submenu" {% if indice is defined and indice == 0 or indice is not defined %}style="display: none;"{% endif %}>sous-élément</span>
+      </label>
+      <span class="item-controls">
+        <span class="item-type"></span>
+        <span class="item-order hide-if-js">
+          <a href="?action=move-up-menu-itemmenu-item={{ item }}&amp;_wpnonce=fd3c1de9ff" class="item-move-up" aria-label="Monter">↑</a> |
+          <a href="?action=move-down-menu-item&amp;menu-item={{ item }}&amp;_wpnonce=fd3c1de9ff" class="item-move-down" aria-label="Descendre">↓</a>
+        </span>
+        <a class="item-edit" id="edit-{{ item }}" href="?edit-menu-item={{ item }}#menu-item-settings-{{ item }}" aria-label="Home. Élément de menu 1 sur 4."><span class="screen-reader-text">Modifier</span></a>
+      </span>
+    </div>
+  </div>
+
+  <div class="menu-item-settings wp-clearfix" id="menu-item-settings-{{ item }}">
+    {% if menu_item['type'] %}
+      <p class="field-url description description-wide">
+        <label for="edit-menu-item-url-{{ item }}">
+          URL<br>
+          <input type="text" id="edit-menu-item-url-{{ item }}" class="widefat code edit-menu-item-url" name="menu-item-url[{{ item }}]" value="{{menu_item['url']}}">
+        </label>
+      </p>
+    {% endif %}
+    <p class="description description-wide">
+      <label for="edit-menu-item-title-{{ item }}">
+        Titre de la navigation<br />
+        <input type="text" id="edit-menu-item-title-{{ item }}" class="widefat edit-menu-item-title" name="menu-item-title[{{ item }}]" value="{{menu_item['titre']}}" />
+      </label>
+    </p>
+    <p class="field-title-attribute field-attr-title description description-wide">
+      <label for="edit-menu-item-attr-title-{{ item }}">
+        Attribut de titre<br />
+        <input type="text" id="edit-menu-item-attr-title-{{ item }}" class="widefat edit-menu-item-attr-title" name="menu-item-attr-title[{{ item }}]" value="" />
+      </label>
+    </p>
+    <p class="field-link-target description">
+      <label for="edit-menu-item-target-{{ item }}">
+        <input type="checkbox" class="edit-menu-item-target" id="edit-menu-item-target-{{ item }}" value="_blank" name="menu-item-target[{{ item }}]" />
+        Ouvrir le lien dans un nouvel onglet
+      </label>
+    </p> 
+    
+    <p class="field-link-target description">
+      <label for="edit-menu-no-follow-attr-{{ item }}">
+        <input type="checkbox" class="edit-menu-no-follow-attr" id="edit-menu-no-follow-attr-{{ item }}" value="_blank" name="edit-menu-no-follow-attr[{{ item }}]" /> nofollow
+      </label>
+    </p>
+
+    <p class="field-css-classes description description-thin">
+      <label for="edit-menu-item-classes-{{ item }}">
+        Classes CSS (facultatives)<br />
+        <input type="text" id="edit-menu-item-classes-{{ item }}" class="widefat code edit-menu-item-classes" name="menu-item-classes[{{ item }}]" value="" />
+      </label>
+    </p> 
+    
+    <p class="field-css-classes description description-thin">
+      <label for="edit-menu-item-id-{{ item }}">
+        ID CSS (facultatives)<br />
+        <input type="text" id="edit-menu-item-id-{{ item }}" class="widefat code edit-menu-item-id" name="menu-item-id[{{ item }}]" value="" />
+      </label>
+    </p>
+    <p class="field-description description description-wide">
+      <label for="edit-menu-item-description-{{ item }}">
+        Description<br />
+        <textarea id="edit-menu-item-description-{{ item }}" class="widefat edit-menu-item-description" rows="3" cols="20" name="menu-item-description[{{ item }}]"></textarea>
+      </label>
+    </p>
+    <fieldset class="field-description description description-wide">
+      <label for="edit-menu-mega-template-{{ item }}">
+        Select template menu<br />
+        <select id="edit-menu-mega-template-{{ item }}" class="edit-menu-mega-template">
+            <option value="">select template menu</option>
+            {% if template_forms is defined  %}
+              {% for template_form in template_forms %}
+                  <option value="{{template_form.id}}" {{menu_item['template_parent'] is defined and menu_item['template_parent']== template_form.id?'selected':''}}>{{template_form.name}}</option>
+              {% endfor %}
+            {% endif %}
+        </select>
+        <button class="edit-template-name-btn button button-primary {{menu_item['template_parent'] is defined and menu_item['template_parent'] ?'d-block':'d-none'}}">edit</button>
+      </label>
+      <div class="form"></div>
+    </fieldset>
+    <fieldset class="field-move hide-if-no-js description description-wide">
+      <span class="field-move-visual-label" aria-hidden="true">Déplacer</span>
+      <button type="button" class="button-link menus-move menus-move-up" data-dir="up" style="display: none;">Un cran vers le haut</button>
+      <button type="button" class="button-link menus-move menus-move-down" data-dir="down" style="display: inline;" aria-label="Descendre d’un cran">Descendre d’un cran</button>
+      <button type="button" class="button-link menus-move menus-move-left" data-dir="left" style="display: none;"></button>
+      <button type="button" class="button-link menus-move menus-move-right" data-dir="right" style="display: none;"></button>
+      <button type="button" class="button-link menus-move menus-move-top" data-dir="top" style="display: none;">Tout en haut</button>
+    </fieldset>
+    
+
+    
+    <div class="menu-item-actions description-wide submitbox">
+      <a class="item-delete submitdelete deletion" id="delete-{{ item }}" href="?action=delete-menu-item&amp;menu-item={{ item }}&amp;_wpnonce=ef44a45f32">Retirer</a> <span class="meta-sep hide-if-no-js">|</span>
+      <a class="item-cancel submitcancel hide-if-no-js" id="cancel-{{ item }}" href="?edit-menu-item={{ item }}&amp;cancel={{ item }}#menu-item-settings-{{ item }}">Annuler</a>
+    </div>
+    <input class="menu-item-data-db-id" type="hidden" name="menu-item-db-id[{{ item }}]" value="{{ item }}" />
+    <input class="menu-item-data-object-id" type="hidden" name="menu-item-object-id[{{ item }}]" value="{{ item }}" />
+    <input class="menu-item-data-object" type="hidden" name="menu-item-object[{{ item }}]" value="{{ menu_item['type']}}" />
+    <input class="menu-item-data-parent-id" type="hidden" name="menu-item-parent-id[{{ item }}]" value="{{menu_item['parent'] is defined ? menu_item['parent'] : 0}}" />
+    <input class="menu-item-data-position" type="hidden" name="menu-item-position[{{ item }}]" value="{{menu_item['position'] is defined ? menu_item['position'] : 1}}" />
+    <input class="menu-item-data-type" type="hidden" name="menu-item-type[{{ item }}]" value="{{ menu_item['type']}}" />
+  </div>
+  <!-- .menu-item-settings -->
+  <ul class="menu-item-transport"></ul>
+</li>

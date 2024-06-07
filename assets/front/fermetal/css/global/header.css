@@ -1,0 +1,297 @@
+body {
+  margin: 0;
+}
+
+.main-header {
+  height: 69px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.main-header.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  z-index: 999;
+}
+
+/*.main-header .container {
+  width: 100%;
+  padding: 0 70px;
+}*/
+
+.main-header .header {
+  height: 59px;
+  width: 100%;
+}
+
+.main-header .header .btn-one {
+  background: transparent linear-gradient(90deg, #ac0000, #fd0200) 0 0 no-repeat padding-box;
+  padding: 9px 30px;
+  border-radius: 30px;
+  color: #fff;
+  font: 600 20px/29px 'system-ui';
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.main-header .header .btn-one:hover {
+  background-color: black;
+}
+
+
+.main-header .header .main-menu .menu {
+  height: 100%;
+  padding: 0;
+
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1 {
+  color: #ee2436;
+  height: 100%;
+  margin-right: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1.has-children>a::after {
+  content: "";
+  background-image: url('/build/images/plygon.svg');
+  background-repeat: no-repeat;
+  height: 20px;
+  top: 26px;
+  width: 20px;
+  position: absolute;
+  margin-left: 5px;
+}
+
+
+
+.main-header .header .main-menu .menu .niv1 .nav1.has-children .zone_intervention {
+  left: -90px;
+  min-width: 810px;
+  width: 100%;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1.has-children .zone_intervention .img_svg svg path {
+  cursor: pointer;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1.has-children .zone_intervention .img_svg svg .allPaths:hover {
+  fill: #ee2436;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1.has-children .zone_intervention .menu-body ul li {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 15px;
+  width: 205px;
+  align-items: flex-start;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>a {
+  color: #0a111e;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 30px;
+  opacity: 1;
+  padding: 20px 0;
+  position: relative;
+  text-transform: capitalize;
+  transition: all 0.5s ease;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>a:hover {
+  color: #ed202b;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>.children-section {
+  background-color: #fff;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 10px 15px rgb(0 0 0/20%);
+  opacity: 0;
+  position: absolute;
+  top: 44px;
+  visibility: hidden;
+  z-index: 999;
+  min-width: 575px;
+  min-height: 190px;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>.children-section .menu-body {
+  padding: 0;
+  width: 100%;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>.children-section .menu-body ul {
+  justify-content: space-between;
+  padding: 15px 0 0 0;
+
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>.children-section .menu-body ul li {
+
+  padding: 0 15px;
+  position: relative;
+  width: 275px;
+  align-items: center;
+
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>.children-section .menu-body ul li a {
+  border-bottom: 1px solid hsla(0, 0%, 100%, .2);
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .03em;
+  line-height: 24px;
+  padding: 5px 0;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: all .5s ease;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1>.children-section .menu-body ul li a:hover {
+  color: #ee2436;
+}
+
+.main-header .header .main-menu .menu .niv1 .nav1.has-children:hover>.children-section {
+  opacity: 1;
+  visibility: visible;
+}
+
+.main-header .header .menu-mobile .menu-backdrop {
+  background-color: rgba(9, 16, 32, .9);
+  display: none;
+  height: 100%;
+  opacity: .7;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateX(101%);
+  width: 100%;
+  z-index: 1;
+}
+
+/* Add  styles  loading spinner here */
+#loading-devis-sommaire.show {
+  display: block !important;
+}
+
+@media(max-width:1200px) {
+  .main-header .menu-mobile .main-menu {
+    display: none;
+  }
+}
+
+
+
+
+@media(max-width:992px) {
+  .main-header {
+    z-index: 10000000;
+    position: relative;
+  }
+
+  .main-header .menu-mobile .main-menu .navigation {
+    flex-direction: column;
+    padding-left: 0;
+    align-items: flex-start !important;
+  }
+
+  .main-header .menu-mobile.open .menu-backdrop {
+    display: block !important;
+    transform: translateX(0) !important;
+  }
+
+  .main-header .menu-mobile .main-menu {
+    background: #000;
+    display: none;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-right: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    max-width: 300px;
+    z-index: 999;
+  }
+
+  .main-header .menu-mobile.open .main-menu {
+    display: block;
+  }
+
+  .main-header .menu-mobile .main-menu .children-section .img_svg {
+    display: none !important;
+  }
+
+  .main-header .menu-mobile .main-menu li.has-children>a {
+
+    text-transform: uppercase;
+  }
+
+  .main-header .menu-mobile .main-menu li>a {
+    align-items: center;
+    color: #fff !important;
+    display: flex;
+    font: 600 15px/30px 'system-ui' !important;
+    height: 100%;
+    justify-content: flex-start;
+    max-height: 64px;
+    padding: 26px 25px;
+    position: relative;
+  }
+
+  .main-header .menu-mobile .main-menu .nav-logo {
+    padding: 15px 15px 0;
+  }
+
+  .main-header .menu-mobile .main-menu .nav-logo img {
+    max-width: 100%;
+  }
+
+  .main-header .menu-mobile .main-menu .navigation .has-children>a::after {
+    content: "";
+    background-color: rgba(255, 255, 255, .1);
+    background-image: url('/build/images/arrow-32.png');
+    height: 32px;
+    right: -15px;
+    top: 0;
+    width: 32px;
+    position: relative;
+  }
+
+  .main-header .menu-mobile .main-menu .navigation .has-children:hover .children-section {
+    display: flex !important;
+  }
+
+  .main-header .menu-mobile .main-menu .navigation .has-children .children-section ul {
+    padding-left: 10px;
+    flex-direction: column;
+  }
+
+  .main-menu li.has-children .children-section {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none;
+    display: none !important;
+    padding-left: 15px;
+    position: static;
+    width: 100% !important;
+  }
+
+
+}
+
+.content-models>*:last-child {
+  margin-bottom: 0 !important;
+}

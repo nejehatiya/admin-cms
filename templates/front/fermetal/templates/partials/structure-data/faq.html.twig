@@ -1,0 +1,19 @@
+{% if faq_structure is defined and faq_structure.questions_reponses is defined and faq_structure.questions_reponses is not empty %}
+    <script type="application/ld+json">
+        {
+        "@context":"https://schema.org",
+        "@type":"FAQPage",
+        "mainEntity":
+            [
+                {% for key,item in faq_structure.questions_reponses %} 
+                {
+                    "@type":"Question",
+                    "name":"{{(is_modal_post is defined and is_modal_post ? urldecode(item.qq) :  item.qq)|raw|striptags|escape|remove_caraeectere_sepiciaux}}",
+                    "acceptedAnswer":{"@type":"Answer","text":"{{(is_modal_post is defined and is_modal_post ? urldecode(item.rr) :  item.rr)|raw|striptags|escape|remove_caraeectere_sepiciaux}}" }
+                }
+                {% if key != faq_structure.questions_reponses|length - 1 %}, {% endif %}
+                {% endfor %}
+            ]
+        }
+    </script>
+{% endif %}

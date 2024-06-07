@@ -12,23 +12,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: TaxonomyRepository::class)]
 class Taxonomy
 {
-    /**
-     * @Groups({"terms_devis" })
-     */
+    #[Groups(['show_api',"terms_devis",'show_data'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Groups(['show_api','show_data'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $name_taxonomy;
-
+    #[Groups(['show_api','show_data'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $slug_taxonomy;
-
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $description_taxonomy;
-
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'bigint')]
     private $parent_taxonomy;
 
@@ -36,26 +35,28 @@ class Taxonomy
     private $autre_taxonomy;
 
     #[ORM\OneToMany(targetEntity: Terms::class, mappedBy: 'id_taxonomy')]
+    #[Groups(['show_data'])]
     private $terms;
 
-
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'integer', nullable: true)]
     private $OrderTaxonomy;
-
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $StatutSideBar;
-
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $statutMenu;
 
-    /**
-     * @Groups({"id_posttype"})
-     */
+    
     #[ORM\ManyToOne(targetEntity: PostType::class, inversedBy: 'taxonomies')]
     private $Posttype;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['show_api'])]
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $is_draft;
+    #[Groups(['show_api'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date = null;
 
 
     public function __construct()
@@ -222,12 +223,12 @@ class Taxonomy
         return $this;
     }
 
-    public function getIsDraft(): ?int
+    public function getIsDraft(): ?bool
     {
         return $this->is_draft;
     }
 
-    public function setIsDraft(int $is_draft): self
+    public function setIsDraft(bool $is_draft): self
     {
         $this->is_draft = $is_draft;
 
@@ -242,6 +243,18 @@ class Taxonomy
     public function isStatutMenu(): ?bool
     {
         return $this->statutMenu;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): static
+    {
+        $this->date = $date;
+
+        return $this;
     }
 
 

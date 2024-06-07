@@ -1,0 +1,83 @@
+{% set sous_titres = [
+	sous_titre_1 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_1) :  sous_titre_1) : '',
+	sous_titre_2 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_2) :  sous_titre_2) : '',
+	sous_titre_3 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_3) :  sous_titre_3) : '',
+	sous_titre_4 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(sous_titre_4) :  sous_titre_4) : '',
+
+] %}
+{% set sous_titres_balise = [
+	sous_titre_1_balise is defined ? sous_titre_1_balise : 'span',
+	sous_titre_2_balise is defined ? sous_titre_2_balise : 'span',
+	sous_titre_3_balise is defined ? sous_titre_3_balise : 'span',
+	sous_titre_4_balise is defined ? sous_titre_4_balise : 'span' 
+] %}
+{% set titre_balise = titre_balise is defined ? titre_balise : 'h2' %}
+{% set pre_titre_balise = pre_titre_balise is defined ? pre_titre_balise : 'p' %}
+{% set descriptions = [
+	description_1 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_1) :  description_1) : '',
+	description_2 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_2) :  description_2) : '',
+	description_3 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_3) :  description_3) : '',
+	description_4 is defined ? (is_modal_post is defined and is_modal_post ? urldecode(description_4) :  description_4) : '',
+] %}
+{% set icons = [
+	icon_1 is defined ?  urldecode(icon_1) : '',
+	icon_2 is defined ?  urldecode(icon_2) : '',
+	icon_3 is defined ? urldecode(icon_3): '',
+	icon_4 is defined ? urldecode(icon_4) : '',
+
+] %}
+<section class="pourquoi-nous-choisir">
+	<div class="container">
+		<div class="inner-content d-flex direction-row flex-wrap">
+			<div class="column-1 d-flex direction-column flex-wrap">
+				<div class="sec-title">
+					<div class="sub-title">
+						<{{pre_titre_balise}} class="p">{{ pre_titre is defined ? (is_modal_post is defined and is_modal_post ? urldecode(pre_titre) :  pre_titre) : '' }}</{{pre_titre_balise}}>
+					</div>
+					<{{titre_balise}} class="h2">{{ titre is defined ? (is_modal_post is defined and is_modal_post ? urldecode(titre) :  titre) : '' }}</{{titre_balise}}>
+				</div>
+				<div class="icons d-flex direction-row flex-wrap justify-space-between">
+					{% for key, item in descriptions %}
+						<div class="single-column">
+							<div class="text">
+								{% set icon = icons[key] is not empty ? icons[key] |json_decode : '' %}
+								{% set altImage = get_alt_image(icon) %}
+								{% if icon is not empty %}
+									<div class="icon-box">
+										<img width="60px" height="60px" class="lazy" src="{{generate_webp_image('/build/images/loading-png.jpg')}}" class="lazy" data-src="{{ generate_webp_image(icon[0].path.full) }}" alt="{{ altImage[0] }}"></div>
+								{% else %}
+									<div class="icon-box">
+										<img src="{{generate_webp_image('/build/images/loading-png.jpg')}}" class="lazy" data-src="{{ generate_webp_image('/build/images/Reactivity-Icon-Grey.svg') }}" alt=""/>
+									</div>
+								{% endif %}
+								<{{sous_titres_balise[key]}} class="span">{{ sous_titres[key] }}</{{sous_titres_balise[key]}}>
+							</div>
+							<div class="overlay-text d-none">
+								<{{sous_titres_balise[key]}} class="span">{{ sous_titres[key] }}</{{sous_titres_balise[key]}}>
+								<div>{{ item|raw }}</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="column-2">
+				{% set image = image_1 is defined ? image_1 |json_decode : '' %}
+				{% set url_video = url_video is defined and url_video|length > 0 ? url_video : '' %}
+				{% set altImage = get_alt_image(image) %}
+				{% if image is not empty and url_video|length == 0 %}
+					<figure class="image-box">
+						<img class="lazy" data-src="{{ generate_webp_image(image[0].path.full) }}" alt="{{ altImage[0] }}">
+					</figure>
+				{% elseif url_video|length > 0 %}
+					{% set name_video = title_video is defined and title_video|length > 0 ? title_video : '' %}
+					{% set thumbnailUrl = thumbnail_url_video is defined and thumbnail_url_video|length > 0 ? thumbnail_url_video : '' %}
+					{% set username = app.user is defined and app.user|length > 0 ? app.user : '' %}
+					{% set url_video = url_video is defined and url_video|length > 0 ? url_video : '' %}
+					{% set description_video = description_video is defined and description_video|length > 0 ? description_video : '' %}
+					<iframe class="lazy h-100" width="100%" height="100%" data-src="{{ url_video }}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+				{% endif %}
+
+			</div>
+		</div>
+	</div>
+</section>

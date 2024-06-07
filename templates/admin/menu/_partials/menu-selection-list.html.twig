@@ -1,0 +1,13 @@
+<div class="manage-menus">
+  <form method="get" action="#">
+    <input type="hidden" name="action" value="edit" />
+    <label for="select-menu-to-edit" class="selected-menu">Sélectionnez le menu à modifier&nbsp;:</label>
+    <select name="menu" id="select-menu-to-edit">
+      {% for menu in menus %}
+        <option value="{{menu['id']}}" {% if loop.first %}selected="selected"{% endif %}>{{menu['name_menu']}}</option>
+      {% endfor %}
+    </select>
+    <span class="submit-btn"><input type="submit" class="button" value="Sélectionner" /></span>
+    <span class="add-new-menu-action">ou <a href="#">créez un nouveau menu</a>. N’oubliez pas d’enregistrer vos modifications&nbsp;! <span class="screen-reader-text">Cliquer sur le bouton «&nbsp;Enregistrer le menu&nbsp;» pour enregistrer vos modifications.</span></span><!-- /add-new-menu-action -->
+  </form>
+</div>

@@ -43,8 +43,11 @@ export function deleteModelePost(data){
 /***
  * function to insert|edit modele post
  */
-export function getModelePost(id){
+export function getModelePost(id,tyep_fields=""){
     let url = "/api/post/modals/get/"+id;
+    if(tyep_fields == "acf_post"){
+        url  = "/api/acf-meta/get/"+id;
+    }
     let check_modele_post = main_function.ajaxOperation(url,{},'GET');
     return check_modele_post;
 }

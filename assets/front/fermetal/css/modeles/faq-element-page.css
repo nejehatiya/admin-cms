@@ -1,0 +1,104 @@
+.faq.faq-page {
+    background-color: #fff;
+    padding-top: 0px;
+}
+
+.faq.faq-page h4 {
+    color: #0a111e;
+}
+
+.faq.faq-page .block-text .content .description {
+    width: 56.5%;
+}
+
+.faq.faq-page .block-text .content .description p {
+    color: #0a111e;
+    font: normal normal 500 18px/30px 'system-ui' !important;
+}
+
+.faq.faq-page .block-text .content h2 {
+    width: 100%;
+    font: normal normal bold 46px/69px 'system-ui';
+}
+
+.faq.faq-page .block-question .list-question>ul>li {
+    border: 1px solid #ECEAEA;
+    margin-bottom: 10px !important;
+}
+
+.faq.faq-page .block-question .list-question .question li,
+.faq.faq-page .block-question .list-question .question strong,
+.faq.faq-page .block-question .list-question .question p {
+    color: #0a111e;
+    font: normal normal 600 18px/30px 'system-ui' !important;
+    margin-left: 0;
+}
+
+.faq.faq-page .block-question .list-question li .reponse li,
+.faq.faq-page .block-question .list-question li .reponse p {
+    font: normal normal 500 18px/30px 'system-ui';
+    color: #0a111e;
+    margin-top: 0;
+}
+
+.faq.faq-page .block-question .list-question ul {
+    width: calc((100% /2) - 7.5px);
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.faq.faq-page .block-question .list-question li .reponse {
+    padding: 0 30px 14px 31px;
+    flex-direction: column;
+}
+
+.faq.faq-page .block-question .list-question>ul li:last-of-type {
+    margin-bottom: 0px;
+}
+
+.faq.faq-page .block-text>.content {
+    align-items: flex-start;
+}
+
+.faq.faq-page .block-text>.content>.inner {
+    width: calc(100% - 56.5%);
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.faq.faq-page .block-question .list-question .question {
+    padding: 0 8px;
+}
+
+.faq.faq-page .block-question .list-question .question>div {
+    align-items: flex-start;
+}
+
+.faq.faq-page .block-question .list-question .reponse.open-response {
+    min-height: max-content;
+}
+
+@media(max-width:768px) {
+    .faq.faq-page .block-text>.content {
+        flex-wrap: wrap;
+    }
+
+    .faq.faq-page .block-text>.content>div {
+        width: 100% !important;
+    }
+
+    .faq .block-question .list-question {
+        width: 100%;
+    }
+
+    .faq.faq-page .block-question .list-question>ul {
+        width: 100%;
+    }
+
+    .faq.faq-page .block-question .list-question li {
+        border: 1px solid #ECEAEA;
+        margin-bottom: 15px !important;
+    }
+}

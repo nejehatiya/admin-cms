@@ -1,0 +1,58 @@
+<div class="container plans-site">
+    {% if titre_name is defined  %}
+        {% for dep_code in titre_name|keys %}
+                <h2>{{titre_name[dep_code]}}</h2>
+                {% if plan_site_urls is defined and dep_code in plan_site_urls|keys %}
+                    <div class="all-links d-flex flex-wrap direction-column">
+                        <ul>
+                            {% for item in plan_site_urls[dep_code] %}
+                                <li><a href="{{item.url}}">{{item.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+        {% endfor %}
+    {% endif %}
+    <h2>Blog</h2>
+    {% if plan_site_urls is defined and "blog" in plan_site_urls|keys %}
+        <div class="all-links d-flex flex-wrap direction-column">
+            <ul>
+                {% for item in plan_site_urls["blog"] %}
+                    <li><a href="{{item.url}}">{{item.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <h2>Auteurs</h2>
+    {% if plan_site_urls is defined and "auteurs" in plan_site_urls|keys %}
+        <div class="all-links d-flex flex-wrap direction-column">
+            <ul>
+                {% for item in plan_site_urls["auteurs"] %}
+                    <li><a href="{{item.url}}">{{item.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <h2>Nos agences</h2>
+    {% if plan_site_urls is defined and "nos_agences" in plan_site_urls|keys %}
+        <div class="all-links d-flex flex-wrap direction-column">
+            <ul>
+                {% for item in plan_site_urls["nos_agences"] %}
+                    <li><a href="{{item.url}}">{{item.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <h2>Autres</h2>
+    {% if plan_site_urls is defined and "all" in plan_site_urls|keys %}
+        <div class="all-links d-flex flex-wrap direction-column">
+            <ul>
+                {% for item in plan_site_urls["all"] %}
+                    {% if item.name|lower not in ['blog','plan site'] %}
+                        <li><a href="{{item.url}}">{{item.name}}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>

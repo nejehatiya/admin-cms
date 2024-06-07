@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ModelesPostRepository::class)]
 class ModelesPost
@@ -14,43 +15,63 @@ class ModelesPost
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['show_api'])]
     private $id;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['show_api'])]
     private $name_modele;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['show_api'])]
     private $content_modele;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['show_api'])]
     private $shortcode_modele;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['show_api'])]
     private $path_modele;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['show_api'])]
     private $variable_modele;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['show_api'])]
     private $status_modele;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['show_api'])]
     private $date_add;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['show_api'])]
     private $date_upd;
 
     #[ORM\OneToMany(targetEntity: PostModals::class, mappedBy: 'modele', orphanRemoval: true)]
     private $postModals;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['show_api'])]
     private ?string $fields = null;
 
     #[ORM\ManyToMany(targetEntity: PostType::class, inversedBy: 'modelesPosts')]
+    #[Groups(['show_api'])]
     private Collection $used_in;
 
     #[ORM\ManyToOne]
+    #[Groups(['show_api'])]
     private ?Images $image_preview = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['show_api'])]
+    private ?string $class_sortable = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Groups(['show_api'])]
+    private ?bool $is_new = null;
 
 
     public function __construct()
@@ -240,6 +261,30 @@ class ModelesPost
     public function setImagePreview(?Images $image_preview): static
     {
         $this->image_preview = $image_preview;
+
+        return $this;
+    }
+
+    public function getClassSortable(): ?string
+    {
+        return $this->class_sortable;
+    }
+
+    public function setClassSortable(?string $class_sortable): static
+    {
+        $this->class_sortable = $class_sortable;
+
+        return $this;
+    }
+
+    public function isIsNew(): ?bool
+    {
+        return $this->is_new;
+    }
+
+    public function setIsNew(?bool $is_new): static
+    {
+        $this->is_new = $is_new;
 
         return $this;
     }

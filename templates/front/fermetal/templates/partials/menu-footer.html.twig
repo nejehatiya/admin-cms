@@ -1,0 +1,20 @@
+{% if menu_content is not empty %}
+	{% set current_path = app.request.pathInfo %}
+	<ul class="{% if class is defined and class|length > 0 %} {{class}} {% endif %}" {% if id is defined and id|length > 0 %} id="{{id}}" {% endif %}>
+		{% for item in menu_content %}
+			{% set path_template = item.menu_template|get_template %}
+			{% set path = "static_link" in item and item.static_link == true ? item.url_custom : getPathPost(item) %}
+			<li {% if item.css_id|length > 0 %} id="{{ item.css_id }}" {% endif %} class="{% if item.css_class|length > 0 %}{{ item.css_class }}{% endif %}{% if "children" in item|keys and item.children|length > 0 or path_template[2] is not empty and path_template[1] > 0 %} has-children{% endif %}">
+				<a href="{{path}}" {% if path == current_path %} class="active" {% endif %}>{{item.name_post}}</a>
+				{% if "children" in item|keys and item.children|length > 0 or path_template[2] is not empty and path_template[1] > 0 %}
+					<div class="children-section">
+						{% if "menu_template" in item|keys %}
+							{% set children_link = "children" in item|keys and item.children|length > 0 ? item.children : [] %}
+							{{ include('front/'~ path_template[0],{"nombre_entree":path_template[1],"data_footer":path_template[2],"children":children_link}) }}
+						{% endif %}
+					</div>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+{% endif %}

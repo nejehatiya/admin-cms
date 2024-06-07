@@ -1,0 +1,27 @@
+<div class="elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
+  <div class="elementor-control-content">
+    <div class="elementor-control-field elementor-control-url-external-show">
+      <label for="elementor-control-default-c1482" class="elementor-control-title">{{titre_label is defined ? titre_label : 'Titre'}}</label>
+      <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper">
+        {% set index_loop = parent_index  is defined ? '-' ~ parent_index : '' %}
+        
+        <select 
+            id="post-select-{{uuid is defined ? '-' ~ uuid :''}}{{index_loop is defined ?  '-' ~ index_loop :''}}" 
+            data-setting="post-parent" 
+            class="selectpicker"
+            data-var-name="{{var_name is defined ? var_name :''}}" 
+            {% if item.multiple is defined and item.multiple %}multiple{% endif %}
+            {% if item.required is defined and item.required %}required{% endif %}
+        >
+            <option value="">select option</option>
+            {% for option in options %}
+                <option
+                    {% if var_name is defined and data is defined  and data[var_name] is defined and ( option in data[var_name] or option ==  data[var_name] )   %}selected="selected"{% endif %}
+                    value="{{option}}"
+                >{{option}}</option>
+            {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

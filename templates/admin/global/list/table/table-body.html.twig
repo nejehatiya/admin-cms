@@ -18,7 +18,16 @@
             {% elseif field.type == "image" %}
                 image
             {% elseif field.type == "entity" %}
-                entity
+                {% if field.generate_self_entity is defined and field.generate_self_entity %}
+                    {% set parent_item = getParentName(item[field.method],field.entity_name,field.field_to_display) %}
+                    {% if parent_item|length > 0 %}
+                        {{parent_item[0][field.field_to_display]}}
+                    {% else %}
+                        - 
+                    {% endif %}
+                {% else %}
+                    entity
+                {% endif %}
             {% elseif field.type == "date" %}
                 Créer le <br />{% set item_value = item[field.method] %}
             {% endif %}
@@ -27,7 +36,15 @@
                     <span class="locked-avatar"></span>
                     <span class="locked-text"></span>
                 </div>
-                <strong><a class="row-title" href="{{path(path_edit,{'id':item['id']})}}" aria-label="{{item_value}} (Modifier)">{{ item_value }}</a></strong>
+                {% set param_path = {'id':item['id']} %}
+                {% if params_link is defined  %}
+                    {% set param_path = param_path|merge(params_link) %}
+                {% endif %}
+                <strong>
+                    <a class="row-title" href="{{path(path_edit,param_path)}}" aria-label="{{item_value}} (Modifier)">
+                        {% if entity_name is defined and entity_name == "Terms" %}{{item['parentTerms']?'__':''}}{% endif %}{{ item_value }}
+                    </a>
+                </strong>
 
                 <div class="hidden" id="inline_1">
                     <div class="post_title">Bonjour tout le monde&nbsp;!</div>
@@ -51,13 +68,15 @@
                 </div>
                 <div class="row-actions">
                     <span class="edit">
-                        <a href="{{path(path_edit,{'id':item['id']})}}" aria-label="{{item_value}} (Modifier)">Modifier</a>
+                        <a href="{{path(path_edit,param_path)}}" aria-label="{{item_value}} (Modifier)">Modifier</a>
                         |
                     </span>
-                    <span class="inline hide-if-no-js">
-                        <button type="button" class="button-link editinline" aria-label="Modifier rapidement {{item_value}} en ligne" aria-expanded="false">Modification rapide</button>
-                        |
-                    </span>
+                    {% if entity_name is not defined or entity_name is  defined and entity_name != "Terms" %}
+                        <span class="inline hide-if-no-js">
+                            <button type="button" class="button-link editinline" aria-label="Modifier rapidement {{item_value}} en ligne" aria-expanded="false">Modification rapide</button>
+                            |
+                        </span>
+                    {% endif %}
                     <span class="trash">
                         <a href="#" class="submitdelete" aria-label="Déplacer {{item_value}} dans la corbeille">Corbeille</a>
                         {% if is_view %}|{% endif %}

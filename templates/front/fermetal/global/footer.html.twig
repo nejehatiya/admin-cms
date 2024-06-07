@@ -1,0 +1,105 @@
+{% set device = getDeviceAgent() %}
+{% set phone_agence = posts_metas._agence_phone is defined ? posts_metas._agence_phone : '' %}
+{% if post_type is defined %}
+	{% set post_type_value = post_type is iterable ? post_type.name_post_type : post_type %}
+{% endif %}
+<footer class="mt-50">
+	<div class="main-footer">
+		<div class="container">
+			<div class="footer-top d-flex justify-space-between">
+				<div class="description">
+					<img alt="logo-fermetal" height="54" width="90" class="lazy" src="{{asset('/build/images/loading-logo-footer.jpg')}}" data-src="{{asset('/build/images/logo-footer.svg')}}">
+					<p>{{ get_option_value("_footer_description")|raw }}</p>
+				</div>
+				<div class="nos-agences">
+					<p class="sous-titre">Nos agences</p>
+					<div class="all-agences d-flex justify-space-between flex-wrap">
+						<div class="col1">
+							<div class="inner d-flex align-start">
+								<img class="lazy" height="30" width="60" alt="addresse 1" src="{{asset('/build/images/loading-localisation-footer.jpg')}}" data-src="{{asset('/build/images/address.svg')}}">
+								<a href="#">{{ get_option_value("_footer_adresse_1")|raw }}</a>
+							</div>
+							<div class="inner d-flex align-start">
+								<img class="lazy" height="30" width="60" alt="addresse 2" src="{{asset('/build/images/loading-localisation-footer.jpg')}}" data-src="{{asset('/build/images/address.svg')}}">
+								<a href="#">{{ get_option_value("_footer_adresse_2")|raw }}</a>
+							</div>
+							{% if device == "desktop" %}
+								<div class="inner d-flex align-center">
+									<img class="lazy email" height="20" width="40" alt="email" src="{{asset('/build/images/loading-contact-footer.jpg')}}" data-src="{{asset('/build/images/gmail.svg')}}">
+									<a href="/contact">contact@fermetal.pro</a>
+								</div>
+							{% endif %}
+							{% if device == "mobile" %}
+								<div class="inner d-flex align-start">
+									<img class="lazy" height="30" width="60" alt="addresse 4" src="{{asset('/build/images/loading-localisation-footer.jpg')}}" data-src="{{asset('/build/images/address.svg')}}">
+									<a href="#">{{ get_option_value("_footer_adresse_4")|raw }}</a>
+								</div>
+							{% endif %}
+						</div>
+						<div class="col2">
+							<div class="inner d-flex align-start">
+								<img class="lazy" height="30" width="60" alt="addresse 3" src="{{asset('/build/images/loading-localisation-footer.jpg')}}" data-src="{{asset('/build/images/address.svg')}}">
+								<a href="#">{{ get_option_value("_footer_adresse_3")|raw }}</a>
+							</div>
+							{% if device == "desktop" %}
+								<div class="inner d-flex align-start">
+									<img class="lazy" height="30" width="60" alt="addresse 4" src="{{asset('/build/images/loading-localisation-footer.jpg')}}" data-src="{{asset('/build/images/address.svg')}}">
+									<a href="#">{{ get_option_value("_footer_adresse_4")|raw }}</a>
+								</div>
+							{% endif %}
+							<div class="inner d-flex align-start">
+								<img class="lazy phone m-r-10" height="25" width="50" alt="phone calling" src="{{asset('/build/images/loading-phone-footer.jpg')}}" data-src="{{asset('/build/images/phone-calling-svgrepo-com.svg')}}">
+								{% if post_type_value == "nos-agences" and phone_agence|length > 0 %}
+									<a href="tel:{{ phone_agence|replace({ ' ': '' }) }}">{{ phone_agence }}</a>
+								{% else %}
+									<a href="tel:{{ get_option_value('_phone') }}">{{ get_option_value("_phone")|raw }}</a>
+								{% endif %}
+							</div>
+
+							{% if device == "mobile" %}
+								<div class="inner d-flex align-center">
+									<img class="lazy email" height="20" width="40" alt="email" src="{{asset('/build/images/loading-contact-footer.jpg')}}" data-src="{{asset('/build/images/gmail.svg')}}">
+									<a href="/contact">contact@fermetal.pro</a>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="footer-medium liens-utiles d-flex align-items-baseline">
+				<p class="sous-titre">Liens utiles :
+				</p>
+				{{ include('front/fermetal/templates/partials/menu-footer.html.twig',{'menu_content':menuHeader('footer'),'class':' ','id':''}) }}
+
+			</div>
+			<div class="footer-bottom"></div>
+		</div>
+
+	</div>
+	<div class="copyright text-center">
+		<p>{{ get_option_value("_copy_right_text")|raw }}</p>
+	</div>
+	{% if device == "mobile" %}
+
+		<div class="menu-mobile-footer d-flex justify-space-between align-center">
+			<div class="item">
+				<a href="/"><img width="30" height="30" src="{{asset('/build/images/loading-home.jpg')}}" class="lazy" data-src="{{ asset('/build/images/awesome-home.svg') }}" alt="homme icon"></a>
+			</div>
+
+			<div class="item" style="">
+				{% if post_type == "nos-agences" and phone_agence|length > 0 %}
+					<a href="tel:{{phone_agence|replace({' ':''})}}"><img width="85" height="85" src="{{ asset('/build/images/loading-phone-agance.jpg') }}" class="lazy " data-src="{{ asset('/build/images/bg-mobile-phone.svg') }}" alt="homme icon"></a>
+				{% else %}
+					<a href="tel:{{get_option_value('_phone')}}"><img width="85" height="85" src="{{ asset('/build/images/loading-phone-agance.jpg') }}" class="lazy " data-src="{{ asset('/build/images/bg-mobile-phone.svg') }}" alt="homme icon"></a>
+				{% endif %}
+			</div>
+
+			<div class="item">
+				<a href="/contact"><img width="30" height="30" src="{{base_url~asset('/build/images/loading-home.jpg')}}" class="lazy" data-src="{{ asset('/build/images/awesome-file-invoice.svg') }}" alt="homme icon"></a>
+			</div>
+		</div>
+	{% endif %}
+</footer>
+
+{#{ include('front/fermetal/templates/partials/page/formulaire.html.twig',{'class':'popup-devis'}) }#}

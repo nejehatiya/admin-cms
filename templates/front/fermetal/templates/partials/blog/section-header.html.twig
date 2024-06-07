@@ -1,0 +1,19 @@
+<section class="section-header">
+    {# start header-content #}
+        <div class="container">
+            {# start breadcrumb #}
+                {{ include('front/fermetal/templates/partials/breadcrump.html.twig', {'breadcrumbes': breadcrumbes}) }}
+            {# end breadcrumb #}
+            <div class="inner-content d-flex flex-wrap ">
+                <div class="section-infos d-flex direction-column ">
+                    {% if is_author_single is defined and is_author_single %}
+                        <h1>{{page_title}}</h1>
+                    {% else  %}
+                        <h1>{{post_type.namePostType is defined ? post_type.namePostType|capitalize  : post_type.name_post_type|capitalize}}</h1>
+                    {% endif %}
+                    <div class="description">{{get_option_value('_description_'~ ( post_type.slugPostType is defined ? post_type.slugPostType  : post_type.slug_post_type))}}</div>
+                </div>
+            </div>
+        </div>
+    {# end header-content #}
+</section>

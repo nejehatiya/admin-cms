@@ -1,0 +1,113 @@
+{% set device = getDeviceAgent() %}
+<section
+	class="section-header">
+	{# start header-content #}
+	<div
+		class="container">
+		{# start breadcrumb #}
+		{{ include('front/fermetal/templates/partials/breadcrump.html.twig', {'breadcrumbes': breadcrumbes}) }}
+		{# end breadcrumb #}
+		<div class="inner-content d-flex flex-wrap ">
+			{% if device == "mobile" %}
+				<div class="section-infos d-flex direction-column justify-space-between ">
+					<div class="header-titre">
+						<h1>{{post.post_title}}</h1>
+						<div class="description">{{post.post_excerpt}}</div>
+					</div>
+				</div>
+			{% endif %}
+			<div class="section-infos d-flex direction-column justify-space-between ">
+				<div class="header-titre">
+					{% if device != "mobile" %}
+						<h1>{{post.post_title}}</h1>
+						<div class="description">{{post.post_excerpt}}</div>
+					{% endif %}
+					<div class="infos d-flex direction-column ">
+						<div class="item  d-flex direction-row">
+							{% set image_original = base_url~asset('/build/images/icon-awesome-phone-alt.svg') %}
+							{#% set dimension = getImageSizetwig(image_original) %#}
+							<div class="image d-flex align-center justify-center">
+								<img width="20" data-src="{{image_original}}" src="{{ base_url~asset('/build/images/loading-png.jpg')}}" class="lazy" alt="phone"/>
+							</div>
+							<div class="item-content d-flex direction-column justify-center">
+								<span>Numéro de téléphone</span>
+								<a href="tel:{{posts_metas._agence_phone|replace({' ':''})}}">{{posts_metas._agence_phone}}</a>
+							</div>
+						</div>
+						<div class="item d-flex direction-row">
+							{% set image_original = base_url~asset('/build/images/icon-simple-gmail.svg') %}
+							{#% set dimension = getImageSizetwig(image_original) %#}
+							<div class="image d-flex align-center justify-center">
+								<img width="20" data-src="{{image_original}}" src="{{ base_url~asset('/build/images/loading-png.jpg')}}" class="lazy" alt="email"/>
+							</div>
+							<div class="item-content d-flex direction-column justify-center">
+								<span>Email address</span>
+								<a href="mailto:contact@fermetal.pro">contact@fermetal.pro</a>
+							</div>
+						</div>
+						<div class="item d-flex direction-row">
+							{% set image_original = base_url~asset('/build/images/icon-awesome-map-marker-alt.svg') %}
+							{#% set dimension = getImageSizetwig(image_original) %#}
+							<div class="image d-flex align-center justify-center">
+								<img width="20" data-src="{{image_original}}" src="{{ base_url~asset('/build/images/loading-png.jpg')}}" class="lazy" alt="Address"/>
+							</div>
+							<div class="item-content d-flex direction-column justify-center">
+								<span>Address</span>
+								<span>{{posts_metas._agence_address}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if is_iframe is not defined  %}
+					<div class="header-adresse">
+						<div class="infos d-flex direction-column ">
+							<div class="item d-flex direction-row item-titre">
+								<p>Nos adresses :
+								</p>
+							</div>
+							{% for addresse in all_agence_addresse %}
+								<div class="item d-flex direction-row">
+									{% set image_original = base_url~asset('/build/images/icon-awesome-map-marker-alt.svg') %}
+									{#% set dimension = getImageSizetwig(image_original) %#}
+									<div class="image d-flex align-center justify-center">
+										<img width="20" data-src="{{image_original}}" src="{{ base_url~asset('/build/images/loading-png.jpg')}}" class="lazy" alt="address-{{loop.index}}"/>
+									</div>
+									<div class="item-content d-flex direction-column justify-center">
+										<span>{{addresse.meta_val}}</span>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					{% else %}
+				{% endif %}
+			</div>
+			<div class="section-formulaire d-flex">
+				{% if is_iframe is defined and is_iframe %}
+					<div
+						class="iframe-container">
+						{#{posts_metas._itineraire_agence|raw}#}
+						<iframe id="ytplayer-map" class="ytplayer-map" title="{{post.post_title}}" src="" data-src="{{posts_metas._itineraire_agence}}" width="600" height="450" style="border:0;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						<script>
+							var ytplayers = document.getElementsByClassName("ytplayer-map");
+var loaded = [];
+for (var i = 0; i < ytplayers.length; i++) {
+loaded[i] = false;
+}
+window.addEventListener("scroll", function () {
+for (var i = 0; i < ytplayers.length; i++) {
+if (! loaded[i] && window.scrollY > 0) {
+ytplayers[i].src = ytplayers[i].getAttribute("data-src");
+loaded[i] = true;
+}
+}
+});
+						</script>
+					</div>
+				{% else %}
+					{{ form(form_contact) }}{% endif %}
+				</div>
+			</div>
+		</div>
+		{# end header-content #}
+	</section>

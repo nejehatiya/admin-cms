@@ -36,11 +36,11 @@
             <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
             {# list table header #}
             {% set fields = [
-                {name:'Titre',field_name:'name_modele',method:'nameModele',sortable:true,type:'text'},
-                {name:'Statut',field_name:'status_modele',method:'statusModele',sortable:false,type:'boolean'},
-                {name:'Image',field_name:'image_preview',method:'imagePreview',sortable:false,type:'image'},
-                {name:'Utuliser dans',field_name:'used_in',method:'usedIn',sortable:false,type:'entity',field_to_display:'namePostType',collection:true},
-                {name:'Date',field_name:'date_add',method:'dateAdd',sortable:true,type:'date'}
+                {name:'Titre',field_name:'name_modele',method:'name_modele',sortable:true,type:'text'},
+                {name:'Statut',field_name:'status_modele',method:'status_modele',sortable:false,type:'boolean'},
+                {name:'Image',field_name:'image_preview',method:'image_preview',sortable:false,type:'image'},
+                {name:'Utuliser dans',field_name:'used_in',method:'used_in',sortable:false,type:'entity',field_to_display:'namePostType',collection:true},
+                {name:'Date',field_name:'date_add',method:'date_add',sortable:true,type:'date'}
             ] %}
             <thead>
                 {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}

@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Modifier Taxonomy
+{% endblock %}
+{% block titreAdmin %}
+    Modifier Taxonomy
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','taxonomy']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+        let id_taxonomy = "{{taxonomy.id}}";
+    </script>
+    {{ include('admin/taxonomy/_form.html.twig') }}
+{% endblock %}

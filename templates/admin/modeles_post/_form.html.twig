@@ -9,6 +9,12 @@
                 </td>
             </tr>
             <tr>
+                <th scope="row">{{ form_label(form.class_sortable) }}</th>
+                <td>
+                    {{ form_widget(form.class_sortable) }}
+                </td>
+            </tr>
+            <tr>
                 <th scope="row">{{ form_label(form.used_in) }}</th>
                 <td>{{ form_widget(form.used_in) }}</td>
             </tr>
@@ -22,6 +28,13 @@
                 <th scope="row">{{ form_label(form.status_modele) }}</th>
                 <td> 
                     <div class="form-check form-switch">{{ form_widget(form.status_modele) }}</div>
+                </td>
+            </tr>
+            
+            <tr>
+                <th scope="row">{{ form_label(form.is_new) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.is_new) }}</div>
                 </td>
             </tr>
             <tr>
@@ -40,11 +53,11 @@
                                 {% for field in  fields %}
                                     <fieldset class='{{field.refblock}} card' >
                                         <input value='{{field.refblock}}' type='hidden' class='ref-block-hidden' /> 
-                                        <legend>{{field.name}} <div class="form-check duplicated-option"><input class="duplicate-check-input" type="checkbox" value="" id="duplicated-option-{{field.refblock}}"><label class="form-check-label" for="duplicated-option-{{field.refblock}}">duplicated</label></div> <button type='button' class='delete-block btn btn-danger' id='{{field.refblock}}'>X</button></legend>
+                                        <legend>{{field.name}} <div class="form-check duplicated-option"><input {% if field.is_duplicatable is defined and field.is_duplicatable %}checked="checked"{% endif %} class="duplicate-check-input" type="checkbox" value="" id="duplicated-option-{{field.refblock}}"><label class="form-check-label" for="duplicated-option-{{field.refblock}}">duplicated</label></div> <button type='button' class='delete-block btn btn-danger' id='{{field.refblock}}'>X</button></legend>
                                         <div class='fields-select'>
                                             <select class='field-list custom-select'>
                                                 <option value=''>champs list</option>  
-                                                {% for  item in  ["file","textarea","number","text","date","text riche","select","checkbox","radio"] %}
+                                                {% for  item in  ["file","textarea","number","text","date","text riche","select","checkbox","radio","button/lien"] %}
                                                     <option value='{{item}}'>{{item}}</option>  
                                                 {% endfor %}
                                             </select>
@@ -61,7 +74,7 @@
                                                         <input value="{{item.titre}}" type='text' class='form-control titre-field' placeholder='titre' />
                                                     </p>
                                                     {% if item.type in ["select","checkbox","radio"] %}
-                                                        <p><label>List options(séparer par | ):</label><textarea class='options-list'>{{item.options}}</textarea></p>
+                                                        <p><label>List options(séparer par | ):</label><textarea class='options-list'>{{item.options|join('|')}}</textarea></p>
                                                     {% endif %}
                                                     {% if item.type in ["select"] %}
                                                         <div class="form-check">
@@ -87,6 +100,9 @@
                                     </fieldset>
                                 {% endfor %}
                             {% endif %}
+                        </div>
+                        <div class="form-preview" style="display: none;">
+                            
                         </div>
                     </div>
                 </td>

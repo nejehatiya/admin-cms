@@ -1,0 +1,69 @@
+<script  type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "{{meta_title}}",
+            "description": "{{article_structure.description}}",
+            "image": "{{article_structure.images_post.image}}",
+            "brand": {
+                "@type": "Brand",
+                "name": "FERMETAL"
+            },
+          
+            "review":  [
+                {% for comment in comments %}
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "{{comment.note_comment}}",
+                            "bestRating": 5,
+                            "worstRating": 1
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "{{comment.first_name}} {{comment.last_name}}"
+                        },
+                        "datePublished": "{{comment.date_add }} ",
+                        "reviewBody": "{{ comment.comment_content }}"
+                    }
+                    {% if loop.index != comments|length  and comments|length > 1 %}, {% endif %}
+                {% endfor %} 
+            ],
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "{{rating_views}}", 
+                "reviewCount": "{{comments_number}}"   
+            },
+            "offers": {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock",
+                "price": "{{ price }}",
+                "priceValidUntil": "30-12-2025",
+                "priceCurrency": "EUR",
+                "offerShippingDetails": {
+                    "@type": "OfferShippingDetails",
+                    "shippingDestination": {
+                        "@type": "DefinedRegion",
+                        "addressCountry": "FR"
+                    },
+                    "shippingRate": {
+                        "@type": "MonetaryAmount",
+                        "currency": "EUR",
+                        "value": "0.00"
+                    }
+                },
+                "merchantReturnPolicy": {
+                    "@type": "MerchantReturnPolicy",
+                    "refundType": "FullRefund",
+                    "returnPolicyCategory": "https://schema.org/RefundPolicy",
+                    "restockingFee": {
+                        "@type": "MonetaryAmount",
+                        "currency": "EUR",
+                        "value": "0.00"
+                    }
+                }
+            }
+           
+        }
+</script>

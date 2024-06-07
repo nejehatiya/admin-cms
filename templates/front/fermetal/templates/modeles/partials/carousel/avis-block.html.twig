@@ -1,0 +1,15 @@
+<div class="avis d-block">
+	<p class="note mb-0">Noté 4,9 sur Google
+		{% if loopIndex == 2 %}
+			<span>( 147 avis )</span>
+		{% endif %}
+	</p>
+	<p class="avis-svg d-flex align-center">
+		{% for i in 1..5 %}
+			<img class="lazy" src="{{ generate_webp_image('/build/images/loading-png.jpg')}}" data-src="{{ generate_webp_image('/build/images/avis.svg') }}" width="60" height="30" alt="avis-{{i}}"/>
+		{% endfor %}
+		{% if loopIndex == 1 %}
+			<span>( 147 avis )</span>
+		{% endif %}
+	</p>
+</div>

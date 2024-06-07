@@ -1,0 +1,114 @@
+.list-auteur .aurthor {
+    height: auto;
+}
+
+.aurthor {
+    height: 205px;
+    margin-bottom: 0px;
+    background-image: url(/build/images/bg3.svg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: -1px 1px 9px rgb(0 0 0 / 0.19);
+}
+
+.aurthor::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    opacity: 0.67;
+    z-index: 0;
+    top: 0;
+}
+
+.list-auteur .aurthor>div,
+.section-blogs .list .item>div.aurthor>div {
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 15px;
+}
+
+.section-blogs .list .item>.aurthor>div .header-block {
+    margin-bottom: 10px;
+}
+
+.list-auteur .aurthor>div .content {
+    padding-left: 20px;
+}
+
+.list-auteur .aurthor>div .header-block {
+    margin-bottom: 0;
+}
+
+.list-auteur .aurthor>div .description-short {
+    padding-left: 100px;
+}
+
+.list-auteur .aurthor>div a {
+    display: none;
+}
+
+.aurthor>div {
+    position: relative;
+    z-index: 1;
+    padding: 10px 7px;
+    height: 100%;
+}
+
+.aurthor>div img {
+    max-width: 100%;
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+    border: 2px solid #E7BC1B;
+}
+
+.aurthor>div .content {
+    width: calc(100% - 80px - 0px);
+    padding-left: 6px;
+}
+
+.aurthor>div .content p {
+    font: normal normal 700 18px/35px 'system-ui' !important;
+    color: #fff;
+    margin: 0 0 4px;
+}
+
+.aurthor>div .content .description,
+.aurthor>div .description-short {
+    font: normal italic 500 15px/23px 'system-ui' !important;
+    color: #fff;
+    margin-bottom: 9px;
+}
+
+.aurthor>div .description-short {
+    font: normal italic 400 13px/1.54 'system-ui' !important;
+    margin-bottom: 10px;
+    font-size: 16px;
+    max-height: calc(1.54 * 14px * 3);
+    line-height: calc(1.54 * 14px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    display: -ms-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    -ms-box-orient: vertical;
+    -ms-line-clamp: 3;
+}
+
+.aurthor>div a {
+    font: normal italic 500 14px/23px 'system-ui' !important;
+    color: #E7BC1B;
+    display: block;
+    text-align: right;
+    padding-right: 10px;
+}

@@ -1,0 +1,182 @@
+.text-normal p {
+    margin-top: 0;
+}
+
+.text-normal li,
+.text-normal p {
+    font: normal normal 500 18px/32px 'system-ui';
+}
+
+.text-normal h3 {
+    font: normal normal 700 30px/42px 'system-ui';
+    margin-bottom: 10px;
+    color: #ed202b;
+}
+
+.text-normal h4 {
+    font: normal normal 700 26px/42px 'system-ui';
+    margin-bottom: 10px;
+}
+
+.text-normal.lire-suite .content-text-image a:-webkit-any-link:active,
+.text-normal.lire-suite .content-text-image a {
+    color: #000;
+    font-weight: 800;
+}
+
+
+
+.text-normal.lire-suite .content-text-image .content,
+.text-normal.lire-suite .content-text-image .content.show {
+    overflow: hidden !important;
+}
+
+.text-normal.lire-suite .content-text-image .content.show {
+    padding-top: 15px;
+}
+
+.text-normal.lire-suite .content-text-image .content.hidden {
+    overflow: auto !important;
+    max-height: none !important;
+}
+
+.text-normal.lire-suite .content-text-image .content,
+.text-normal.scroll .content-text-image .content {
+    max-height: 467px;
+    height: max-content;
+    overflow: auto;
+    padding-right: 15px;
+}
+
+.text-normal.scroll .content-text-image>a {
+    display: none;
+}
+
+.text-normal.scroll .content-text-image .content::-webkit-scrollbar {
+    background-color: #001a7108;
+    border-radius: 40px;
+    width: 4px;
+}
+
+.text-normal.scroll .content-text-image .content::-webkit-scrollbar-thumb {
+    background-color: #e7bd1a;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #e7bd1a;
+}
+
+.text-normal.scroll .content-text-image .content::-webkit-scrollbar-track {
+    background-color: #001a7108;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px #001a7108;
+}
+
+.text-normal h2 {
+    font: normal normal 700 46px/65px 'system-ui';
+    color: #ed202b;
+    margin: 10px 0;
+}
+
+.text-normal .sous-titre {
+    font: normal normal 700 27px/40px 'system-ui';
+    color: #000000;
+}
+
+.text-normal.scroll>a {
+    display: none;
+}
+
+.text-normal.lire-suite .content-text-image button.lire-suite-text {
+    color: #000;
+    margin: 10px 0;
+    cursor: pointer;
+    line-height: 30px;
+    bottom: 0;
+    position: relative;
+    border: none;
+    background: transparent;
+}
+
+.text-normal .content-text-image .content>p {
+    font: normal normal 500 18px/30px 'system-ui';
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+
+.text-normal>p:empty,
+.text-normal .content-text-image .content>p:empty {
+    display: none !important;
+}
+
+.text-normal.background-color {
+    background-color: rgb(235 235 235 / 42%);
+    padding: 20px 0 10px 0;
+}
+
+.text-normal.center .content-text-image {
+    text-align: center;
+}
+
+.text-normal.left .content-text-image {
+    text-align: left;
+}
+
+.text-normal.right .content-text-image {
+    text-align: right;
+}
+
+.text-normal.justify .content-text-image {
+    text-align: justify;
+}
+
+@media (max-width:1600px) {
+    .text-normal {
+        margin-bottom: 30px !important;
+    }
+}
+
+@media(max-width:768px) {
+    .text-normal img {
+        max-width: 100%;
+    }
+
+    .text-normal p {
+        font: normal normal 500 16px/24px 'system-ui' !important;
+    }
+
+    .text-normal .sous-titre {
+        font: normal normal 700 27px/40px 'system-ui' !important;
+    }
+
+    .text-normal h2 {
+        font: normal normal 700 32px/42px 'system-ui' !important;
+    }
+
+    .text-normal .content-text-image,
+    .text-normal p,
+    .text-normal h2 {
+        text-align: left !important;
+    }
+
+    .text-normal.lire-suite .content-text-image button.lire-suite-text {
+        font: normal normal 700 16px/30px 'system-ui' !important;
+        color: #28282B !important;
+    }
+
+    .text-normal.lire-suite .content-text-image .content,
+    .text-normal.scroll .content-text-image .content {
+        padding-right: 0 !important;
+    }
+}
+
+@media (max-width:576px) {
+    .text-normal {
+        margin-bottom: 30px !important;
+    }
+
+    .text-normal.lire-suite .content-text-image button.lire-suite-text {
+        margin-bottom: 0;
+    }
+
+
+}

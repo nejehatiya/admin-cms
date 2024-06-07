@@ -1,0 +1,27 @@
+.plans-site h1 {
+    font: 700 32px/58px 'system-ui';
+
+}
+
+.plans-site h2 {
+    color: #ed202b;
+    font: 700 32px/58px 'system-ui';
+    margin: 0;
+    padding: 0;
+}
+
+.plans-site ul {
+    padding-left: 0;
+    margin: 0;
+}
+
+.plans-site li {
+    list-style-type: none;
+}
+
+.plans-site li a {
+    text-decoration: none;
+    font: 400 18px/35px 'system-ui';
+    color: #000;
+
+}

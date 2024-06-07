@@ -1,0 +1,22 @@
+{% set terms_post = [] %}
+{% if post is defined and post.terms is defined and is_post_admin is defined and is_post_admin and post.terms|length > 0 %}
+    {% for term in post.terms %}
+        {% set terms_post = terms_post|merge([term.id]) %}
+    {% endfor %}
+{% endif %}
+{% for taxonomy in taxonomies %}
+    <div class="elementor-taxonomy-selection elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
+        <div class="elementor-control-content">
+            <div class="elementor-control-field elementor-control-url-external-show">
+                <label for="elementor-control-default-c1482" class="elementor-control-title">{{taxonomy.name_taxonomy}}</label>
+                <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper">
+                    <select palaceholder="Selectionner {{taxonomy.name_taxonomy}}" id="post-taxonomy-{{taxonomy.id}}" data-setting="post-taxonomy-{{taxonomy.id}}" class="selectpicker" multiple>
+                            {% for term in taxonomy.terms %}
+                                <option {% if term.id in terms_post %} selected {% endif %} value="{{term.id}}">{{term.name_terms}}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

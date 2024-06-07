@@ -1,0 +1,119 @@
+{% set device = getDeviceAgent() %}
+{% set ratingViews = 5 %}
+<section class="avis-google {% if mode_affichage is defined and mode_affichage == 'with-sidebar'  %} avis-google-page {% endif %} mb-80">
+	<div class="container d-flex align-center">
+		{% if device == "desktop" %}
+			<div class="avis-clients d-flex direction-column align-start">
+				<img width="172" height="86" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ generate_webp_image('/build/images/logo-google-1.svg') }}" class="lazy " alt="logo-google"/>
+
+				<div class="nb-avis d-flex align-center">
+					{% set empty_start = 5 -  ratingViews|round(0,'floor')   %}
+					{% set half_start = ratingViews -  ratingViews|round(0,'floor')   %}
+					{% for i in 1.. ratingViews|round(0,'floor') %}
+						<img class="lazy" height="25" width="50" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ generate_webp_image('/build/images/avis-google.svg') }}" alt="star-{{i}}"/>
+					{% endfor %}
+					{% if half_start >= 0.5  %}
+						{% set empty_start = empty_start - 1   %}
+						<img height="25" width="50" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ generate_webp_image('/build/images/star-empty.svg') }}" class="lazy half-start" alt="half star"/>
+					{% endif %}
+					{% if empty_start  %}
+						{% for i in 1.. empty_start %}
+							<img height="25" width="50" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ generate_webp_image('/build/images/half-start.svg') }}" class="lazy half-start" alt="empty star-{{i}}"/>
+						{% endfor %}
+					{% endif %}
+					<p>{{ratingViews is defined  ? ratingViews|number_format(1, '.') : 4.9}}</p>
+				</div>
+				<p>{{ titre is defined ? urldecode(titre) : '' }}</p>
+			</div>
+		{% endif %}
+		<div class="all-avis carousel avis d-flex flex-no-wrap  {% if comments  is defined and comments|length <= 4 %}all-avis-left{% endif %}">
+			{% if comments is defined %}
+				{% for comment in comments %}
+					<div>
+						<div>
+							<div class="commentaire d-flex direction-column justify-space-between">
+								<div class="head d-flex align-center">
+									<div class="image">
+										{% if comment.image_url is defined and comment.image_url|length > 0 %}
+											<img height="50" width="50"  src="{{asset('/build/images/loading-png.png')}}" data-lazy="{{ generate_webp_image(comment.image_url) }}" alt="google"/>
+										{% else %}
+											<img height="50" data-lazy="50"  src="{{asset('/build/images/loading-png.png')}}" data-lazy="{{ generate_webp_image('images/icons/user-avatar.svg') }}" alt="google"/>
+										{% endif %}
+									</div>
+									<div class="head-comment d-flex direction-column">
+										<p class="author">
+											<strong>{{comment.first_name is defined ? comment.first_name : ''}}
+												{{comment.last_name is defined ? comment.last_name : ''}}</strong>
+										</p>
+										<div class="etoils d-flex">
+											{% set empty_start = 5 -  comment.note_comment   %}
+											{% for i in 1.. comment.note_comment %}
+												<img height="25" width="50" data-lazy="{{ generate_webp_image('/build/images/avis-google.svg') }}" alt="star-{{i}}"/>
+											{% endfor %}
+											{% if empty_start  %}
+												{% for i in 1.. empty_start %}
+													<img height="25" width="50" data-lazy="{{ generate_webp_image('/build/images/star-empty.svg') }}" alt="empty star-{{i}}"/>
+												{% endfor %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+
+								<div class="comment-content">
+									{% if comment.comment_content is defined and comment.comment_content|length %}
+										<p class="">{{ comment.comment_content }}</p>
+									{% endif %}
+								</div>
+
+
+								<div class="google-icon d-flex align-center">
+									<img width="50" height="50" data-lazy="{{ generate_webp_image('/build/images/logo-google-svg.svg') }}" alt="logo-google"/>
+									<p>
+										Publié sur<br/><span class="google-text">Google</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				{% endfor %}
+
+			{% endif %}
+			{% if device == "mobile"%}
+				<div>
+					<div>
+						<div class="avis-clients d-flex direction-column justify-center align-center">
+							<img width="172" height="86" data-lazy="{{ generate_webp_image('/build/images/logo-google-1.svg') }}" alt="logo-google"/>
+
+							<div class="nb-avis d-flex align-center">
+								{% set empty_start = 5 -  ratingViews|round(0,'floor')   %}
+								{% set half_start = ratingViews -  ratingViews|round(0,'floor')   %}
+								{% for i in 1.. ratingViews|round(0,'floor') %}
+									<img width="50" height="25" data-lazy="{{ generate_webp_image('/build/images/avis-google.svg') }}" alt="star-{{i}}"/>
+								{% endfor %}
+								{% if half_start >= 0.5  %}
+									{% set empty_start = empty_start - 1   %}
+									<img width="50" height="25" data-lazy="{{ generate_webp_image('/build/images/star-empty.svg') }}" class=" half-start" alt="half star"/>
+								{% endif %}
+								{% if empty_start  %}
+									{% for i in 1.. empty_start %}
+										<img width="50" height="25" data-lazy="{{ generate_webp_image('/build/images/half-start.svg') }}" class=" half-start" alt="empty star-{{i}}"/>
+									{% endfor %}
+								{% endif %}
+								<p>{{ratingViews is defined  ? ratingViews|number_format(1, '.') : 4.9}}</p>
+							</div>
+							<p>{{ titre is defined ? urldecode(titre) : '' }}</p>
+							<a href="#" class="lien-avis d-flex justify-center w-100">Voir tout les avis</a>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% if device == 'mobile' and post_type is defined and post_type.slug_post_type == "accueil" %}
+	<h1>
+		<strong>Dépannage rideau métallique Paris<br>Île-De-France</strong>
+	</h1>
+{% endif %}

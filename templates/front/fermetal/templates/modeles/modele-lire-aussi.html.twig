@@ -1,0 +1,40 @@
+{% set image_preview = image is defined ? image |json_decode : '' %}
+{% set titre_balise = titre_balise is defined ? titre_balise : 'p' %}
+<section class="section-lire-aussi">
+	<div class="container">
+		<div class="inner">
+			<div class="inner-content">
+
+				<div class="p-0 image">
+					{% if image_preview is not empty %}
+
+						{% set altImage = get_alt_image(image_preview) %}
+						<a href="{{href_button_1 is defined ? urldecode(href_button_1) : ''}}" {% if is_blank_button_1 is defined and is_blank_button_1 %} target="_blank" {% endif %} role="button">
+							{% set image_original = imageOriginalUrl(image_preview) %}
+							{#% set dimension = getImageSizetwig(base_url~image_original) %#}
+							<img width="{{altImage[1]}}" {% if altImage[2] is not null %} height="{{altImage[2]}}" {% endif %} class="attachment-full size-full lazy" data-src="{{generate_webp_image(image_original)}}" src="{{generate_webp_image('/build/images/loading-png.jpg')}}" alt="{{altImage[0]}}">
+						</a>
+					{% endif %}
+				</div>
+
+				<div class="lien-lire-aussi">
+					<a href="{{href_button_1 is defined ? urldecode(href_button_1) : ''}}" {% if is_blank_button_1 is defined and is_blank_button_1 %} target="_blank" {% endif %} role="button">
+						<span>
+							À LIRE AUSSI
+						</span>
+					</a>
+					<{{titre_balise}} class="p">
+						<a href="{{href_button_1 is defined ? urldecode(href_button_1) : ''}}" {% if is_blank_button_1 is defined and is_blank_button_1 %} target="_blank" {% endif %} role="button">{{titre is defined ? (is_modal_post is defined and is_modal_post ? urldecode(titre) :  urldecode(titre)) : '' }}</a>
+					</{{titre_balise}}>
+					<a href="{{href_button_1 is defined ? urldecode(href_button_1) : ''}}" {% if is_blank_button_1 is defined and is_blank_button_1 %} target="_blank" {% endif %} role="button">
+						{% set image_original = base_url~'/build/images/reshot-icon-right-arrow-UCA8NGYZDJ.svg' %}
+						{#% set dimension = getImageSizetwig(base_url~image_original) %#}
+						<img width="20" height="20" class="lazy" data-src="{{generate_webp_image('/build/images/reshot-icon-right-arrow-UCA8NGYZDJ.svg')}}" src="{{base_url~asset('/build/images/loading-png.jpg')}}"/>
+					</a>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</section>

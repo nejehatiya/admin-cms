@@ -1,0 +1,265 @@
+.section-header {
+    background: rgb(235 235 235 / 42%);
+    padding: 50px 0 50px;
+    margin-bottom: 50px;
+}
+
+.section-header .breadcrumb-menu.services {
+    background: transparent;
+    padding: 0;
+}
+
+.section-header .breadcrumb-menu.services .container {
+    padding: 0 !important;
+}
+
+.section-header .inner-content>div.section-infos {
+    width: 45.03%;
+    padding-right: 60px;
+}
+
+.section-header .inner-content>div.section-formulaire {
+    width: calc(100% - 45.03%);
+}
+
+.section-header h1 {
+    font: normal normal 800 44px/58px 'system-ui';
+    margin: 0 0 29px;
+    padding: 0;
+    color: #545454;
+}
+
+.section-header .description {
+    font: normal normal 400 18px/30px 'system-ui';
+    padding: 0;
+    color: #686868;
+    margin-bottom: 44px;
+}
+
+.section-header .item {
+    margin-bottom: 20px;
+}
+
+.section-header .header-adresse .item:last-child {
+    margin-bottom: 0px;
+}
+
+.section-header .item .image {
+    height: 45px;
+    width: 45px;
+    min-width: 45px;
+    background: #EBEBEB;
+    border-radius: 5px;
+}
+
+.section-header .item .image img {
+    width: 20px;
+    height: auto;
+}
+
+.section-header .item .item-content {
+    padding-left: 17px;
+}
+
+.section-header .item.item-titre p {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.section-header .item .item-content span {
+    font: normal normal 400 16px/22px 'system-ui';
+    color: #545454;
+    margin-bottom: 8px;
+}
+
+.section-header .header-adresse .item .item-content span,
+.section-header .item .item-content>*:nth-child(2) {
+    font: normal normal 400 20px/22px 'system-ui';
+    color: #545454 !important;
+    margin-bottom: 0px;
+}
+
+.section-header .inner-content>div.section-formulaire form {
+    width: 100%;
+    background: #fff;
+    border-radius: 25px;
+    overflow: hidden;
+    display: flex;
+    padding: 20px 20px 15px;
+    position: relative;
+}
+
+.section-header .inner-content>div.section-formulaire form>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.section-header .inner-content>div.section-formulaire form>div>div {
+    width: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.section-header .inner-content>div.section-formulaire form>div>div:nth-child(5),
+.section-header .inner-content>div.section-formulaire form>div>div:nth-child(6) {
+    width: 100%;
+}
+
+.section-header .inner-content>div.section-formulaire form>div>div:nth-child(6) {
+    margin-bottom: 0px;
+}
+
+.section-header .inner-content>div.section-formulaire form>div>div label {
+    font: normal normal 400 16px/30px 'system-ui';
+    color: #545454;
+    margin-bottom: 11px;
+}
+
+.section-header .inner-content>div.section-formulaire form>div>div input,
+.section-header .inner-content>div.section-formulaire form>div>div textarea {
+    font: normal normal 400 16px/30px 'system-ui';
+    color: #545454;
+    border: 1px solid #E2E2E2;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.section-header .inner-content>div.section-formulaire form>div>div textarea {
+    height: 260px;
+    resize: none;
+}
+
+.section-header .inner-content>div.section-formulaire form>div>div button {
+    background: #ED202B;
+    color: white;
+    width: max-content;
+    margin-left: auto;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    font: normal normal 800 20px/27px 'system-ui';
+    padding: 11.5px 20px;
+    min-width: 212px;
+}
+
+.section-header .breadcrumb-menu.services ul li a,
+.section-header .breadcrumb-menu.services ul li span {
+    font-weight: 400;
+}
+
+.section-header .section-formulaire form:has(.success-message) {
+    flex-direction: column-reverse;
+}
+
+.section-header .section-formulaire .success-message {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+    background: #00c851;
+    margin-bottom: 10px;
+}
+
+/* Add  styles  loading spinner here */
+
+
+#loading-spinner.show {
+    display: block !important;
+}
+
+
+
+@media(max-width:1600px) {
+    .section-header {
+        padding: 20px 0 90px;
+    }
+}
+
+@media(max-width:1200px) {
+    .section-header .item .item-content {
+        padding-left: 10px;
+    }
+
+    .section-header .item .item-content>*:nth-child(2) {
+        font: normal normal 400 17px/25px 'system-ui';
+    }
+
+    .section-header {
+        padding: 20px 0 50px;
+    }
+}
+
+@media(max-width:992px) {
+
+    .section-header .inner-content>div.section-infos,
+    .section-header .inner-content>div.section-formulaire {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .section-header .inner-content>div.section-formulaire form {
+        padding: 20px;
+    }
+
+    .section-header .inner-content>div.section-formulaire form>div>div label {
+        margin-bottom: 6px;
+    }
+
+    .section-header .inner-content>div.section-formulaire form>div>div input,
+    .section-header .inner-content>div.section-formulaire form>div>div textarea {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .section-header .inner-content>div.section-formulaire form {
+        border-radius: 5px;
+    }
+
+    .section-header .inner-content>div.section-formulaire form>div>div:last-of-type {
+        margin-bottom: 0px;
+    }
+
+    .section-header .inner-content>div.section-formulaire form>div>div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .section-header {
+        padding: 20px 0 20px;
+    }
+
+    .breadcrumb-menu.services {
+        margin-bottom: 5px;
+    }
+
+    .section-header h1 {
+        margin-bottom: 10px;
+    }
+
+    .section-header .description {
+        margin-bottom: 15px;
+    }
+}
+
+@media(max-width:768px) {
+    .section-header .inner-content>div.section-infos:first-child {
+        order: 0;
+    }
+
+    .section-header .inner-content>div.section-formulaire {
+        order: 1;
+        margin-bottom: 30px;
+    }
+
+    .section-header .inner-content>div.section-infos:nth-child(2) {
+        order: 2;
+    }
+
+    .section-header .inner-content>div.section-formulaire form>div>div button {
+        margin-right: auto;
+    }
+}

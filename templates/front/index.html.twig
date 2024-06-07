@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{name}}{% endblock %}
+{% block metaseo %}
+	{{ include('front/fermetal/templates/partials/head-seo.html.twig', { post: post }) }}
+{% endblock %}
+{% block content %}
+    {{ include('front/includes/_partials/slider-top.html.twig') }}
+    <section class="single-one">
+        <div class="container">
+            <div class="row">
+                {{ include('front/includes/content.html.twig') }}
+                {{ include('front/includes/_partials/sidebar.html.twig') }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block analytics %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-63LQEWMNFP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-63LQEWMNFP');
+    </script>
+{% endblock %}

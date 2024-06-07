@@ -1,0 +1,47 @@
+<div class="image-avis  d-flex align-items-end lazy" data-bg="{{asset('/build/images/img-page-service.webp')}}">
+	<div class="content-avis  d-flex">
+		{% if DefaultServisePage is defined  and DefaultServisePage %}
+			<div class="nb-avis  d-flex">
+				{% for i in 1..4 %}
+					<label class="rating-1"></label>
+				{% endfor %}
+				<label class="rating-2"></label>
+				<p>(
+					{% if comments_number is defined %}
+						{{comments_number}}
+					{% else %}
+						10
+					{% endif %}
+					avis)</p>
+			</div>
+		{% else %}
+			<div class="nb-avis">
+				{% for i in 1..4 %}
+					<label class="rating-1"></label>
+				{% endfor %}
+				<label class="rating-2"></label>
+				<p>(45 avis)</p>
+			</div>
+		{% endif %}
+
+		{% if device == "desktop" %}
+			<h1 class="text-image">
+
+
+				{% if "Dépannage rideau métallique" in post.post_title %}
+					{{ post.post_title|replace({'Dépannage rideau métallique': 'Dépannage rideau métallique<br>'})|raw }}
+				{% else %}
+					{% set array_string = post.post_title|split(' ') %}
+					{% set words = array_string|slice(0, 2) %}
+					{% set rest_words = array_string|slice(2, array_string | length -1) %}
+					{{ words|join(' ') }}
+					<br>
+					{{ rest_words|join(' ')}}
+
+
+				{% endif %}
+			</h1>
+		{% endif %}
+
+	</div>
+</div>

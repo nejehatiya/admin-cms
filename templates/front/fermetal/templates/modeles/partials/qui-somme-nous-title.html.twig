@@ -1,0 +1,20 @@
+<div
+	class="sec-title">
+	{#<div class="container">#}
+	{% if (sous_titre_inclut_h2 is defined and sous_titre_inclut_h2) and (titre_balise == 'h2') and (titre is defined and titre|length > 0 ) %}
+		<{{titre_balise}} class=" h2 d-flex direction-column">
+			{% if pre_titre is defined and pre_titre|length > 0 %}
+				<span class="p pre_titre">{{ pre_titre }}</span>
+			{% endif %}
+			{{ titre}}
+		</{{titre_balise}}>
+	{% else %}
+    	{% if pre_titre is defined and pre_titre|length > 0  %}
+			<{{pre_titre_balise}} class="p pre_titre">{{pre_titre is defined ? pre_titre : '' }}</{{pre_titre_balise}}>
+		{% endif %}
+		{% if titre is defined and titre|length > 0  %}
+			<{{titre_balise}} class="h2 ">{{ titre}}</{{titre_balise}}>
+		{% endif %}
+	{% endif %}
+	{#</div>#}
+</div>

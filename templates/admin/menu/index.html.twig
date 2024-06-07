@@ -1,0 +1,42 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+  Menus
+{% endblock %}
+{% block titreAdmin %}
+  Menus
+{% endblock %}
+
+{% block importmap %}
+    {{ importmap(['app','menu-module']) }}
+{% endblock %}
+{% block class_personalise %} nav-menus-php {% endblock %}
+{% block contentAdmin %}
+    <hr class="wp-header-end">
+    {# menu tabs #}
+    {% include "admin/menu/_partials/tabs.html.twig"  %}
+    {# menu selection list ou creation #}
+    {% include "admin/menu/_partials/menu-selection-list.html.twig"  %}
+
+    {# start menu container #}
+    <div id="nav-menus-frame" class="wp-clearfix">
+        {# element to add to menu #}
+        {% include "admin/menu/_partials/menu-elements-add.html.twig"  %}
+
+        {# menu structure #}
+        {% include "admin/menu/_partials/menu-structure.html.twig"  %}
+    </div>
+    {# modal menu template updated #}
+    <div class="modal template-menu">
+      <div class="model-content">
+        <h2 class="titre"></h2>
+        <div class="forms-generate parent-selector">
+          
+        </div>
+        <div class="form-footer">
+          <button class="button button-primary enregister">enregistrer</button>
+          <button class="button button-danger close">annuler</button>
+        </div>
+      </div>
+    </div>
+{% endblock %}

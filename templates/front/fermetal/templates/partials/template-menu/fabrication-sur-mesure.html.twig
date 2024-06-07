@@ -1,0 +1,1 @@
+{% set children_link = "children" in item|keys and item.children|length > 0 ? item.children : [] %}{{ include("front/fermetal/templates/partials/default/default-template.html.twig",{"nombre_entree":path_template[1],"data_footer":path_template[2],"children":children_link})}}

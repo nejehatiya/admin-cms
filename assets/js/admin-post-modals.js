@@ -5,12 +5,20 @@ let id = null;
 if(typeof id_modele !== "undefined"){
     id = id_modele;
 }
+if(typeof id_acf  !== "undefined"){
+    id = id_acf;
+}
 //console.log('fields',JSON.parse(fields));
 $(document).ready(function(){
     let blocks = [];
     // if us edt 
     if(id){
-        ajax_call.getModelePost(id).done(function(response) {
+        let tyep_fields = "modele_post";
+        console.log('typeof id_acf ',typeof id_acf !== "undefined" )
+        if(typeof id_acf  !== "undefined"){
+            tyep_fields = "acf_post";
+        }
+        ajax_call.getModelePost(id,tyep_fields).done(function(response) {
             console.log('data',response)
             if(response?.model_post){
                 main_function.setBlocks(JSON.parse(response.model_post.fields));
@@ -21,7 +29,7 @@ $(document).ready(function(){
     // init structure fields [{refblock:,name:,is_duplicatable:,fields:[{type:,titre:,options:,required:,uuid:,old_var_name:',is_old:}]}]
     //blocks = main_function.getBlocks();
     // init file type list
-    let list_file_types = ["file","textarea","number","text","date","text riche","select","checkbox","radio"];
+    let list_file_types = ["file","textarea","number","text","date","text riche","select","checkbox","radio","button/lien"];
     // init html block
     let html_block = "";
     // start add blocks
@@ -171,6 +179,33 @@ $(document).ready(function(){
         // update blocks
         main_function.setBlocks(blocks);
     })
+    // update required field
+    $(document).on('change',"input.multiple-check-input",function(e){
+        e.preventDefault();
+        // get uuid field
+        let uuid_field = $(this).parent('.form-check').siblings('.uuid-field').val();
+        // get ref block  parent
+        let ref_block = $(this).parent('.form-check').siblings('.uuid-field').attr('data-refblock');
+        // get field titre
+        let checked_prop = $(this).prop('checked');
+        // update field in list
+        let check_block_index = blocks.findIndex((ele)=>{
+            return ele.refblock == ref_block;
+        });
+        if(check_block_index>-1){
+            let fields_block = blocks[check_block_index].fields;
+            let field_index = fields_block.findIndex((ele)=>{
+                return ele.uuid == uuid_field;
+            })
+            fields_block[field_index].multiple = checked_prop;
+            // update field list
+            blocks[check_block_index].fields = fields_block;
+        }
+        // log blocks
+        console.log('blocks 128',blocks);
+        // update blocks
+        main_function.setBlocks(blocks);
+    })
     // update tittre field
     $(document).on('keyup',"input.titre-field",function(e){
         e.preventDefault();
@@ -180,7 +215,9 @@ $(document).ready(function(){
         let ref_block = $(this).parent().siblings('.uuid-field').attr('data-refblock');
         // get field titre
         let titre = $(this).val();
-        console.log('titre 139',titre)
+
+        let var_name = main_function.slugify(titre+' '+main_function.createUniqueID()).replaceAll('-','_')
+        
         // update field in list
         let check_block_index = blocks.findIndex((ele)=>{
             return ele.refblock == ref_block;
@@ -199,6 +236,9 @@ $(document).ready(function(){
         console.log('blocks 152',blocks);
         // update blocks
         main_function.setBlocks(blocks);
+        if(!$(this).parents('.filed').find('input.old-check-input').prop('checked')){
+            $(this).parents('.filed').find('.old-var-name').val(var_name).trigger('keyup');
+        }
     })
     // update options list
     $(document).on('keyup',"textarea.options-list",function(e){

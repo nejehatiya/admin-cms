@@ -1,0 +1,67 @@
+.breadcrumb-menu.services {
+    background: rgb(233 233 233 / 39%) 0 0 no-repeat padding-box;
+    padding-left: 0px;
+    margin-bottom: 30px;
+}
+
+.breadcrumb-menu ul {
+    display: block;
+    overflow: hidden;
+    padding: 6px 0;
+    position: relative;
+    margin: 0;
+}
+
+.breadcrumb-menu ul li {
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.breadcrumb-menu.services ul li a,
+.breadcrumb-menu.services ul li span {
+    color: #33363F;
+    font: normal italic 500 14px/18px system-ui;
+}
+
+.breadcrumb-menu ul li a {
+    color: #33363F;
+    transition: all .2s linear;
+    transition-delay: .1s;
+}
+
+.breadcrumb-menu li+li:before {
+    color: #6c757d;
+    content: "/";
+    display: inline-block;
+    padding-right: 0.5rem;
+    font-size: 12px;
+}
+
+.breadcrumb-menu ul li a:hover {
+    color: #ed202b !important;
+}
+
+@media(max-width:1600px) {
+    .breadcrumb-menu.services {
+        margin-bottom: 20px;
+    }
+}
+
+@media(max-width:768px) {
+    .breadcrumb-menu ul {
+        overflow: scroll;
+        overflow-y: hidden;
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .breadcrumb-menu ul li {
+        min-width: max-content;
+    }
+}

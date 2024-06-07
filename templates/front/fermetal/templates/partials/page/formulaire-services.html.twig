@@ -1,0 +1,82 @@
+<div class="formulaire-infs-services d-flex align-center">
+	<span class="text">
+		{% if meta_title_header_service|length > 0 %}
+			{{meta_title_header_service|trim|capitalize}}
+		{% else %}
+			Un rideau métalique bloqué?
+		{% endif %}
+	</span>
+	{% set meta_description_header_service = meta_description_header_service|trim|capitalize|replace({ 'fermetal': 'FERMETAL' }) %}
+	<p>
+		{% if meta_description_header_service|length > 0 %}
+			{{meta_description_header_service}}{% else %}Ne Vous inquiétez pas ! FERMETAL est là pour aider rapidement et en toute confiance.
+		{% endif %}
+	</p>
+
+	{# start slick caraousel #}
+	<div class="slcik-carousel-form">
+		<div>
+			<div>
+				<div class="formulaire visible">
+					<div class="content-price d-flex">
+						<img class="lazy" width="40" height="40" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/price.svg') }}" alt="price">
+						<p class="price d-flex">À partir de
+							{% if meta_price_header_service|length > 0 %}
+								{{meta_price_header_service}}
+							{% else %}
+								150
+							{% endif %}€</p>
+					</div>
+					<div class="content-tarif">
+						<p class="text-tarif">Ce tarif comprend:</p>
+						<div class="type-tarif d-flex">
+							<div class="deplacement d-flex">
+								<div class="icon-deplacement  d-flex">
+									<img class="lazy" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/la-navigation.svg') }}" alt="Déplacement"></div>
+								<p>Déplacement</p>
+							</div>
+							<div class="main-oeuvre  d-flex">
+								<div class="icon-main-oeuvre  d-flex">
+									<img class="lazy" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/cle-de-maintien.svg') }}" alt="Main d'oeuvre"></div>
+								<p>Main d'oeuvre
+								</p>
+							</div>
+							<div class="fournitures d-flex mb-0">
+								<div class="icon-fournitures  d-flex">
+									<img class="lazy" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/des-vis.svg') }}" alt="les petites Fournitures"></div>
+								<p>Les petites fournitures</p>
+							</div>
+							<div class="devis d-flex mb-0">
+								<div class="icon-devis  d-flex">
+									<img class="lazy" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/facturer.svg') }}" alt="Devis"></div>
+								<p>Devis
+								</p>
+							</div>
+						</div>
+					</div>
+					<p class="test-nos-engagements">Nos engagements:</p>
+					<div class="content-nos-engagements  d-flex">
+						<p class="d-flex"><img width="60" height="30" class="lazy" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/devis.svg') }}" alt="Devis">Devis<br>sans surprise</p>
+						<p class="d-flex"><img width="60" height="30" class="lazy" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/intervention_rapid.svg') }}" alt="Intervention rapid">Intervention<br>rapide</p>
+						<p class="d-flex"><img width="60" height="30" class="lazy" src="{{asset('/build/images/loading-png.jpg')}}" data-src="{{ asset('/build/images/Rembourse.svg') }}" alt="Satisfait">Satisfait<br>ou Remboursé</p>
+					</div>
+					<div class="action-btn  d-flex">
+						<a href="tel:{{get_option_value(" _phone")}}" class="call  d-flex">
+							<img src="{{ asset('images/appel.png') }}" alt="phone">
+							<span>{{get_option_value("_phone")}}</span>
+						</a>
+						<button class="devis-gratuit d-flex">
+							<img height="40" src="{{ asset('/build/images/facture-dachat-noir-1.svg') }}" alt="devis Gratuit">Mon devis Gratuit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div>
+				<div class="infs-services d-flex-important align-center justify-center">
+					{{ include('front/fermetal/templates/partials/page/formulaire.html.twig') }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

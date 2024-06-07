@@ -1,0 +1,75 @@
+{% set device = getDeviceAgent() %}
+{# init carousel #}
+{% if device == 'desktop' %}
+	{% set taille = 'xlarge' %}
+	{% set carousel_images = getCarrousel(id_category_carousel is defined ? id_category_carousel : 0) %}
+{% else %}
+	{% set taille = 'thumb_medium' %}
+	{% set carousel_images = getCarrousel(id_category_carousel_mobile is defined ? id_category_carousel_mobile : id_category_carousel) %}
+{% endif %}
+{% set button = carousel_images.buttonCarrousel is not empty ? carousel_images.buttonCarrousel|json_decode:'' %}
+<section class="main-slider d-flex  mb-80">
+	<div class="container">
+		{% if carousel_images is not empty %}
+			{% set images_json = carousel_images.imageCarrousel|json_decode %}
+			{% for key, image in images_json %}
+
+				<div class="slide {{ key == 0 ? 'active' : '' }}">
+					{% if (device == "desktop") and  (loop.index == 1) %}
+
+						<div class="image-layer  lazy" data-bg="{{ generate_webp_image(image.path[taille]) }}"></div>
+						<div class="auto-container">
+							<div class="upper-title">
+								<span>{{ carousel_images.titleCarrousel|upper }}</span>
+							</div>
+
+							{{ carousel_images.descriptionCarrousel|raw }}
+							{{ include('front/fermetal/templates/modeles/partials/carousel/content-carousel.html.twig',{'loopIndex':loop.index}) }}
+
+						</div>
+					{% endif %}
+					{% if (device == "mobile") and  (loop.index == 2) %}
+
+						<div class="image-layer  lazy" data-bg="{{ generate_webp_image(image.path[taille]) }}"></div>
+						<div class="auto-container">
+							<p class="sous-titre-mobile text-center">{{image.titre}}</p>
+
+							<div class="slide-carousel-formulaire">
+								<div>
+									<div>
+										<div class="description">
+
+											<div class="big-title">
+												<p>{{ image.texte|raw  }}</p>
+											</div>
+
+
+											{{ include('front/fermetal/templates/modeles/partials/carousel/button-block.html.twig') }}
+
+
+										</div>
+									</div>
+								</div>
+								<div>
+									<div>
+										{{ include('front/fermetal/templates/partials/page/formulaire.html.twig') }}
+									</div>
+								</div>
+
+							</div>
+							{{ include('front/fermetal/templates/modeles/partials/carousel/avis-block.html.twig',{'loopIndex':loop.index}) }}
+
+
+						</div>
+					{% endif %}
+				</div>
+
+			{% endfor %}
+		{% endif %}
+
+
+	</div>
+</section>
+{#% if device == 'mobile' %}
+	{{ carousel_images.descriptionCarrousel|raw }}
+{% endif %#}

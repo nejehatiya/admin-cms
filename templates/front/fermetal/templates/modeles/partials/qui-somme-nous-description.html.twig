@@ -1,0 +1,13 @@
+<div class="description d-flex flex-wrap align-items-baseline justify-flex-start ">
+	<div class="content-description {% if device == 'mobile' %} show-lire-suite {% endif %}">
+		<div class="text">{{decription is defined ? (is_modal_post is defined and is_modal_post ? decription :  decription)|raw :''}}
+
+		</div>
+	</div>
+	{% if device == 'mobile' %}
+		<button class="lire-suite-qui-sommes-nous d-flex justify-center align-center w-100">
+			<span>Lire la suite</span>
+			<img width="20" height="10" class="lazy" src="/build/images/loading-lire-suite.jpg" data-src="/build/images/arrow-next-right-icon.svg" alt="{% if titre is defined and titre|length > 0 %} {{titre}}{% else %}lire la suite {% endif %} ">
+		</button>
+	{% endif %}
+</div>

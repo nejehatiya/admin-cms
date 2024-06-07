@@ -32,7 +32,7 @@ class ModelesPostController extends AbstractController
     public function index(Request $request,ModelesPostRepository $modelesPostRepository): Response
     {
         $list_modeles_posts = $modelesPostRepository->findAll();
-        $list_modeles_posts = json_decode($this->serializer->serialize($list_modeles_posts, 'json', ['groups' =>[], DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s']), true);
+        $list_modeles_posts = json_decode($this->serializer->serialize($list_modeles_posts, 'json', ['groups' =>['show_api'], DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s']), true);
         
         return $this->render('admin/modeles_post/index.html.twig', [
             'modeles_posts' => $list_modeles_posts,

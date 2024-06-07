@@ -1,0 +1,17 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{address_locality}}",
+    "postalCode": "{{postal_code}}",
+    "streetAddress": "{{address}}"
+  },
+  "email": "{{site_email|length > 0 ? site_email :'contact@fermetal.pro'}}",
+  "faxNumber": "{{phone}}",
+  "name": "{{site_name}}",
+  "telephone": "{{phone}}",
+  "image":"{{logo_url}}"
+}
+</script>

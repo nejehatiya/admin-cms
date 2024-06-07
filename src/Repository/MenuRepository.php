@@ -47,14 +47,18 @@ class MenuRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findOneByName($name_menu,$current_id){
-        return $this->createQueryBuilder('m')
-        ->andWhere('m.name_menu = :name_menu')
-        ->setParameter('name_menu', $name_menu)
-        ->andWhere('m.id != :id_current')
-        ->setParameter('id_current', $current_id)
-        ->getQuery()
+
+    public function findByName($nom,$id_current){
+        $query =  $this->createQueryBuilder('m')
+        ->andWhere('m.name_menu = :name')
+        ->setParameter('name', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        $query = $query->getQuery()
         ->getOneOrNullResult()
         ;
+        return $query;
     }
 }

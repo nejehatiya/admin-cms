@@ -1,0 +1,102 @@
+{% set fields = [
+    {name:'Titre',field_name:'name_terms',method:'name_terms',sortable:true,type:'text'},
+    {name:'slug',field_name:'slug_terms',method:'slug_terms',sortable:false,type:'text'},
+    {name:'Parent',field_name:'parentTerms',method:'parentTerms',sortable:false,type:'entity',field_to_display:'name_terms',collection:false,generate_self_entity:true,'entity_name':'Terms'},
+    {name:'Statut',field_name:'is_draft',method:'is_draft',sortable:false,type:'boolean'},
+    {name:'Date',field_name:'date',method:'date',sortable:true,type:'date'}
+] %}
+<tr id="{{entity_name}}-{{ item.id }}" class="iedit author-self level-0 {{entity_name}}-{{ item.id }} type-post status-publish format-standard hentry category-non-classe">
+    <th scope="row" class="check-column">
+      <input id="cb-select-1" type="checkbox" name="post[]" value="{{ item.id }}" />
+      <label for="cb-select-1"><span class="screen-reader-text">{{ item["id"] }}</span></label>
+      <div class="locked-indicator">
+        <span class="locked-indicator-icon" aria-hidden="true"></span>
+        <span class="screen-reader-text">«&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» est verrouillé</span>
+      </div>
+    </th>
+    {% for field in fields %}
+        <td class="{{field.field_name}} column-{{field.field_name}} has-row-actions column-primary page-{{field.field_name}}" data-colname="{{field.name}}">
+            {% set item_value = "" %}
+            {% if field.type == "text" %}
+                {% set item_value = item[field.method] %}
+            {% elseif field.type == "boolean" %}
+                {% set item_value = item[field.method] ? 'Active' : 'Désactiver' %}
+            {% elseif field.type == "image" %}
+                image
+            {% elseif field.type == "entity" %}
+                {% if field.generate_self_entity is defined and field.generate_self_entity %}
+                    {% set parent_item = getParentName(item[field.method],field.entity_name,field.field_to_display) %}
+                    {% if parent_item|length > 0 %}
+                        {{parent_item[0][field.field_to_display]}}
+                    {% else %}
+                        - 
+                    {% endif %}
+                {% else %}
+                    entity
+                {% endif %}
+            {% elseif field.type == "date" %}
+                Créer le <br />{% set item_value = item[field.method] %}
+            {% endif %}
+            {% if loop.first %}
+                <div class="locked-info">
+                    <span class="locked-avatar"></span>
+                    <span class="locked-text"></span>
+                </div>
+                {% set param_path = {'id':item['id']} %}
+                {% if params_link is defined  %}
+                    {% set param_path = param_path|merge(params_link) %}
+                {% endif %}
+                <strong>
+                    <a class="row-title" href="{{path(path_edit,param_path)}}" aria-label="{{item_value}} (Modifier)">
+                        {% if entity_name is defined and entity_name == "Terms" %}{{item['parentTerms']?'__':''}}{% endif %}{{ item_value }}
+                    </a>
+                </strong>
+
+                <div class="hidden" id="inline_1">
+                    <div class="post_title">Bonjour tout le monde&nbsp;!</div>
+                    <div class="post_name">bonjour-tout-le-monde</div>
+                    <div class="post_author">1</div>
+                    <div class="comment_status">open</div>
+                    <div class="ping_status">open</div>
+                    <div class="_status">publish</div>
+                    <div class="jj">26</div>
+                    <div class="mm">02</div>
+                    <div class="aa">2024</div>
+                    <div class="hh">20</div>
+                    <div class="mn">33</div>
+                    <div class="ss">07</div>
+                    <div class="post_password"></div>
+                    <div class="page_template">default</div>
+                    <div class="post_category" id="category_1">1</div>
+                    <div class="tags_input" id="post_tag_1"></div>
+                    <div class="sticky"></div>
+                    <div class="post_format"></div>
+                </div>
+                <div class="row-actions">
+                    <span class="edit">
+                        <a href="{{path(path_edit,param_path)}}" aria-label="{{item_value}} (Modifier)">Modifier</a>
+                        |
+                    </span>
+                    {% if entity_name is not defined or entity_name is  defined and entity_name != "Terms" %}
+                        <span class="inline hide-if-no-js">
+                            <button type="button" class="button-link editinline" aria-label="Modifier rapidement {{item_value}} en ligne" aria-expanded="false">Modification rapide</button>
+                            |
+                        </span>
+                    {% endif %}
+                    <span class="trash">
+                        <a href="#" class="submitdelete" aria-label="Déplacer {{item_value}} dans la corbeille">Corbeille</a>
+                        {% if is_view %}|{% endif %}
+                        
+                    </span>
+                    {# check if need view #}
+                    {% if is_view %}
+                        <span class="view"><a href="#" rel="bookmark" aria-label="Afficher {{item_value}}">Voir</a></span>
+                    {% endif %}
+                </div>
+                <button type="button" class="toggle-row"><span class="screen-reader-text">Afficher plus de détails</span></button>
+            {% else %}
+                {{item_value}}
+            {% endif %}
+        </td>
+    {% endfor %}
+  </tr>

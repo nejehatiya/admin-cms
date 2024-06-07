@@ -1,0 +1,138 @@
+{% if fields is defined %}
+    {% for field in  fields %}
+
+        {% set boucle_block = 0  %}
+        {% set fields_data =  [] %}
+        {% if data_set is defined and data_set|length > 0 %}
+            {% set fields_data =  data_set|filter(v => v.ref_block == field.refblock) %}
+            {% set boucle_block = fields_data|length - 1  %}
+        {% endif %}
+        {% set is_first = loop.first %}
+        {% for item in 0.. boucle_block  %}
+            {% set data = fields_data|length ? fields_data[fields_data|keys[item]] : {} %}
+            <fieldset class='{{field.refblock}} {{is_first ? 'open' : '' }}'  >
+                <input value='{{field.refblock}}' type='hidden' class='ref-block-hidden' /> 
+                <legend class="legend">
+                    {% if is_post is defined and is_post %}
+                        <i class="eicon" aria-hidden="true"></i>
+                    {% endif %}
+                    {{field.name}} 
+                    <div class="form-check duplicated-option">
+                        {% if fields_data|length > 1 %}
+                            <button type='button' class='delete-block button button-primary'>
+                                <img src="{{url_site}}/assets/images/delete-icon.png"  />
+                            </button>
+                        {% endif %}
+                        {% if field.is_duplicatable is defined and field.is_duplicatable %}
+                            <button type='button' class='clone-block button button-primary'>
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="10px" width="10px" version="1.1" id="Capa_1" viewBox="0 0 52 52" xml:space="preserve">
+                                    <g>
+                                        <path d="M45,0H11c-0.552,0-1,0.448-1,1v3H7C6.448,4,6,4.448,6,5v46c0,0.552,0.448,1,1,1h34c0.552,0,1-0.448,1-1v-3h3   c0.552,0,1-0.448,1-1V1C46,0.448,45.552,0,45,0z M40,50H8V6h23v8c0,0.552,0.448,1,1,1h8V50z M33,7.414L38.586,13H33V7.414z M44,46   h-2V14c0-0.022-0.011-0.041-0.013-0.063c-0.006-0.088-0.023-0.173-0.051-0.257c-0.011-0.032-0.019-0.063-0.034-0.094   c-0.049-0.106-0.11-0.207-0.196-0.293l-9-9c-0.086-0.086-0.187-0.147-0.293-0.196c-0.031-0.014-0.062-0.022-0.094-0.033   c-0.084-0.029-0.169-0.046-0.258-0.051C32.041,4.011,32.021,4,32,4H12V2h32V46z"/>
+                                    </g>
+                                </svg>
+                            </button>
+                        {% endif %}
+
+                    </div>
+                </legend>
+                {#<div class='fields-select'>
+                    <select class='field-list custom-select'>
+                        <option value=''>champs list</option>  
+                        {% for  item in  ["file","textarea","number","text","date","text riche","select","checkbox","radio"] %}
+                            <option value='{{item}}'>{{item}}</option>  
+                        {% endfor %}
+                    </select>
+                    <button type='button' class='add-field btn btn-info' id='fields-{{field.refblock}}'>+</button>
+                </div>#}
+                <div class='fields-{{field.refblock}} fields-element'>
+                    {% set parent_index = loop.index %}
+                    {% for item in field.fields %}
+                        {% set value = item.type %}
+                        {% if value == 'text' %}
+                            {# field text #}
+                            {% include "admin/post/_partial/element-post-field/post-title.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data} %}
+                        {% elseif value == 'checkbox' %}
+                            {# field checkbox #}
+                            {% include "admin/post/_partial/element-post-field/post-checkbox.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data,'options':item.options} %}
+                        {% elseif value == 'radio' %}
+                            {# field radio #}
+                            {% include "admin/post/_partial/element-post-field/post-radio.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data,'options':item.options} %}
+                        {% elseif value == 'button/lien' %}
+                            {# field radio #}
+                            {% include "admin/post/_partial/element-post-field/post-button.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data} %}
+                        {% elseif value == 'number' %}
+                            {# field number #}
+                            {% include "admin/post/_partial/element-post-field/post-title.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data,'is_number':true} %}
+                        {% elseif value == 'date' %}
+                            {# field date #}
+                            {% include "admin/post/_partial/element-post-field/post-date.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data} %}
+                        {% elseif value ==  'file' %}
+                            {% set id_image = data[item.old_var_name] is defined ? data[item.old_var_name] : null  %}
+                            {{imageMediaSelect('',false,1,id_image,true,{'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data})|raw}}
+                        {% elseif value ==  'textarea' %}
+                            {% include "admin/post/_partial/element-post-field/post-excerpt.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data} %}
+                        {% elseif value ==  'text riche' %}
+                            {% include "admin/post/_partial/element-post-field/post-text-riche.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data} %}
+                        {% elseif value ==  'select' %}
+                            {% include "admin/post/_partial/element-post-field/post-select.html.twig" with {'titre_label':item.titre,'var_name':item.old_var_name,'uuid':item.uuid,data:data,'options':item.options,item:item} %}
+                        {% else %}
+                            <p>value is something else</p>
+                        {% endif %}
+                        {#<p class="field-description description description-wide">
+                            <label for="edit-menu-item-description-{{ item }}">
+                                Description<br />
+                                <textarea id="edit-menu-item-description-{{ item }}" class="widefat edit-menu-item-description" rows="3" cols="20" name="menu-item-description[{{ item }}]"></textarea>
+                            </label>
+                        </p>
+                        <div class='filed card p-2 mt-3 mb-3' style='background:#eee'>
+                            <input data-refblock='{{field.refblock}}' value='{{item.uuid}}' type='hidden' class='uuid-field' />
+                            <button type='button' class='delete-field btn btn-danger'>X</button>
+                            <p class='titre'>field type : <strong>{{item.type}}</strong></p>
+                            <p>
+                                <label>titre:</label>
+                                <input value="{{item.titre}}" type='text' class='form-control titre-field' placeholder='titre' />
+                            </p>
+                            {% if item.type in ["select","checkbox","radio"] %}
+                                <p><label>List options(séparer par | ):</label><textarea class='options-list'>{{item.options}}</textarea></p>
+                            {% endif %}
+                            {% if item.type in ["select"] %}
+                                <div class="form-check">
+                                    <input class="multiple-check-input" type="checkbox" value="" id="multiple-option-{{item.uuid}}">
+                                    <label class="form-check-label" for="multiple-option-{{item.uuid}}">multiple</label>
+                                </div>
+                            {% endif %}
+                            <div class="form-check">
+                                <input {% if item.required %}checked="checked"{% endif %} class="required-check-input" type="checkbox" value="" id="required-option-{{item.uuid}}">
+                                <label class="form-check-label" for="required-option-{{item.uuid}}">required</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input {% if item.is_old %}checked="checked"{% endif %} class="old-check-input" type="checkbox" value="" id="old-option-{{item.uuid}}">
+                                <label class="form-check-label" for="old-option-{{item.uuid}}">old</label>
+                                <div class="old {% if item.is_old is defined and  item.is_old == false %}d-none{% endif %}">
+                                    <input type="text" class="form-control old-var-name" value="{{item.old_var_name}}" placeholder="old var name" />
+                                </div>
+                            </div>
+                        </div>#}
+                    {% endfor %}
+                </div>
+            </fieldset>
+        {% endfor  %}
+    {% endfor %}
+    {# add section in advanced setting contain (css,id,bg image) #}
+    {% if is_post is defined and is_post %}
+        <fieldset class="block-style-advanced">
+            <input value="block-ref-style-advanced" type="hidden" class="ref-block-hidden"> 
+            <legend class="legend"><i class="eicon" aria-hidden="true"></i>Advanced style</legend>
+            <div class='fields-ref-style-advanced fields-element'>
+                {# field css class #}
+                {% set unique_ref =  getUniqueRef() %}
+                {% include "admin/post/_partial/element-post-field/post-title.html.twig" with {'titre_label':'CSS class','var_name':'css_class','uuid':'item-uuid-' ~ unique_ref } %}
+                {# field id attr #}
+                {% include "admin/post/_partial/element-post-field/post-title.html.twig" with {'titre_label':'ID attrubute','var_name':'id_css','uuid':'item-uuid-' ~ unique_ref} %}
+                {% set id_image =  null  %}
+                {{imageMediaSelect('',false,1,id_image,true,{'titre_label':'Background Image','var_name':'css_bg','uuid':'item-uuid-' ~ unique_ref})|raw}}
+            </div>
+        </fieldset>
+    {% endif %}
+{% endif %}

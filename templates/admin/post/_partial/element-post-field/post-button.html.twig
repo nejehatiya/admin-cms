@@ -1,0 +1,35 @@
+<div class="elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
+  <div class="elementor-control-content">
+    <div class="elementor-control-field elementor-control-url-external-show">
+      <label for="elementor-control-default-c1482" class="elementor-control-title">{{titre_label is defined ? titre_label : 'Titre'}}</label>
+      <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper voire-plus">
+        <label>lien</label>
+        <input 
+            type="text"
+            data-var-name="{{var_name is defined ? var_name :''}}" 
+            id="post-title{{uuid is defined ? '-' ~ uuid :''}}{{loop.index is defined ?  '-' ~ loop.index :''}}" 
+            class="elementor-control-tag-area elementor-input ui-autocomplete-input lien-button-lien" 
+            data-setting="post-title" 
+            placeholder="lien button/lien" 
+            autocomplete="off"
+            value = "{{var_name is defined and data is defined  and data[var_name] is defined and data[var_name]['lien'] is defined ? data[var_name]['lien'] :''}}"
+        />
+      </div>
+
+      <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper voire-plus">
+        <label>Titre</label>
+        <input 
+            type="text"
+            data-var-name="{{var_name is defined ? var_name :''}}" 
+            id="post-title{{uuid is defined ? '-' ~ uuid :''}}{{loop.index is defined ?  '-' ~ loop.index :''}}" 
+            class="elementor-control-tag-area elementor-input ui-autocomplete-input titre-button-titre" 
+            data-setting="post-title" 
+            placeholder="text button/lien" 
+            autocomplete="off"
+            value = "{{var_name is defined and data is defined  and data[var_name] is defined and data[var_name]['titre'] is defined ? data[var_name]['titre'] :''}}"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+ 

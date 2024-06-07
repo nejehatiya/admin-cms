@@ -1,0 +1,26 @@
+{% set post_type_input =  "blog" %}
+{% set is_author_single =  true %}
+{% extends 'front/fermetal/pages/blog-list.html.twig' %}
+{% block metaseo %}
+	{{ include('front/fermetal/templates/partials/head-seo.html.twig', { post: post }) }}
+{% endblock %}
+{# start stylesheets #}
+{% block stylesheets %}
+	{{getCssLinkitem(post,models_import)|raw}}
+{% endblock %}
+{% block page_title %}
+    Auteur {{post.post_title}}
+{% endblock %}
+
+{% block author_block %}
+    <div class="list-auteur d-flex justify-space-between flex-wrap">
+        {# start items blog #}
+            {{ include('front/fermetal/templates/partials/blog-single/auteur.html.twig',{'auteur':post}) }}
+        {# end items blog #}
+    </div>
+{% endblock %}
+
+{# start javascripts #}
+{% block javascripts %}
+	{{getJsScriptitem(post,models_import)|raw}}
+{% endblock %}

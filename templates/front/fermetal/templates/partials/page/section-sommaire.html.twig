@@ -1,0 +1,16 @@
+<section class="content-sommaire d-flex flex-wrap">
+	<div class="container d-flex flex-wrap">
+		<div class="content-models">
+			{{ include('front/fermetal/global/content-page.html.twig',{'post':post,'mode_affichage':'with-sidebar'}) }}
+		</div>
+		<div class="sidebar">
+			<div class="sommaire lazy d-flex direction-column align-items-end justify-flex-end" id="sommaire-page-service" data-bg="{{generate_webp_image('/build/images/bg-banner-somùmaire.jpg')}}">
+				<div class="text-btn-sommaire p-relative">
+					<span class="bg-image d-flex">Intervention en 20 min chrono!</span>
+					<a class="d-flex justify-center align-center" href="tel:{{ get_option_value('_phone') }}"><img class="lazy" width="44" height="22" src="{{asset('/build/images/loading-appelez-nous.jpg')}}" data-src="{{asset('/build/images/appel-nous.svg')}}" alt="tel:{{ get_option_value('_phone') }}"><span>{{ get_option_value('_phone') }}</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -44,14 +44,18 @@ class EmplacementRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findByName($name_emplacement,$id_current){
-        return $this->createQueryBuilder('e')
-        ->andWhere('e.key_emplacement = :name_emplacement')
-        ->setParameter('name_emplacement', $name_emplacement)
-        ->andWhere('e.id != :id_current')
-        ->setParameter('id_current', $id_current)
-        ->getQuery()
+
+    public function findByName($nom,$id_current){
+        $query =  $this->createQueryBuilder('m')
+        ->andWhere('m.key_emplacement = :name')
+        ->setParameter('name', $nom);
+        if((int)$id_current){
+            $query = $query->andWhere('m.id != :id_current')
+            ->setParameter('id_current', $id_current);
+        }
+        $query = $query->getQuery()
         ->getOneOrNullResult()
         ;
+        return $query;
     }
 }

@@ -1,0 +1,71 @@
+{{ form_start(form) }}
+    <table class="form-table form-term" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.name_terms) }}</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_widget(form.name_terms) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                    <p id="name-description">Le nom est la façon dont il apparaît sur votre site.</p>
+                </td>
+            </tr>
+            <tr> 
+                <th scope="row">{{ form_label(form.slug_terms) }}</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_widget(form.slug_terms) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                    <p id="slug-description">Le «&nbsp;slug&nbsp;» est la version du nom normalisée pour les URL. Il ne contient généralement que des lettres, des chiffres et des traits d’union.</p>
+                </td>
+            </tr>
+            
+            <tr> 
+                <th scope="row">{{ form_label(form.description_terms) }}</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_widget(form.description_terms) }}
+                    <p id="description-description">La description n’est pas visible par défaut&nbsp;; cependant, certains thèmes peuvent l’afficher.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">{{ form_label(form.is_draft) }}</th>
+            </tr>
+            <tr>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.is_draft) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.parentTerms) }}</th>
+            </tr>
+            <tr>
+                <td> 
+                    {{ form_widget(form.parentTerms) }}
+                    <p id="parent-description">Les catégories, contrairement aux étiquettes, peuvent avoir une hiérarchie. Vous pouvez avoir une catégorie nommée Jazz, et à l’intérieur, plusieurs catégories comme Bebop et Big Band. Ceci est totalement facultatif.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <th scope="row">{{ form_label(form.image) }}</th>
+                            <td>
+                                {{imageMediaSelect("image-preview",false,1,term.image)|raw}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(form) }}
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </p>
+{{ form_end(form) }}

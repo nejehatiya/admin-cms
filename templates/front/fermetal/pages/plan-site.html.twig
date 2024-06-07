@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% set device = getDeviceAgent() %}
+{% set models_import = models_unique(post.post_order_content|json_decode,'full') %}
+{% set models_import = ['braedcrumb','section-plan-site']|merge(models_import) %}
+{# start metaseo #}
+{% block metaseo %}
+	{{ include('front/fermetal/templates/partials/head-seo.html.twig', {'post': post}) }}
+{% endblock %}
+{# start stylesheets #}
+{% block stylesheets %}
+	{{getCssLinkitem(post,models_import)|raw}}
+{% endblock %}
+
+{# start content #}
+{% block content %}
+	{# start breadcrumb #}
+	{{ include('front/fermetal/templates/partials/breadcrump.html.twig', {'breadcrumbes': breadcrumbes}) }}
+	{# end breadcrumb #}
+	{# start plan site #}
+	{{ include('front/fermetal/templates/partials/page/section-plan-site.html.twig') }}
+	{# end section header #}
+{% endblock %}
+
+{# start javascripts #}
+{% block javascripts %}
+	{{getJsScriptitem(post,models_import)|raw}}
+{% endblock %}

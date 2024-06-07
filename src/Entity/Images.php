@@ -13,74 +13,47 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
 class Images
 {
-    /**
-     * @Groups({"cat_search","terms_devis","data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
-    /**
-     * @Groups({"cat_search","terms_devis","data_front"})
-     */
+    #[Groups(['show_api',"cat_search","terms_devis","data_front"])]
     #[ORM\Column(type: 'text')]
     private $url_image;
 
-    /**
-     * @Groups({"cat_search","data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $name_image;
 
-    /**
-     * @Groups({"cat_search","data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $description_image;
 
-    /**
-     * @Groups({"cat_search","terms_devis","data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $alt_image;
 
-    /**
-     * @Groups({"cat_search"})
-     */
+    
     #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'images')]
     private $id_post;
 
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'id_feature_image')]
     private $posts_features;
 
-    /**
-     * @Groups({"cat_search","terms_devis","data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'datetime')]
     private $date_add;
 
-    /**
-     * @Groups({"cat_search","terms_devis","data_front"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'datetime')]
     private $date_update;
 
-    /**
-     * @Groups({"cat_search","data_front"})
-     */
-    #[ORM\OneToMany(targetEntity: Terms::class, mappedBy: 'image')]
-    private $terms;
-
-    /**
-     * @Groups({"cat_search","terms_devis","data_front"})
-     */
+    
     #[ORM\Column(type: 'float', nullable: true)]
     private $height;
 
-    /**
-     * @Groups({"cat_search","terms_devis","data_front"})
-     */
+    
     #[ORM\Column(type: 'float', nullable: true)]
     private $width;
 
@@ -96,7 +69,6 @@ class Images
         $this->posts_features = new ArrayCollection();
         $this->date_add = new \DateTime();
         $this->date_update = new \DateTime();
-        $this->terms = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,35 +207,7 @@ class Images
         return $this->name_image;
     }
 
-    /**
-     * @return Collection|Terms[]
-     */
-    public function getTerms(): Collection
-    {
-        return $this->terms;
-    }
-
-    public function addTerm(Terms $term): self
-    {
-        if (!$this->terms->contains($term)) {
-            $this->terms[] = $term;
-            $term->setImage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTerm(Terms $term): self
-    {
-        if ($this->terms->removeElement($term)) {
-            // set the owning side to null (unless already changed)
-            if ($term->getImage() === $this) {
-                $term->setImage(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function slugify($text)
     {

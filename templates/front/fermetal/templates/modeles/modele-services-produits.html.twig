@@ -1,0 +1,159 @@
+{% set services = [
+	[
+	text_button_1 is defined ? text_button_1 : '',
+    icon_1 is defined ? icon_1 |json_decode : '' ,
+    href_button_1 is defined ? href_button_1 : '',
+    titre_1 is defined ? urldecode(titre_1) : '',
+    is_blank_button_1 is defined ? is_blank_button_1 : '',
+    rating_1 is defined ? rating_1 : 1, 
+	price_1 is defined ? price_1 : 250, 
+	mode_option_1 is defined ? mode_option_1 : 'Fabrication',
+	description_1 is defined ? urldecode(description_1) : '',
+	nb_vie_1 is defined ? nb_vie_1 : 2,233 
+	],
+	[
+    text_button_2 is defined ? text_button_2 : '',
+    icon_2 is defined ? icon_2 |json_decode : '' ,
+    href_button_2 is defined ? href_button_2  : '',
+    titre_2 is defined ? urldecode(titre_2) : '', 
+    is_blank_button_2 is defined ? is_blank_button_2 : '',
+    rating_2 is defined ? rating_2 : 1,
+	price_2 is defined ? price_2 : 350, 
+	mode_option_2 is defined ? mode_option_2 : 'Intervention',
+	description_2 is defined ? urldecode(description_2): '',
+	nb_vie_2 is defined ? nb_vie_2 : 2,233
+	],
+	[
+    text_button_3 is defined ? text_button_3 : '',
+    icon_3 is defined ? icon_3 |json_decode : '' ,
+    href_button_3 is defined ? href_button_3 : '' ,
+    titre_3 is defined ? urldecode(titre_3) : '',
+    is_blank_button_3 is defined ? is_blank_button_3 : '',
+    rating_3 is defined ? rating_3 : 1,
+	price_3 is defined ? price_3 : 200, 
+	mode_option_3 is defined ? mode_option_3 : 'Intervention',
+	description_3 is defined ? urldecode(description_3) : '',
+	nb_vie_3 is defined ? nb_vie_3 : 2,233
+	],
+    [
+    text_button_4 is defined ? text_button_4 : '',
+    icon_4 is defined ? icon_4 |json_decode : '' ,
+    href_button_4 is defined ? href_button_4 : '' ,
+    titre_4 is defined ? urldecode(titre_4) : '',
+    is_blank_button_4 is defined ? is_blank_button_4 : '',
+    rating_4 is defined ? rating_4 : 1,
+	price_4 is defined ? price_4 : 150, 
+	mode_option_4 is defined ? mode_option_4 : 'Intervention',
+	description_4 is defined ? urldecode(description_4) : '',
+	nb_vie_4 is defined ? nb_vie_4 : 2,233 
+	],
+    [
+    text_button_5 is defined ? text_button_5 : '',
+    icon_5 is defined ? icon_5 |json_decode : '',
+    href_button_5 is defined ? href_button_5 : '' ,
+    titre_5 is defined ? urldecode(titre_5) : '', 
+    is_blank_button_5 is defined ? is_blank_button_5 : '',
+    rating_5 is defined ? rating_5 : 1,
+	price_5 is defined ? price_5 : 150, 
+	mode_option_5 is defined ? mode_option_5 : 'Intervention',
+	description_5 is defined ? urldecode(description_5) : '',
+	nb_vie_5 is defined ? nb_vie_5 : 2,233 
+
+	],
+] %}
+<section class="{% if mode_view is defined and mode_view == "mode2" %} mode2 {% endif %} {% if is_background is defined and is_background %} bg-gree {% endif %} modele-services-produits-accueil mb-80 {% if mode_affichage is defined and mode_affichage == "with-sidebar" %} modele-services-produits-accueil-page {% endif %} ">
+	{% if mode_view is defined and mode_view == "mode2" %}
+		<div class="container">
+			{{ include('front/fermetal/templates/modeles/partials/qui-somme-nous-title.html.twig') }}
+			<div class="content-description">
+				<div class="text">{{decription is defined ? urldecode(decription)|removeEmptyP|raw}}</div>
+			</div>
+		</div>
+	{% endif %}
+	{% if (mode_view is defined and mode_view == "mode2") or (mode_affichage is defined and mode_affichage == "full") %}
+		<div class="container">
+		{% endif %}
+
+		<div class=" carousel-2 d-flex flex-nowrap direction-row">
+			{% if services is defined and services is not empty %}
+
+				{% for item in services %}
+					{% if item[0] is not empty %}
+						<div>
+							<div>
+								<div class="content-produit text-center">
+									<div class="inner d-flex direction-column justify-space-between">
+										{% if item[1] is not empty %}
+											{% set altImage = get_alt_image(item[1]) %}
+											{% set image_original = imageOriginalUrl(item[1]) %}
+											{#% set dimension = getImageSizetwig(base_url~image_original) %#}
+											<a href="{{item[2]}}" {% if item[4] is defined and item[4] %} target="_blank" {% endif %}>
+												<img alt="{{item[3]}}" width="{{altImage[1]}}" {% if altImage[2] is not null %} height="{{altImage[2]}}" {% endif %} class="image-produit" data-lazy="{{generate_webp_image(image_original)}}">
+
+												<div class="tag d-flex justify-start align-center {% if item[7] is defined and item[7] == 'Fabrication' %} fabrication {% else %} intervention {% endif %}">
+													{% if item[7] == 'Fabrication' %}
+														<span>Sur mesure</span>
+													{% else %}
+														<img width="29" height="21" data-lazy="{{generate_webp_image('/build/images/intervention.svg')}}" alt="intervention">
+														<span>20 min</span>
+													{% endif %}
+												</div>
+											</a>
+										{% endif %}
+
+
+										<div class="content-service-produit">
+											<a class="produit-title text-center " {% if item[4] is defined and item[4] %} target="_blank" {% endif %} href="{{item[2]}}">
+												<p class="weight-bold">{{ item[3]|trim|capitalize}}</p>
+											</a>
+											<div class="nb-avis d-flex justify-center align-center">
+												{% for i in 1..5 %}
+
+													{% if item[5] >= i %}
+														<img width="17" height="16" data-lazy="{{generate_webp_image('/build/images/star.svg')}}" alt="{{item[3]}}">
+													{% else %}
+														<img width="17" height="16" data-lazy="{{generate_webp_image('/build/images/star-empty.svg')}}" alt="{{item[3]}}">
+													{% endif %}
+
+												{% endfor %}
+												<p>{{item[5]}}</p>
+												<span>
+													{% if item[9]|length > 0 %}({{item[9]}})
+													{% else %}
+														(2.233)
+													{% endif %}
+												</span>
+											</div>
+											<p>
+												{% if item[8] is defined and item[8]|length %}
+													{{item[8]|raw}}{% else %}Commandez votre rideau sur mesure au meilleur prix.
+												{% endif %}
+											</p>
+											<p class="text-center">À partir de
+												{{item[6]}}€
+											</p>
+										</div>
+										<div class="button d-flex justify-center align-center w-100 m-b-30">
+											<a class="link d-flex justify-center align-center" {% if item[4] is defined and item[4] %} target="_blank" {% endif %} href="{{item[2]}}">
+												<span class="txt">
+													{% if item[7] == 'Fabrication' %}
+														Commander
+													{% else %}
+														En savoir plus
+													{% endif %}
+												</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		</div>
+
+		{% if (mode_view is defined and mode_view == "mode2") or (mode_affichage is defined and mode_affichage == "full") %}
+		</div>
+	{% endif %}
+</section>

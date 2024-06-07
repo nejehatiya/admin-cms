@@ -1,0 +1,52 @@
+{% set page = post.post_title is defined and post.post_title ? post.post_title :'' %}
+<div class="formulaire-service d-flex {{ class is defined ? class : '' }}">
+	{% if class is  defined %}
+		<div class="content-form">
+			<button class="close">X</button>
+			<p class="titre">Demandez votre devis Gratuit</p>
+		{% endif  %}
+		<div id="error_message"></div>
+		<div id="success_message"></div>
+
+		<form action="" method="post" name="form-devis" novalidate="novalidate" id="form" class="d-flex justify-center flex-wrap direction-column">
+			<div class="row d-flex justify-space-between">
+				<input type="hidden" name="page-title" value="{{page}}">
+				<div class="input">
+					<input type="text" name="name" value="" size="40" aria-required="true" aria-invalid="false" placeholder="Nom:">
+				</div>
+				<div class="input">
+
+					<input name="tel" type="tel" value="" size="40" maxlength="10" minlength="5" aria-required="true" aria-invalid="false" placeholder="Tel:">
+				</div>
+			</div>
+			<div class="row d-flex justify-space-between">
+
+				<div class="input">
+
+					<input type="email" name="email" value="" size="40" aria-required="true" aria-invalid="false" placeholder="Email :">
+				</div>
+
+				<div class="input input-code-postal">
+
+					<input type="text" name="code_postal" value="" maxlength="5" aria-required="true" aria-invalid="false" placeholder="Code Postal :">
+				</div>
+
+			</div>
+			<div class="row d-flex">
+				<div class="input-textarea text-center w-100">
+
+					<textarea name="message" cols="40" rows="5" aria-required="true" aria-invalid="false" placeholder="Message"></textarea>
+
+					<div class="button-box  d-flex {% if class is  defined %} justify-center align-center {% else %}justify-space-between{% endif %}">
+						{% if class is not defined %}
+							<button id="back_btn" class="back-btn"><img src="{{asset('/build/images/left-arrow.svg')}}" alt="arrow perv" width="100" height="50"></button>
+						{% endif %}
+						<button class="btn-one btn-send-devis" type="submit">Envoyer</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		{% if class is  defined %}
+		</div>
+	{% endif  %}
+</div>

@@ -1,0 +1,28 @@
+{% for blog in posts %}
+	{% if post_type_slug == "auteurs" %}
+		<div class="item d-flex">
+			{{ include('front/fermetal/templates/partials/blog-single/auteur.html.twig',{'auteur':blog}) }}
+		</div>
+	{% else %}
+		{% set image_original = imageOriginalUrl([blog.id_feature_image])  %}
+		<div class="item d-flex">
+			<div class="inner-item">
+				<a class=" lazy" data-bg="{{base_url ~ generate_webp_image(image_original)}}" href="{{base_url ~ '/blog/' ~ blog.post_name}}"></a>
+				<div class="infos d-flex direction-column justify-space-between">
+					<a class="titre" href="{{base_url ~ '/blog/' ~ blog.post_name}}">
+						<span>{{blog.post_title}}</span>
+					</a>
+					<div class="description">
+						{% set desc = getPostMetaFromData(blog.postMetas) %}
+						{{desc|raw}}
+					</div>
+					<a class="lire-la-suite d-flex align-center justify-flex-end" href="{{base_url ~ '/blog/' ~ blog.post_name}}">
+						<span>Lire l'article</span>
+						{% set image_original = base_url~'/build/images/lire-la-suite.svg' %}
+						<img height="30" width="30" class="lazy" src="{{ generate_webp_image('/build/images/loading-png.jpg')}}" data-src="{{generate_webp_image(image_original)}}" alt="{{blog.post_title}}"/>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endfor %}

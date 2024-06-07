@@ -1,0 +1,31 @@
+{% set index = "index"%}
+{% if post.post_name  is defined and post.post_name =="maintenance-rideau-metallique" %}
+	<meta name="robots" content="index"/>
+{% else %}
+	<meta name="robots" content="index ,follow , max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+{% endif %}
+{% if is_page_list is defined %}
+	{{ get_post_permalink(post) }}
+	{% set meta_seo_sitemap = get_meta_seo_sitemap(post_type) %}
+	<title>{{ (meta_seo_sitemap != '') ? meta_seo_sitemap.meta_title : '' }}</title>
+	<meta name="description" content="{{ (meta_seo_sitemap != '') ? meta_seo_sitemap.meta_desc : '' }}"/>
+	<meta name="title" content="{{ (meta_seo_sitemap != '') ? meta_seo_sitemap.meta_title : '' }}"/>
+{% elseif post is defined and post != null %}
+	<title>{{  posts_metas._yoast_wpseo_title is defined ? posts_metas._yoast_wpseo_title : '' }}</title>
+	<meta name="description" content="{{posts_metas._yoast_wpseo_metadesc is defined ? posts_metas._yoast_wpseo_metadesc : ''}}"/>
+	<meta name="title" content="{{ posts_metas._yoast_wpseo_title is defined ? posts_metas._yoast_wpseo_title : ''}}"/>
+	<link rel="canonical" href="{{current_link is defined ? current_link : base_url }}"/>
+	<meta property="og:locale" content="fr_FR"/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:title" content="{{posts_metas._yoast_wpseo_title is defined ? posts_metas._yoast_wpseo_title : ''}}"/>
+	<meta property="og:description" content="{{posts_metas._yoast_wpseo_metadesc is defined ? posts_metas._yoast_wpseo_metadesc : ''}}"/>
+	<meta property="og:url" content="{{current_link is defined ? current_link : base_url }}"/>
+	<meta property="og:site_name" content="FERMETAL - Dépanneur de rideaux métalliques"/>
+	<meta property="article:modified_time" content=""/>
+	<meta property="og:image" content="{{get_config_value("_home_site")}}{{ asset('/build/images/' ~ imageSize(post.id_feature_image,'full')) }}"/>
+	<meta property="og:image:width" content="771"/>
+	<meta property="og:image:height" content="247"/>
+	<meta name="twitter:card" content="summary_large_image"/>
+{% else %}
+	<title>Accueil</title>
+{% endif %}

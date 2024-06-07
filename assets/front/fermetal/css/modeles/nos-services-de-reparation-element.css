@@ -1,0 +1,89 @@
+.nos-service-reparation {
+    margin-bottom: 30px;
+}
+
+.nos-service-reparation .h2 {
+    margin: 0px !important;
+    padding: 0px !important;
+    font: normal normal 700 36px/59px 'system-ui';
+    color: #ed202b;
+}
+
+.nos-service-reparation .description {
+    width: 100%;
+    margin: 0 0 10px;
+}
+
+.nos-service-reparation .description * {
+    text-align: left;
+    color: #0a111e;
+    font: normal normal 500 18px/30px 'system-ui' !important;
+}
+
+.nos-service-reparation .carousel-items {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.nos-service-reparation .carousel-items .slick-list {
+    padding: 10px 150px 10px 0 !important;
+}
+
+.nos-service-reparation .slick-track {
+    display: flex !important;
+}
+
+.nos-service-reparation .slick-slide {
+    height: inherit !important;
+}
+
+.nos-service-reparation .slick-slide>div {
+    height: 100%;
+}
+
+.nos-service-reparation .carousel-items .slick-list .single-testimonials-style2 {
+    width: 100% !important;
+    margin: 0;
+    display: flex !important;
+}
+
+.nos-service-reparation .carousel-items .single-testimonials-style2 {
+    width: calc((100% / 4) - 20px);
+    padding-right: 20px;
+    height: 100%;
+}
+
+.nos-service-reparation .carousel-items .single-testimonials-style2>div {
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(235 235 235 / 42%);
+    border-radius: 5px;
+    padding: 20px;
+    max-height: 350px;
+    min-width: calc((100% / 3) - 20px);
+    margin-right: 10px;
+    min-height: 250px;
+}
+
+.nos-service-reparation .carousel-items .single-testimonials-style2 .h3 {
+    margin: 0 0 5px;
+    color: #000;
+    text-align: center;
+}
+
+.nos-service-reparation .carousel-items .single-testimonials-style2 .h3+div * {
+    text-align: center;
+    color: #0a111e;
+    font: normal normal 500 18px/30px 'system-ui' !important;
+}
+
+@media(max-width:576px) {
+    .nos-service-reparation .carousel-items .slick-list {
+        padding: 10px 50px 10px 0 !important;
+    }
+
+    .nos-service-reparation .carousel-items .single-testimonials-style2>div {
+        margin-right: 0px;
+    }
+}

@@ -13,23 +13,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PostTypeRepository::class)]
 class PostType
 {
-    /**
-     * @Groups({"id_posttype","data_front","show_api"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @Groups({"id_posttype","data_front","show_api"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 255)]
     private $name_post_type;
 
-    /**
-     * @Groups({"data_front","show_api"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 255)]
     private $slug_post_type;
 
@@ -39,6 +33,7 @@ class PostType
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'post_type')]
     private $posts;
 
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $statutMenuSideBar;
 
@@ -48,10 +43,11 @@ class PostType
     #[ORM\OneToMany(targetEntity: Taxonomy::class, mappedBy: 'Posttype')]
     private $taxonomies;
 
-    
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 0])]
     private $is_draft;
 
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $displayInSitemap;
 
@@ -67,11 +63,17 @@ class PostType
     #[ORM\ManyToMany(targetEntity: ModelesPost::class, mappedBy: 'used_in')]
     private Collection $modelesPosts;
 
+    #[Groups(['show_api'])]
     #[ORM\Column]
     private ?bool $has_list = null;
 
+    #[Groups(['show_api'])]
     #[ORM\Column(nullable: true)]
     private ?bool $slug_in_url = null;
+
+    #[ORM\ManyToMany(targetEntity: PostMetaFields::class, mappedBy: 'post_type')]
+    private Collection $postMetaFields;
+
 
     public function __construct()
     {
@@ -81,6 +83,7 @@ class PostType
         $this->is_draft = false;
         $this->posts = new ArrayCollection();
         $this->modelesPosts = new ArrayCollection();
+        $this->postMetaFields = new ArrayCollection();
     }
 
     /**
@@ -356,5 +359,33 @@ class PostType
         return $this;
     }
 
+   
+
+    /**
+     * @return Collection<int, PostMetaFields>
+     */
+    public function getPostMetaFields(): Collection
+    {
+        return $this->postMetaFields;
+    }
+
+    public function addPostMetaField(PostMetaFields $postMetaField): static
+    {
+        if (!$this->postMetaFields->contains($postMetaField)) {
+            $this->postMetaFields->add($postMetaField);
+            $postMetaField->addPostType($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostMetaField(PostMetaFields $postMetaField): static
+    {
+        if ($this->postMetaFields->removeElement($postMetaField)) {
+            $postMetaField->removePostType($this);
+        }
+
+        return $this;
+    }
 
 }

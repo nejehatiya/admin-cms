@@ -1,0 +1,33 @@
+{# plans-du-site.html.twig #}
+{% extends 'base.html.twig' %}
+{# start stylesheets #}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('plans-site') }}
+{% endblock %}
+
+{% block content %}
+
+<section class="plans-site">
+    <div class="container">
+        <h1 class="mb-0"> Plan du Site </h1>
+        {% for key, titles in results %}
+            <div class="content">
+                <h2 class="mb-0">{% if key == 'all' %}Pages{% elseif key == 75  %} Arrondissement de Paris ({{ key }}){% else %} Département de {{ titles[0].departement|title|replace({'-': ' '}) }}{% endif %}</h2>
+                <ul class="mt-0">
+                    {% for title in titles %}
+                        <li><a href="{{ title.url }}">{{ title.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</section>   
+{% endblock %}
+{# start javascripts #}
+{% block javascripts %}
+	{{ parent() }}
+	
+	{{ encore_entry_script_tags('plans-site') }}
+	
+{% endblock %}

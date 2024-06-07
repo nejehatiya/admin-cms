@@ -24,6 +24,14 @@ return [
         'path' => './assets/admin/modelepost/traitement.js',
         'entrypoint' => true,
     ],
+    'modeles-template-page' => [
+        'path' => './assets/admin/modeles-template-page/traitement.js',
+        'entrypoint' => true,
+    ],
+    'acf' => [
+        'path' => './assets/admin/acf/traitement.js',
+        'entrypoint' => true,
+    ],
     'mediatheque' => [
         'path' => './assets/admin/mediatheque/media.js',
         'entrypoint' => true,
@@ -34,6 +42,22 @@ return [
     ],
     'post' => [
         'path' => './assets/admin/post/post.js',
+        'entrypoint' => true,
+    ],
+    'taxonomy'=>[
+        'path' => './assets/admin/taxonomy/traitement.js',
+        'entrypoint' => true,
+    ],
+    'modele-term'=>[
+        'path' => './assets/admin/term/traitement.js',
+        'entrypoint' => true,
+    ],
+    'menu-module'=>[
+        'path' => './assets/admin/menu/traitement.js',
+        'entrypoint' => true,
+    ],
+    'emplacement'=>[
+        'path' => './assets/admin/emplacement/traitement.js',
         'entrypoint' => true,
     ],
 ];

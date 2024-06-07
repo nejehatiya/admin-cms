@@ -1,0 +1,62 @@
+{% set titre_balise = titre_balise is defined and titre_balise|length > 0 ? titre_balise : 'h2' %}
+{% set pre_titre_balise = pre_titre_balise is defined and pre_titre_balise|length > 0 ? pre_titre_balise : 'p' %}
+<section class="nos-agence-modele   {% if mode_affichage is defined and mode_affichage == 'with-sidebar' %} nos-agence-modele-page {% endif %} {% if is_background is defined and is_background %} bg-gree {% endif %}">
+	<div class="container">
+		<div class="sec-title d-flex justify-center align-center direction-column">
+			{% if pre_titre is defined and pre_titre|length > 0 %}
+				<div class="sub-title">
+					<{{pre_titre_balise}} class="p pre_titre">{{pre_titre is defined ? urldecode(pre_titre) : '' }}</{{pre_titre_balise}}>
+				</div>
+			{% endif %}
+
+			{% if titre is defined and titre|length > 0 %}
+				<{{titre_balise}} class="h2">{{titre is defined ?  urldecode(titre): '' }}</{{titre_balise}}>
+			{% endif %}
+		</div>
+		<div class="content-description d-flex justify-center align-center">
+			<div class="text d-flex justify-center align-center text-center">{{decription is defined ? (is_modal_post is defined and is_modal_post ? urldecode(decription) :  urldecode(decription))|removeEmptyP|raw :''}}</div>
+		</div>
+		<div class="list-agences carousel-agence-modele d-flex flex-wrap justify-space-between">
+			{% set agences = getAgencesList(post is defined ? post.id : null ) %}
+			{% for agence in agences %}
+				<div>
+					<div>
+						<div class="agence-item">
+							<div class="inner-container d-flex direction-column justify-space-between">
+								<div class="action d-flex direction-column">
+									<a class="titre" href="{{base_url}}/{{agence.post.post_type.slug_post_type}}/{{agence.post.post_name}}">{{agence.post.post_title}}</a>
+									<div class="item d-flex direction-row">
+										{% set image_original ='/build/images/icon-awesome-map-marker-alt.svg' %}
+										<img height="28" data-src="{{generate_webp_image(image_original)}}" src="{{ generate_webp_image('/build/images/loading-png.jpg')}}" class="lazy" alt="address-{{loop.index}}"/>
+										<div class="item-content">
+											<span>{{agence.posts_metas._agence_address}}</span>
+										</div>
+									</div>
+									<div class="item d-flex direction-row">
+										{% set image_original = ('/build/images/icon-awesome-clock.svg') %}
+										<img height="28" data-src="{{generate_webp_image(image_original)}}" src="{{ generate_webp_image('/build/images/loading-png.jpg')}}" class="lazy" alt="availability-{{loop.index}}"/>
+										<div class="item-content">
+											<span>{{agence.posts_metas._agence_ouverte}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="action d-flex justify-center align-center  direction-column">
+									<a class="phone d-flex justify-center align-center" href="tel:{{agence.posts_metas._agence_phone|replace({' ':''})}}">
+										{% set image_original = '/build/images/appel-nous.svg' %}
+										<img width="30" height="30" data-src="{{generate_webp_image(image_original)}}" src="{{ generate_webp_image('/build/images/loading-phone-agence-modele.jpg')}}" class="lazy" alt="appel"/>
+										{{agence.posts_metas._agence_phone}}
+									</a>
+									<a class="en-savoir-plus d-flex justify-center align-center" href="{{base_url}}/{{agence.post.post_type.slug_post_type}}/{{agence.post.post_name}}">
+										En savoir plus
+										{% set image_original = '/build/images/icon-awesome-arrow-right.svg' %}
+										<img width="20" data-src="{{generate_webp_image(image_original)}}" src="{{ generate_webp_image('/build/images/loading-png.jpg')}}" class="lazy" alt="arrow right"/>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>

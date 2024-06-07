@@ -1,0 +1,19 @@
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {% for breadcrumb in  breadcrumb_structure %}
+                {
+                    "@type": "ListItem",
+                    "position": {{loop.index}},
+                    "item":{
+                        "@id":"{{ loop.index != breadcrumb_structure|length ? breadcrumb.url : '#'}}",
+                        "name": "{{breadcrumb.name}}"
+                    }
+                }
+                {% if loop.index != breadcrumb_structure|length  %},{% endif %}
+            {% endfor %}
+        ]
+    }
+</script>

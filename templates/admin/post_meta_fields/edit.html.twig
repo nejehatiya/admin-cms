@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Modifier  acf
+{% endblock %}
+{% block titreAdmin %}
+    Modifier  acf
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','admin-post-modals','acf']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+        let id_acf = "{{post_meta_field.id}}";
+    </script>
+    {{ include('admin/post_meta_fields/_form.html.twig') }}
+{% endblock %}

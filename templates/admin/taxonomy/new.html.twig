@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Ajouter un nouvelle taxonomy
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un nouvelle taxonomy
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','taxonomy']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {{ include('admin/taxonomy/_form.html.twig') }}
+{% endblock %}

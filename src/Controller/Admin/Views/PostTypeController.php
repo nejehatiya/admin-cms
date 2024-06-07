@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Views;
 
 use App\Entity\PostType;
-use App\Form\PostSingleTypeType;
+use App\Form\PostTypeType;
 use App\Repository\PostTypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +30,7 @@ class PostTypeController extends AbstractController
     public function index(PostTypeRepository $postTypeRepository): Response
     {
         $list_post_types = $postTypeRepository->findAll();
-        $list_post_types = json_decode($this->serializer->serialize($list_post_types, 'json', ['groups' =>[], DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s']), true);
+        $list_post_types = json_decode($this->serializer->serialize($list_post_types, 'json', ['groups' =>['show_api'], DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s']), true);
         
         return $this->render('admin/post_type/index.html.twig', [
             'post_types' => $list_post_types,

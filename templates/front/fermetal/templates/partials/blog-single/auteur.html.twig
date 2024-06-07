@@ -1,0 +1,21 @@
+{% if auteur is defined and auteur != null %}
+	<div class="aurthor">
+		<div class="inner-content d-flex align-center justify-space-between direction-column">
+			{% set image_original = imageOriginalUrl([auteur.id_feature_image])  %}
+			{% set alt_image = get_alt_image([auteur.id_feature_image])  %}
+			<div class="header-block d-flex align-center justify-space-between">
+				<img {% if alt_image[2] is not null %} height="80" {% endif %} width="80" alt="{{alt_image[0]}}" class="lazy" src="{{ base_url~asset('/build/images/loading-png.jpg')}}" data-src="{{base_url ~ generate_webp_image(image_original)}}"/>
+				<div class="content">
+					<p>
+						<strong>{{auteur.post_title}}</strong>
+					</p>
+					<div class="description">{{auteur.post_excerpt}}</div>
+				</div>
+			</div>
+			<div class="body-block">
+				<div class="description-short">{{get_post_meta_value(auteur.id,'_meta_description_header_service')|raw}}</div>
+				<a href="{{base_url}}/{{auteur.post_type.slug_post_type}}/{{auteur.post_name}}">En savoir plus</a>
+			</div>
+		</div>
+	</div>
+{% endif %}

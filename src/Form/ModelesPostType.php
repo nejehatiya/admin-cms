@@ -26,6 +26,14 @@ class ModelesPostType extends AbstractType
                 'attr'=> ['class'=>'regular-text','id'=>'name_modele'],
                 // unmapped fields can't define their validation using annotations
             ])
+            ->add('class_sortable', TextType::class, [
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => true,
+                'label'=>"Class Sortable",
+                'attr'=> ['class'=>'regular-text','id'=>'class_sortable'],
+                // unmapped fields can't define their validation using annotations
+            ])
             ->add('status_modele',CheckboxType::class,[
                 'label'=>"Statut",
                 // make it optional so you don't have to re-upload the PDF file
@@ -50,6 +58,13 @@ class ModelesPostType extends AbstractType
             ])
             ->add('fields', TextareaType::class, [
                 'attr' => ['class' => 'd-none'],
+            ])
+            ->add('is_new',CheckboxType::class,[
+                'label'=>"Tag new",
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+                'attr'=> ['class'=>'form-check-input']
             ])
         ;
     }

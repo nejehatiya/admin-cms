@@ -1,0 +1,10 @@
+{% set post_content_element = json_order_content is defined ? json_order_content : post.post_order_content|json_decode %}
+{% set mode_affichage = mode_affichage is defined ? mode_affichage : 'full' %}
+{% if (post.post_order_content|length) > 0 and post.post_order_content != null %}
+	{% for element in post_content_element %}
+		{% set model_content = element.json_data|json_decode %}
+		{% if element.is_model %}
+			{{ renderModalView(model_content, post_type,_context,loop.index,mode_affichage)|raw }}
+		{% endif %}
+	{% endfor %}
+{% endif %}

@@ -7,37 +7,45 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: MenuRepository::class)]
 class Menu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['show_api'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['show_api'])]
     private $name_menu;
 
     #[ORM\Column(type: 'text')]
+    #[Groups(['show_api'])]
     private $menu_content;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['show_api'])]
     private $status_menu;
 
     #[ORM\OneToMany(targetEntity: Emplacement::class, mappedBy: 'menu')]
+    #[Groups(['show_api'])]
     private $id_emplacement;
 
     #[ORM\ManyToOne(targetEntity: TemplateMenu::class, inversedBy: 'menu_id')]
+    #[Groups(['show_api'])]
     private $templateMenu;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['show_api'])]
     private $date_add;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['show_api'])]
     private $date_update;
 
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'menus')]
     private $user;
 

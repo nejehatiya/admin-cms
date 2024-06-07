@@ -1,0 +1,54 @@
+{% set device = getDeviceAgent() %}
+{% set phone_agence = posts_metas._agence_phone is defined ? posts_metas._agence_phone : '' %}
+{% if post_type is defined %}
+	{% set post_type_value = post_type is iterable ? post_type.name_post_type : post_type %}
+{% endif %}
+<header class="main-header d-flex align-center justify-space-between">
+	<div class="container">
+		<div class="header d-flex align-center justify-space-between">
+			<a class="logo-fermetal d-flex" href="{{ get_option_value('_site_home') }}" title="Dépannage Réparation Et Fabricant De Rideaux Et Grilles Métalliques">
+				<img class="lazy" width="90" height="45" data-src="{{ get_option_value('_logo_header') }}" src="{{ asset('/build/images/loading-png.jpg') }}" alt="logo"/></a>
+			{% if device == "desktop" %}
+				<nav class="main-menu style1 navbar-expand-md navbar-light">
+					<div class="menu d-flex collapse navbar-collapse show clearfix" id="navbarSupportedContent">{{ include('front/fermetal/templates/partials/menu-header.html.twig', { menu_content: menuHeader('primary'), class: 'navigation clearfix', id: 'menu-menu_1' }) }}</div>
+				</nav>
+				{% if post_type_value == 'nos-agences' and (phone_agence|length) > 0 %}
+					<a class="btn-one d-flex justify-center align-center" href="tel:{{ phone_agence|replace({ ' ': '' }) }}">
+						<span class="txt">{{ phone_agence }}</span>
+					</a>
+				{% else %}
+					<a class="btn-one d-flex justify-center align-center" href="tel:{{ get_option_value('_phone') }}">
+						<img class="lazy" data-src="{{ asset('/build/images/phone-calling.svg') }}" src="{{ asset('/build/images/loading-png.jpg') }}" width="50" height="25" alt="phone"/>
+						<span class="txt">{{ get_option_value('_phone') }}</span>
+					</a>
+				{% endif %}
+			{% else %}
+				<div
+					class="menu-mobile">
+					<!--Mobile Navigation -->
+					<img
+					class="lazy" width="40" height="20" data-src="{{ asset('/build/images/feather-menu.svg') }}" src="{{ asset('/build/images/loading-png.jpg') }}" alt="phone"/>
+
+
+					<!-- Main Menu -->
+					<div class="menu-backdrop"></div>
+					<nav class="main-menu">
+						<div class="nav-logo text-center">
+							<a href="/" title="Dépannage Réparation Et Fabricant De Rideaux Et Grilles Métalliques">
+								<img src="{{ get_option_value("_logo_header") }}" alt="logo" style="" class="">
+							</a>
+						</div>
+						<div class="collapse">
+							{{ include('front/fermetal/templates/partials/menu-header.html.twig', { menu_content: menuHeader('primary'), class: 'navigation clearfix', id: 'menu-menu_1' }) }}
+						</div>
+					</nav>
+				</div>
+
+			{% endif %}
+
+
+		</div>
+
+	</div>
+
+</header>

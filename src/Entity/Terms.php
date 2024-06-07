@@ -13,26 +13,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: TermsRepository::class)]
 class Terms
 {
-    /**
-     * @Groups({"id_terms","cat_search","terms_devis","data_front" })
-     */
+    #[Groups(["id_terms","cat_search","terms_devis","data_front",'show_api','show_data'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @Groups({"id_terms","cat_search","terms_devis","data_front"})
-     */
+    
+    #[Groups(["id_terms","cat_search","terms_devis","data_front",'show_api','show_data'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $name_terms;
 
+    #[Groups(["terms_devis","data_front",'show_api','show_data'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $description_terms;
 
-    /**
-     * @Groups({"terms_devis","data_front"})
-     */
+    
+    #[Groups(["terms_devis","data_front",'show_api','show_data'])]
     #[ORM\Column(type: 'text', nullable: true)]
     private $slug_terms;
 
@@ -41,22 +38,19 @@ class Terms
     #[ORM\Column(type: 'text', nullable: true)]
     private $autre_taxonomy;
 
+    #[Groups(["terms_devis","data_front",'show_api'])]
     #[ORM\ManyToOne(targetEntity: Taxonomy::class, inversedBy: 'terms')]
     private $id_taxonomy;
 
-    /**
-     * @Groups({"cat_search"})
-     */
+    
+    #[Groups(['cat_search','show_api'])]
     #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'terms')]
     private $id_post;
-
+    #[Groups(['cat_search','show_api'])]
     #[ORM\Column(type: 'integer', nullable: true)]
     private $parentTerms;
 
-    /**
-     * @Groups({"terms_devis"})
-     *
-     */
+    #[Groups(['terms_devis','show_api'])]
     #[ORM\ManyToOne(targetEntity: Images::class)]
     private $image;
 
@@ -65,15 +59,18 @@ class Terms
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $parent_migration;
-
+    
+    #[Groups(['id_terms','show_api'])]
     #[ORM\Column(type: 'integer', nullable: true)]
     private $level;
 
-    /**
-     * @Groups({"id_terms"})
-     */
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['id_terms','show_api'])]
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $is_draft;
+
+    #[Groups(['show_api'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date = null;
 
 
     public function __construct()
@@ -232,12 +229,12 @@ class Terms
         return $this;
     }
 
-    public function getIsDraft(): ?int
+    public function getIsDraft(): ?bool
     {
         return $this->is_draft;
     }
 
-    public function setIsDraft(int $is_draft): self
+    public function setIsDraft(bool $is_draft): self
     {
         $this->is_draft = $is_draft;
 
@@ -247,5 +244,17 @@ class Terms
     public function __toString()
     {
         return $this->name_terms;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): static
+    {
+        $this->date = $date;
+
+        return $this;
     }
 }

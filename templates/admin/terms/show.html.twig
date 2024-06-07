@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terms{% endblock %}
+
+{% block body %}
+    <h1>Terms</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ term.id }}</td>
+            </tr>
+            <tr>
+                <th>Name_terms</th>
+                <td>{{ term.nameTerms }}</td>
+            </tr>
+            <tr>
+                <th>Description_terms</th>
+                <td>{{ term.descriptionTerms }}</td>
+            </tr>
+            <tr>
+                <th>Slug_terms</th>
+                <td>{{ term.slugTerms }}</td>
+            </tr>
+            <tr>
+                <th>Autre_taxonomy</th>
+                <td>{{ term.autreTaxonomy }}</td>
+            </tr>
+            <tr>
+                <th>ParentTerms</th>
+                <td>{{ term.parentTerms }}</td>
+            </tr>
+            <tr>
+                <th>Id_migration</th>
+                <td>{{ term.idMigration }}</td>
+            </tr>
+            <tr>
+                <th>Parent_migration</th>
+                <td>{{ term.parentMigration }}</td>
+            </tr>
+            <tr>
+                <th>Level</th>
+                <td>{{ term.level }}</td>
+            </tr>
+            <tr>
+                <th>Is_draft</th>
+                <td>{{ term.isDraft }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_terms_index') }}">back to list</a>
+
+    <a href="{{ path('app_terms_edit', {'id': term.id}) }}">edit</a>
+
+    {{ include('terms/_delete_form.html.twig') }}
+{% endblock %}

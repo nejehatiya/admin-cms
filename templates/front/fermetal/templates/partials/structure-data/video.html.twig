@@ -1,0 +1,38 @@
+{% if video_structure is defined and video_structure|length > 0 %}
+    {% for video in video_structure %}
+        {% set video = video.json_data|json_decode %}
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org/",
+                "@type": "VideoObject",
+                "name": "{{ video.title_video is defined and video.title_video|length > 0 ? video.title_video : '' }}",
+                "description":"{{ urldecode(video.description_video is defined and video.description_video|length ? video.description_video: '')|raw }}",
+                "thumbnailUrl":"{{ video.thumbnail_url_video is defined and video.thumbnail_url_video|length > 0 ? video.thumbnail_url_video : '' }}",
+                "embedUrl":"{{ video.url_video is defined and video.url_video|length > 0 ? video.url_video  : '' }}",           
+                "uploadDate": "{{ 'now'|date('Y-m-dT04:43:44+01:00') }}",
+                "duration": "PT1M54S",
+                "author": {
+                    "@type": "Person",
+                    "name": "Fermetal"
+                },
+                "interactionStatistic": [
+                    {
+                    "@type": "InteractionCounter",
+                    "interactionService": {
+                        "@type": "WebSite",
+                        "name": "YouTube",
+                        "@id": "https://youtube.com"
+                    },
+                    "interactionType": "https://schema.org/LikeAction",
+                    "userInteractionCount": "512"
+                    },
+                    {
+                    "@type": "InteractionCounter",
+                    "interactionType": "https://schema.org/WatchAction",
+                    "userInteractionCount": "4356"
+                    }
+                ]
+            }
+        </script>
+    {% endfor %}
+{% endif %}

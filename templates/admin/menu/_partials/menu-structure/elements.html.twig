@@ -1,0 +1,19 @@
+{% if menu_item is not defined %}
+<ul class="menu ui-sortable" id="menu-to-edit">
+    {% if menus is defined and menus|length  > 0 %}
+        {% set menu = menus[0] %}
+         <script>
+            let id_menu = "{{menu['id']}}";
+        </script>
+        {% set items  = fetchMenuHearchy(menu['menu_content']|json_decode) %}
+        {% for item in items %}
+            {% include 'admin/menu/_partials/menu-structure/element-item.html.twig' with {menu_item:item,item:item.id,indice:item.level} %}
+        {% endfor %}
+    {% endif %}
+</ul>
+{% else  %}
+    {% set items  = fetchMenuHearchy(menu_item['menu_content']|json_decode) %}
+    {% for item in items %}
+        {% include 'admin/menu/_partials/menu-structure/element-item.html.twig' with {menu_item:item,item:item.id,indice:item.level} %}
+    {% endfor %}
+{% endif %}

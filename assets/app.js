@@ -22,7 +22,10 @@ import * as main_function from './js/main-functions.js';
  */
 $(document).ready(function(){
     if($('.selectpicker').length){
-        $('.selectpicker').select2();
+        $('.selectpicker').select2({
+            placeholder: 'selectionner une option',
+            allowClear: true
+        });
     }
     // init id_current_media_edit
     let id_current = 0;
@@ -201,13 +204,22 @@ $(document).ready(function(){
         if(selectionner_image.length){
             for(let i = 0;i<selectionner_image.length;i++){
                 console.log('selectionner_image',selectionner_image.eq(i).find('img').attr('src'));
-                src.push("<img src='"+selectionner_image.eq(i).find('img').attr('src')+"' />");
+                if(open_button.find('.elementor-control-media__preview').length){
+                    src.push(selectionner_image.eq(i).find('img').attr('src'));
+                }else{
+                    src.push("<img src='"+selectionner_image.eq(i).find('img').attr('src')+"' />");
+                }
+                
                 ids.push(selectionner_image.eq(i).attr('data-id'));
             }
             if(open_button!=null){
                 open_button.siblings('input.media-selected').val(ids.join(','));
                 console.log("src.join('')",src.join(''));
-                open_button.siblings('div.previewimage').html(src.join(''));
+                if(open_button.find('.elementor-control-media__preview').length){
+                    open_button.find('.elementor-control-media__preview').css({'backgroundImage':'url('+src[0]+')'})
+                }else{
+                    open_button.siblings('div.previewimage').html(src.join(''));
+                }
                 $("#__wp-uploader-id-2").remove();
                 open_button = null;
                 id_current = 0;

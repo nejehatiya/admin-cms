@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Ajouter un nouvelle template
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un nouvelle template
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','modeles-template-page']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {{ include('admin/template_page/_form.html.twig') }}
+{% endblock %}
