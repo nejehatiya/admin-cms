@@ -1,9 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/admin.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
+{% block title %}Connexion{% endblock %}
+{% block class_personalise %}login js login-action-login wp-core-ui  locale-fr-fr{% endblock %}
+{% block importmap %}
+	{{ importmap(['app','login']) }}
+{% endblock %}
 {% block body %}
-    <form method="post">
+    {#<form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -33,10 +36,48 @@
                     <input type="checkbox" name="_remember_me"> Remember me
                 </label>
             </div>
-        #}
+        
 
         <button class="btn btn-lg btn-primary" type="submit">
             Sign in
         </button>
-    </form>
+    </form>#}
+    <div id="login">
+        <h1><a href="/">Propulsé par WordPress</a></h1>
+        <form name="loginform" id="loginform" method="post">
+        
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <p>
+                <label for="username">Identifiant ou adresse e-mail</label>
+                <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+            </p>
+            <div class="user-pass-wrap">
+                <label for="user_pass">Mot de passe</label>
+                <div class="wp-pwd">
+                   <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                    <button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Afficher le mot de passe">
+                    <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <p class="forgetmenot"><input name="rememberme" type="checkbox" id="rememberme" value="forever"> <label for="rememberme">Se souvenir de moi</label></p>
+            <input type="hidden" name="_target_path" value="{{ path('app_admin_dashbord_index') }}"/>
+            <p class="submit">
+                <button class="button button-primary button-large" type="submit">
+                    Sign in
+                </button>
+            </p>
+        </form>
+        <p id="nav">
+            <a class="wp-login-lost-password" href="http://localhost/cmswordpress/wp-login.php?action=lostpassword">Mot de passe oublié&nbsp;?</a>			
+        </p>
+        <p id="backtoblog">
+            <a href="/">← Aller au page d'accueil</a>		
+        </p>
+    </div>
 {% endblock %}

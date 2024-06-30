@@ -63,7 +63,15 @@
 											{# temlate de page #}
 											{% include "admin/post/_partial/element-post-field/template-page.html.twig" with {is_post_admin:true} %}
 											{# page parent #}
-											{% include "admin/post/_partial/element-post-field/page-parent.html.twig" with {is_post_admin:true} %}
+											{% if page_parents_select is defined and page_parents_select|length > 0 %}
+												{% for page_parent_select in page_parents_select %}
+													{% if page_parent_select.pages_parents_child|length and loop.index <= 3 %}
+														{% include "admin/post/_partial/element-post-field/page-parent-child.html.twig" with {is_post_admin:true,page_parent_select:page_parent_select,id_attr:loop.index - 1} %}
+													{% endif %}
+												{% endfor %}
+											{% else %}
+												{% include "admin/post/_partial/element-post-field/page-parent.html.twig" with {is_post_admin:true} %}
+											{% endif %}
 											{# page status #}
 											{% include "admin/post/_partial/element-post-field/post-status.html.twig" %}
 											{# page feature #}
@@ -85,380 +93,21 @@
 										</div>
 									</div>
                                     {# author page #}
-									<div id="elementor-panel-category-pro-elements" class="elementor-panel-category">
-										<button class="elementor-panel-heading elementor-panel-category-title">
-											<span class="elementor-panel-heading-toggle">
-												<i class="eicon" aria-hidden="true"></i>
-											</span>
-											<span class="elementor-panel-heading-title">Author</span>
+									{% if auteurs is defined and auteurs|length > 0 %}
+										<div id="elementor-panel-category-pro-elements" class="elementor-panel-category">
+											<button class="elementor-panel-heading elementor-panel-category-title">
+												<span class="elementor-panel-heading-toggle">
+													<i class="eicon" aria-hidden="true"></i>
+												</span>
+												<span class="elementor-panel-heading-title">Author</span>
 
-										</button>
-										<div class="elementor-panel-category-items elementor-responsive-panel">
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-loop-builder" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Loop Grid</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-carousel-loop" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Loop Carousel</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-post-list" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Posts</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-gallery-grid" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Portfolio</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-gallery-justified" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Gallery</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-form-horizontal" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Form</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-lock-user" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Login</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-slides" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Slides</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-nav-menu" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">WordPress Menu</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-animated-headline" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Animated Headline</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-image-hotspot" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Hotspot</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-price-list" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Price List</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-price-table" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Price Table</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-flip-box" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Flip Box</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-image-rollover" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Call to Action</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-media-carousel" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Media Carousel</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-testimonial-carousel" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Testimonial Carousel</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-review" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Reviews</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-table-of-contents" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Table of Contents</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-countdown" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Countdown</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-share" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Share Buttons</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-blockquote" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Blockquote</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-facebook-like-box" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Facebook Button</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-facebook-comments" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Facebook Comments</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-fb-embed" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Facebook Embed</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-fb-feed" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Facebook Page</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-document-file" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Template</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-lottie" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Lottie</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-code-highlight" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Code Highlight</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-video-playlist" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Video Playlist</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-paypal-button" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">PayPal Button</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-stripe-button" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Stripe Button</div>
-													</div>
-												</div>
-											</div>
-											<div class="elementor-element-wrapper">
-												<div class="elementor-element" draggable="true">
-
-													<div class="icon">
-														<i class="eicon-progress-tracker" aria-hidden="true"></i>
-													</div>
-													<div class="title-wrapper">
-														<div class="title">Progress Tracker</div>
-													</div>
-												</div>
+											</button>
+											<div class="elementor-panel-category-items elementor-responsive-panel">
+												{# page auteurs #}
+												{% include "admin/post/_partial/element-post-field/post-auteurs.html.twig" with {auteurs:auteurs,is_post_admin:true} %}
 											</div>
 										</div>
-									</div>
+									{% endif %}
                                     {# post meta #}
 									<div id="elementor-panel-category-general" class="elementor-panel-category">
 										<button class="elementor-panel-heading elementor-panel-category-title">
@@ -549,6 +198,19 @@
 		</main>
 		{# stucture de contenu #}
 		{% include "admin/post/_partial/post-structures.html.twig" with {post_content:post_content} %}
-		
+		{# analyse post avent le publication #}
+		<div class="popup popup-analyse">
+			<div class="popup-content">
+				<div class="popup-header">
+					<h2>Analyse HTML</h2>
+				</div>
+				<div class="popup-body">
+				</div>
+				<div class="popup-footer">
+					<button class="button button-primary confirmer">confirmer</button>
+					<button class="button button-danger close">annuler</button>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}

@@ -1,47 +1,96 @@
 security:
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: auto
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider: { entity: { class: App\Entity\User, property: email } }
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main:
-            lazy: true
-            provider: users_in_memory
-            form_login:
-                login_path: app_login
-                check_path: app_login
-                enable_csrf: true
-            logout:
-                path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
-
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
+        dev: { pattern: ^/(_(profiler|wdt)|css|images|js)/, security: false }
+        main: { lazy: true, provider: app_user_provider, form_login: { login_path: app_login, check_path: app_login, enable_csrf: true }, logout: { path: app_logout, target: app_login } }
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-
+        - { path: '^/admin4552255/post-meta-fields/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: '^/admin4552255/post-meta-fields/[0-9]+', roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin4552255/post-meta-fields/new, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin4552255/post-meta-fields/, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin4552255/configuration/, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: '^/admin4552255/emplacement/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/emplacement/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/emplacement/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/emplacement/, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: ^/admin4552255/media/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/media/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/media/{id}/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/media/{id}', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/menu/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/menu/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/menu/{id}/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/menu/{id}', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/menu-builder/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/menu-builder/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/menu-builder/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/menu-builder/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/modeles/post/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/modeles/post/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/modeles/post/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/modeles/post/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/options/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/permession/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post-type/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post-type/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post-type/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post-type/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/prix-pose/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/prix-pose/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/prix-pose/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/prix-pose/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/redirection/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/redirection/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/redirection/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/redirection/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/roles/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/roles/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/roles/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/roles/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/taxonomy/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/taxonomy/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/taxonomy/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/taxonomy/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/template-page/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/template-page/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/template-page/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/template-page/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/[a-zA-Z0-9]+/terms/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
+        - { path: '^/admin4552255/user/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/user/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/user/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/user/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/auteur/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/auteur/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/auteur/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/auteur/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/blog/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: '^/admin4552255/post/blog/[0-9]+', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: ^/admin4552255/post/blog/new, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: ^/admin4552255/post/blog/, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: '^/admin4552255/post/configuration-builder/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/configuration-builder/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/configuration-builder/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/configuration-builder/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/nos-agences/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: '^/admin4552255/post/nos-agences/[0-9]+', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: ^/admin4552255/post/nos-agences/new, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: ^/admin4552255/post/nos-agences/, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: '^/admin4552255/post/option-builder/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/option-builder/[0-9]+', roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/option-builder/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin4552255/post/option-builder/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: '^/admin4552255/post/page/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: '^/admin4552255/post/page/[0-9]+', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: ^/admin4552255/post/page/new, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: ^/admin4552255/post/page/, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION] }
+        - { path: '^/admin4552255/post/post/[0-9]+/edit', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION, ROLE_ADMIN] }
+        - { path: '^/admin4552255/post/post/[0-9]+', roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION, ROLE_ADMIN] }
+        - { path: ^/admin4552255/post/post/new, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION, ROLE_ADMIN] }
+        - { path: ^/admin4552255/post/post/, roles: [ROLE_SUPER_ADMIN, ROLE_SEO_REDATCION, ROLE_ADMIN] }
 when@test:
     security:
-        password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
-            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-                algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
-                memory_cost: 10 # Lowest possible value for argon
+        password_hashers: { Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: { algorithm: auto, cost: 4, time_cost: 3, memory_cost: 10 } }

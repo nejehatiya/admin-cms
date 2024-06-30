@@ -1,0 +1,15 @@
+<div class="elementor-auteur-selection elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
+    <div class="elementor-control-content">
+        <div class="elementor-control-field elementor-control-url-external-show">
+            <label for="elementor-control-default-c1482" class="elementor-control-title">Sélectionner Auteur</label>
+            <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper">
+                <select palaceholder="Sélectionner Auteur" id="post-auteur" data-setting="post-auteur" class="selectpicker">
+                        <option value="">Sélectionner Auteur</option>
+                        {% for auteur in auteurs %}
+                            <option {% if auteur.id == post.author %} selected {% endif %} value="{{auteur.id}}">{{auteur.post_title}}</option>
+                        {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

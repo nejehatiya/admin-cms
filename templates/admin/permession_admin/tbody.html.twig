@@ -1,0 +1,35 @@
+{% for key,value in modules %}
+	{% set methods = value['methods'] %}
+	{% set routes = value['routes'] %}
+	<tr>
+		<th scope="row">{{key}}</th>
+		<td>
+			{% if 'Afficher' in methods %}
+				{% set checked_cond = 'Afficher' in routes|keys ? active_routes | filter((item) => item == routes['Afficher']) | join(', ') : false  %}
+				<input type="hidden" value="{{'Afficher' in routes|keys ? routes['Afficher']|join(','):''}}"/>
+				<input class="form-check-input" {% if checked_cond|length %} checked {% endif %} type="checkbox" name="{{key}}" value="Afficher">
+			{% endif %}
+		</td>
+		<td>
+			{% if 'Ajouter' in methods %}
+				{% set checked_cond = 'Ajouter' in routes|keys ? active_routes | filter((item) => item == routes['Ajouter']) | join(', ') : false  %}
+				<input type="hidden" value="{{'Ajouter' in routes|keys ? routes['Ajouter']|join(','):''}}"/>
+				<input class="form-check-input" {% if checked_cond|length %} checked {% endif %} type="checkbox" name="{{key}}" value="Ajouter">
+			{% endif %}
+		</td>
+		<td>
+			{% if 'Modifier' in methods %}
+				{% set checked_cond = 'Modifier' in routes|keys ? active_routes | filter((item) => item == routes['Modifier']) | join(', ') : false  %}
+				<input type="hidden" value="{{'Modifier' in routes|keys ? routes['Modifier']|join(','):''}}"/>
+				<input class="form-check-input" {% if checked_cond|length %} checked {% endif %} type="checkbox" name="{{key}}" value="Modifier">
+			{% endif %}
+		</td>
+		<td>
+			{% if 'Supprimer' in methods %}
+				{% set checked_cond = 'Supprimer' in routes|keys ? active_routes | filter((item) => item == routes['Supprimer']) | join(', ') : false  %}
+				<input type="hidden" value="{{'Supprimer' in routes|keys ? routes['Supprimer']|join(','):''}}"/>
+				<input class="form-check-input" {% if checked_cond|length %} checked {% endif %} type="checkbox" name="{{key}}" value="Supprimer">
+			{% endif %}
+		</td>
+	</tr>
+{% endfor %}

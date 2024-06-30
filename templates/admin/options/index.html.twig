@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Options site
+{% endblock %}
+{% block titreAdmin %}
+    Options site
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','configuration_form']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+		let is_options = true;
+	</script>
+    {{ include('admin/options/_form.html.twig') }}
+{% endblock %}

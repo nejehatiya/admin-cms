@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Redirection{% endblock %}
+
+{% block body %}
+    <h1>Redirection</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ redirection.id }}</td>
+            </tr>
+            <tr>
+                <th>Old_root</th>
+                <td>{{ redirection.oldRoot }}</td>
+            </tr>
+            <tr>
+                <th>New_root</th>
+                <td>{{ redirection.newRoot }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_redirection_index') }}">back to list</a>
+
+    <a href="{{ path('app_redirection_edit', {'id': redirection.id}) }}">edit</a>
+
+    {{ include('redirection/_delete_form.html.twig') }}
+{% endblock %}

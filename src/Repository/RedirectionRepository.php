@@ -20,7 +20,7 @@ class RedirectionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Redirection::class);
     }
-
+    // check if theris another redirection already exist
     public function findOneByOldExceptOne($old, $id):?Redirection
     {
         return $this->createQueryBuilder('r')
@@ -51,4 +51,6 @@ class RedirectionRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    
 }

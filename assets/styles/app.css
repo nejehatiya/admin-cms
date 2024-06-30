@@ -634,3 +634,43 @@ table.form-term .ck-editor__editable_inline:not(.ck-comment__input *) {
     width: 100% !important;
     border: 0px solid #000;
 }
+/***
+*
+*/
+#wpadminbar .quicklinks ul li:hover .ab-sub-wrapper{
+   display: block !important;
+}
+#adminmenu li:hover>ul{
+    top: 0;
+}
+#adminmenu li:hover>ul::after{
+
+}
+#adminmenu li:hover>ul a{
+    padding-left: 10px;
+}
+#adminmenu a:hover, #adminmenu li.menu-top > a:focus, #adminmenu .wp-submenu a:hover, #adminmenu .wp-submenu a:focus {
+    color: #72aee6 !important;
+}
+#adminmenu li.wp-has-submenu:hover:after {
+    right: 0;
+    border: 8px solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    z-index: 10000;
+}
+#adminmenu li.wp-has-submenu:not(.wp-menu-open):hover:after {
+    border-right-color: #2c3338;
+}
+
+.border-top{
+    border-top: 1px solid #ccc;
+}
+.subsubsub a{
+    outline: none !important;
+    box-shadow:none !important;
+}

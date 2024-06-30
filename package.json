@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "Parser": "^0.0.1",
+    "babel-polyfill": "^6.26.0",
+    "html-entities": "^2.5.2",
+    "htmlparser2": "^9.1.0",
+    "jed": "^1.1.1",
+    "lodash": "^4.17.21",
+    "parser": "npm:Parser@^0.0.1",
+    "snarkdown": "^2.0.0",
+    "yoastseo": "^2.0.0-alpha.0"
+  }
+}

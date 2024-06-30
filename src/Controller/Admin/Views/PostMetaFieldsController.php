@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-#[Route('/post-meta-fields')]
+#[Route('/post-meta-fields', options:["need_permession"=>true,"module"=>"ACF", "method"=>["Afficher","Ajouter","Modifier","Supprimer"]])]
 class PostMetaFieldsController extends AbstractController
 {
     private $serializer;
@@ -28,7 +28,7 @@ class PostMetaFieldsController extends AbstractController
         $this->serializer = $serializer;
         //$this->slugify = new Slugify();
     }
-    #[Route('/', name: 'app_post_meta_fields_index', methods: ['GET'])]
+    #[Route('/', name: 'app_post_meta_fields_index', methods: ['GET'], options:["action"=>"Afficher","order"=>5])]
     public function index(PostMetaFieldsRepository $postMetaFieldsRepository): Response
     {
         $post_meta_fields = $postMetaFieldsRepository->findAll();
@@ -38,7 +38,7 @@ class PostMetaFieldsController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_post_meta_fields_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_post_meta_fields_new', methods: ['GET', 'POST'], options:["action"=>"Ajouter","order"=>4])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $postMetaField = new PostMetaFields();
@@ -58,15 +58,7 @@ class PostMetaFieldsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_meta_fields_show', methods: ['GET'])]
-    public function show(PostMetaFields $postMetaField): Response
-    {
-        return $this->render('admin/post_meta_fields/show.html.twig', [
-            'post_meta_field' => $postMetaField,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_post_meta_fields_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_post_meta_fields_edit', methods: ['GET', 'POST'], options:["action"=>"Modifier","order"=>1], requirements:["id"=>"[0-9]+"])]
     public function edit(Request $request, PostMetaFields $postMetaField, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PostMetaFieldsType::class, $postMetaField);
@@ -85,7 +77,7 @@ class PostMetaFieldsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_meta_fields_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_post_meta_fields_delete', methods: ['POST'], options:["action"=>"Supprimer","order"=>3], requirements:["id"=>"[0-9]+"])]
     public function delete(Request $request, PostMetaFields $postMetaField, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$postMetaField->getId(), $request->getPayload()->get('_token'))) {

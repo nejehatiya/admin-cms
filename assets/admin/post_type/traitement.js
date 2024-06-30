@@ -44,7 +44,7 @@ $(document).ready(function(){
         let ele = $(this);
         if(slug.length){
             ele.siblings('.lds-ellipsis').addClass('show');
-            let url = "/api/post-type/check-slug";
+            let url = "/api/post-type/check-slug-post-type";
             let check_modele_post = main_function.ajaxOperation(url,{slug:slug,id:id},'POST');
             check_modele_post.done(function(data) {
                 if(data.success){

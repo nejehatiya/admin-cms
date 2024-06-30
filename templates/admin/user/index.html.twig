@@ -1,0 +1,71 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+  Users list
+{% endblock %}
+{% block titreAdmin %}
+   Users list
+{% endblock %}
+
+{% block contentAdmin %}
+    {# header list #}
+    {% include "admin/global/list/list-header.html.twig" with {'path':'app_user_new','titre':'Ajouter un utulisateur'} %}
+    {# count list #}
+    {% include "admin/global/list/list-count.html.twig" with {'vars':{'all':{'name':'Tous','count':20},'publish':{'name':'Active','count':20}}} %}
+    {# list content  #}
+    <form id="filter" method="get">
+        {# content search-box #}
+        {% include "admin/global/list/search-box.html.twig" with {'titre':'Utulisateurs'} %}
+        {# list top  #}
+        <div class="tablenav top">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'Utulisateurs'} %}
+
+            {# list filtrage  #}
+            {% include "admin/global/list/filtrage.html.twig" with {'filters':[] } %}
+            
+            {# list pagination  #}
+            {% include "admin/global/list/pagination.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'User'} %}
+
+            <br class="clear" />
+
+        </div>
+        
+        {# list table  #}
+        <table class="wp-list-table widefat fixed striped table-view-list posts">
+            <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
+            {# list table header #}
+            {% set fields = [
+                {name:'Nom',field_name:'first_name',method:'first_name',sortable:true,type:'text'},
+                {name:'Prénom',field_name:'last_name',method:'last_name',sortable:false,type:'text'},
+                {name:'Email',field_name:'email',method:'email',sortable:false,type:'text'},
+                {name:'Roles',field_name:'roles',method:'roles',sortable:false,type:'text'},
+                {name:'Image',field_name:'image_profil',method:'image_profil',sortable:false,type:'image'},
+                {name:'Active',field_name:'status',method:'status',sortable:false,type:'boolean'},
+                {name:'Date',field_name:'date_add',method:'date_add',sortable:false,type:'date'},
+            ] %}
+            <thead>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </thead>
+            {# list table body #}
+            <tbody id="the-list">
+                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':users,'entity_name':'user','is_view':false,'path_edit':'app_user_edit'} %}
+            </tbody>
+            {# list table footer #}
+            <tfoot>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </tfoot>
+        </table>
+
+        <div class="tablenav bottom">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'post type'} %}
+            <div class="alignleft actions"></div>
+            {# list pagination footer table  #}
+            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'User'} %}
+            
+            <br class="clear" />
+        </div>
+    </form>
+    
+{% endblock %}

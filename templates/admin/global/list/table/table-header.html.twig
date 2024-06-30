@@ -1,10 +1,11 @@
+{% set index_foot = is_foot is defined and is_foot ? '-foot' : ''  %}
 <tr>
-    <td id="cb" class="manage-column column-cb check-column">
-        <input id="cb-select-all-1" type="checkbox" />
-        <label for="cb-select-all-1"><span class="screen-reader-text">Tout sélectionner</span></label>
+    <td id="cb{{index_foot}}" class="manage-column column-cb check-column">
+        <input id="cb-select-all-1{{index_foot}}" type="checkbox" />
+        <label for="cb-select-all-1{{index_foot}}"><span class="screen-reader-text">Tout sélectionner</span></label>
     </td>
     {% for field in fields %}
-        <th scope="col" id="{{field.field_name}}" class="manage-column column-{{field.field_name}} column-primary sortable desc" abbr="{{field.name}}">
+        <th scope="col" id="{{field.field_name}}{{index_foot}}" class="manage-column column-{{field.field_name}} column-primary sortable desc" abbr="{{field.name}}">
             {% if field.sortable %}
                 <a href="#">
                     <span>{{field.name}}</span>

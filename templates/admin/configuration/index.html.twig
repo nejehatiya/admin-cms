@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Configuration générale
+{% endblock %}
+{% block titreAdmin %}
+    Configuration générale
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','configuration_form']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {{ include('admin/configuration/_form.html.twig') }}
+{% endblock %}

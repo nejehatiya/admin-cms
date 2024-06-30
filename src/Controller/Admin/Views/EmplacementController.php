@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-#[Route('/emplacement')]
+#[Route('/emplacement', options:["need_permession"=>true,"module"=>"Emplacements Menu", "method"=>["Afficher","Ajouter","Modifier","Supprimer"]])]
 class EmplacementController extends AbstractController
 {
     private $serializer;
@@ -26,7 +26,7 @@ class EmplacementController extends AbstractController
         $this->serializer = $serializer;
         //$this->slugify = new Slugify();
     }
-    #[Route('/', name: 'app_emplacement_index', methods: ['GET'])]
+    #[Route('/', name: 'app_emplacement_index', methods: ['GET'], options:["action"=>"Afficher","order"=>5])]
     public function index(EmplacementRepository $emplacementRepository): Response
     {
         $emplacements = $emplacementRepository->findAll();
@@ -37,7 +37,7 @@ class EmplacementController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_emplacement_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_emplacement_new', methods: ['GET', 'POST'], options:["action"=>"Ajouter","order"=>4])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $emplacement = new Emplacement();
@@ -57,15 +57,7 @@ class EmplacementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_emplacement_show', methods: ['GET'])]
-    public function show(Emplacement $emplacement): Response
-    {
-        return $this->render('admin/emplacement/show.html.twig', [
-            'emplacement' => $emplacement,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_emplacement_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_emplacement_edit', methods: ['GET', 'POST'], options:["action"=>"Modifier","order"=>1], requirements:["id"=>"[0-9]+"])]
     public function edit(Request $request, Emplacement $emplacement, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EmplacementType::class, $emplacement);
@@ -83,7 +75,7 @@ class EmplacementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_emplacement_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_emplacement_delete', methods: ['POST'],options:["action"=>"Supprimer","order"=>3], requirements:["id"=>"[0-9]+"])]
     public function delete(Request $request, Emplacement $emplacement, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$emplacement->getId(), $request->getPayload()->get('_token'))) {

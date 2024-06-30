@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Ajouter un nouveau utulisateur
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un nouveau utulisateur
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','user']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {{ include('admin/user/_form.html.twig') }}
+{% endblock %}

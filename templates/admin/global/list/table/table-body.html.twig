@@ -1,8 +1,12 @@
+
+{% set alloawed_rootes = getAllowedRoutes() %}
+{% set curre_path = app.request.get('_route') %}
+{% set current_params = app.request.get('_route_params')|json_encode %}
 {% for item in list %}
   <tr id="{{entity_name}}-{{ item.id }}" class="iedit author-self level-0 {{entity_name}}-{{ item.id }} type-post status-publish format-standard hentry category-non-classe">
     <th scope="row" class="check-column">
-      <input id="cb-select-1" type="checkbox" name="post[]" value="{{ item.id }}" />
-      <label for="cb-select-1"><span class="screen-reader-text">{{ item["id"] }}</span></label>
+      <input id="cb-select-{{ item.id }}" type="checkbox" name="post[]" value="{{ item.id }}" />
+      <label for="cb-select-{{ item.id }}"><span class="screen-reader-text">{{ item["id"] }}</span></label>
       <div class="locked-indicator">
         <span class="locked-indicator-icon" aria-hidden="true"></span>
         <span class="screen-reader-text">«&nbsp;Bonjour tout le monde&nbsp;!&nbsp;» est verrouillé</span>
@@ -13,6 +17,8 @@
             {% set item_value = "" %}
             {% if field.type == "text" %}
                 {% set item_value = item[field.method] %}
+            {% elseif field.type == "parent" %}
+                {{getPageParentName(item[field.method])}}
             {% elseif field.type == "boolean" %}
                 {% set item_value = item[field.method] ? 'Active' : 'Désactiver' %}
             {% elseif field.type == "image" %}
@@ -25,13 +31,19 @@
                     {% else %}
                         - 
                     {% endif %}
+                {% elseif field.field_name == "author" %}
+                    {{getPageParentName(item[field.method])}}
+                {% elseif field.field_name == "creator" %}
+                    {{getUserCreator(item[field.method])}}
+                {% elseif field.field_name == "terms" %}
+                    {{getPostTerms(item.id)}}
                 {% else %}
                     entity
                 {% endif %}
             {% elseif field.type == "date" %}
                 Créer le <br />{% set item_value = item[field.method] %}
             {% endif %}
-            {% if loop.first %}
+            {% if loop.first  %}
                 <div class="locked-info">
                     <span class="locked-avatar"></span>
                     <span class="locked-text"></span>
@@ -46,7 +58,7 @@
                     </a>
                 </strong>
 
-                <div class="hidden" id="inline_1">
+                {#<div class="hidden" id="inline_1">
                     <div class="post_title">Bonjour tout le monde&nbsp;!</div>
                     <div class="post_name">bonjour-tout-le-monde</div>
                     <div class="post_author">1</div>
@@ -65,23 +77,43 @@
                     <div class="tags_input" id="post_tag_1"></div>
                     <div class="sticky"></div>
                     <div class="post_format"></div>
-                </div>
+                </div>#}
                 <div class="row-actions">
-                    <span class="edit">
-                        <a href="{{path(path_edit,param_path)}}" aria-label="{{item_value}} (Modifier)">Modifier</a>
-                        |
-                    </span>
-                    {% if entity_name is not defined or entity_name is  defined and entity_name != "Terms" %}
+                    {# get status value #}
+                    {% set current_status = fields|filter(ele => ele.column_status is defined )|arrayValues %}
+
+                    
+                    {# check if user can edit  #}
+                    {% if userHasAccess(curre_path,alloawed_rootes,path(path_edit,param_path),{"id":"[0-9]+"},param_path) %}
+                        <span class="edit">
+                            <a href="{{path(path_edit,param_path)}}" aria-label="{{item_value}} (Modifier)">Modifier</a>
+                            |
+                        </span>
+                    {% endif %}
+                    {% if entity_name is not defined or entity_name is  defined and entity_name != "Terms" and false %}
                         <span class="inline hide-if-no-js">
                             <button type="button" class="button-link editinline" aria-label="Modifier rapidement {{item_value}} en ligne" aria-expanded="false">Modification rapide</button>
                             |
                         </span>
                     {% endif %}
-                    <span class="trash">
-                        <a href="#" class="submitdelete" aria-label="Déplacer {{item_value}} dans la corbeille">Corbeille</a>
-                        {% if is_view %}|{% endif %}
-                        
-                    </span>
+
+                    {# check if user can edit  #}
+                    {% if userHasAccess(curre_path,alloawed_rootes,path(path_delete is defined ? path_delete:path_edit,param_path),{"id":"[0-9]+"},param_path) %}
+                        {% if current_status|length > 0 and item[current_status[0]['method']] == "Corbeille" %}
+                            
+                            <span class="trash">
+                                <a href="{{path(path_delete is defined ? path_delete:path_edit,param_path)}}" class="submitdeletesuprime" aria-label="Supprimer Définitivement">Supprimer Définitivement</a>
+                                {% if is_view %}|{% endif %}
+                                
+                            </span>
+                        {% else %}   
+                            <span class="trash">
+                                <a href="{{path(path_delete is defined ? path_delete:path_edit,param_path)}}" class="submitdelete" aria-label="Déplacer {{item_value}} dans la corbeille">Corbeille</a>
+                                {% if is_view %}|{% endif %}
+                                
+                            </span>
+                        {% endif %}
+                    {% endif %}
                     {# check if need view #}
                     {% if is_view %}
                         <span class="view"><a href="#" rel="bookmark" aria-label="Afficher {{item_value}}">Voir</a></span>
@@ -89,7 +121,7 @@
                 </div>
                 <button type="button" class="toggle-row"><span class="screen-reader-text">Afficher plus de détails</span></button>
             {% else %}
-                {{item_value}}
+                {{item_value is iterable ? item_value|join(','):item_value}}
             {% endif %}
         </td>
     {% endfor %}

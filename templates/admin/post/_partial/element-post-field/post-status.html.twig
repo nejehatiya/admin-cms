@@ -7,7 +7,7 @@
         <select id="post-status" data-setting="post-status" class="selectpicker">
             {% for status in post_status %}
                 <option 
-                  {% if post is defined and post.postStatus is defined and is_post_admin is defined and is_post_admin and post.postStatus == status %}
+                  {% if post is defined and post.postStatus is defined and is_post_admin is defined and is_post_admin and post.postStatus == status  %}
                     selected
                   {% endif %} 
                   value="{{status}}"

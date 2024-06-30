@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/modeles/post')]
+#[Route('/modeles/post', options:["need_permession"=>true,"module"=>"Modéles Post", "method"=>["Afficher","Ajouter","Modifier","Supprimer"]])]
 class ModelesPostController extends AbstractController
 {
     private $serializer;
@@ -28,7 +28,7 @@ class ModelesPostController extends AbstractController
         //$this->slugify = new Slugify();
     }
 
-    #[Route('/', name: 'app_modeles_post_index', methods: ['GET'])]
+    #[Route('/', name: 'app_modeles_post_index', methods: ['GET'], options:["action"=>"Afficher","order"=>5])]
     public function index(Request $request,ModelesPostRepository $modelesPostRepository): Response
     {
         $list_modeles_posts = $modelesPostRepository->findAll();
@@ -39,7 +39,7 @@ class ModelesPostController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_modeles_post_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_modeles_post_new', methods: ['GET', 'POST'], options:["action"=>"Ajouter","order"=>4])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $modelesPost = new ModelesPost();
@@ -59,15 +59,7 @@ class ModelesPostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_modeles_post_show', methods: ['GET'])]
-    public function show(ModelesPost $modelesPost): Response
-    {
-        return $this->render('admin/modeles_post/show.html.twig', [
-            'modeles_post' => $modelesPost,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_modeles_post_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_modeles_post_edit', methods: ['GET', 'POST'], options:["action"=>"Modifier","order"=>1], requirements:["id"=>"[0-9]+"])]
     public function edit(Request $request, ModelesPost $modelesPost, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ModelesPostType::class, $modelesPost);
@@ -87,7 +79,7 @@ class ModelesPostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_modeles_post_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_modeles_post_delete', methods: ['POST'], options:["action"=>"Supprimer","order"=>3], requirements:["id"=>"[0-9]+"])]
     public function delete(Request $request, ModelesPost $modelesPost, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$modelesPost->getId(), $request->getPayload()->get('_token'))) {

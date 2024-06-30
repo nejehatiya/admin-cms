@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Ajouter un nouveau redirection
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un nouveau redirection
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','redirection']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {{ include('admin/redirection/_form.html.twig') }}
+{% endblock %}

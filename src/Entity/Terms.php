@@ -43,7 +43,7 @@ class Terms
     private $id_taxonomy;
 
     
-    #[Groups(['cat_search','show_api'])]
+    #[Groups(['cat_search'])]
     #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'terms')]
     private $id_post;
     #[Groups(['cat_search','show_api'])]

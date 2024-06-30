@@ -1,0 +1,56 @@
+{{ form_start(form) }}
+    <table class="form-table" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.first_name) }}</th>
+                <td>
+                    {{ form_widget(form.first_name) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            <tr> 
+                <th scope="row">{{ form_label(form.last_name) }}</th>
+                <td>
+                    {{ form_widget(form.last_name) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.email) }}</th>
+                <td>
+                    {{ form_widget(form.email) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.status) }}</th>
+                <td> 
+                    <div class="form-check form-switch">{{ form_widget(form.status) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.roles_user) }}</th>
+                <td> 
+                    {{ form_widget(form.roles_user) }}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.password) }}</th>
+                <td> 
+                    <div class="form-password">{{ form_widget(form.password) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ form_label(form.image_profil) }}</th>
+                <td>
+                    {{imageMediaSelect("image-preview",false,1,user.imageProfil)|raw}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(form) }}
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </p>
+{{ form_end(form) }}

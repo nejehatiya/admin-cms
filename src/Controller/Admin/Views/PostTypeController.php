@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-#[Route('/post-type')]
+#[Route('/post-type', options:["need_permession"=>true,"module"=>"Post Type", "method"=>["Afficher","Ajouter","Modifier","Supprimer"]])]
 class PostTypeController extends AbstractController
 {
     private $serializer;
@@ -26,7 +26,7 @@ class PostTypeController extends AbstractController
         $this->serializer = $serializer;
         //$this->slugify = new Slugify();
     }
-    #[Route('/', name: 'app_post_type_index', methods: ['GET'])]
+    #[Route('/', name: 'app_post_type_index', methods: ['GET'], options:["action"=>"Afficher","order"=>5])]
     public function index(PostTypeRepository $postTypeRepository): Response
     {
         $list_post_types = $postTypeRepository->findAll();
@@ -37,7 +37,7 @@ class PostTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_post_type_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_post_type_new', methods: ['GET', 'POST'], options:["action"=>"Ajouter","order"=>4])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $postType = new PostType();
@@ -57,15 +57,7 @@ class PostTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_type_show', methods: ['GET'])]
-    public function show(PostType $postType): Response
-    {
-        return $this->render('admin/post_type/show.html.twig', [
-            'post_type' => $postType,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_post_type_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_post_type_edit', methods: ['GET', 'POST'], options:["action"=>"Modifier","order"=>1], requirements:["id"=>"[0-9]+"])]
     public function edit(Request $request, PostType $postType, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PostTypeType::class, $postType);
@@ -83,7 +75,7 @@ class PostTypeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_post_type_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_post_type_delete', methods: ['POST'], options:["action"=>"Supprimer","order"=>3], requirements:["id"=>"[0-9]+"])]
     public function delete(Request $request, PostType $postType, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$postType->getId(), $request->getPayload()->get('_token'))) {

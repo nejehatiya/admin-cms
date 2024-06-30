@@ -5,19 +5,22 @@ namespace App\Entity;
 use App\Repository\RedirectionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: RedirectionRepository::class)]
 class Redirection
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['show_api'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 500, unique: true)]
+    #[Groups(['show_api'])]
     private $old_root;
 
     #[ORM\Column(type: 'text')]
+    #[Groups(['show_api'])]
     private $new_root;
 
     public function getId(): ?int
@@ -32,7 +35,7 @@ class Redirection
 
     public function setOldRoot(string $old_root): self
     { 
-        $this->old_root = $this->cleanRoute($old_root);
+        $this->old_root = $old_root;
 
         return $this;
     }
@@ -44,7 +47,7 @@ class Redirection
 
     public function setNewRoot(string $new_root): self
     {
-        $this->new_root = $this->cleanRoute($new_root);
+        $this->new_root = $new_root;
 
         return $this;
     }

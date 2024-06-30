@@ -1,22 +1,38 @@
 <?php
 namespace App\Twig\Functions;
+use App\Entity\Post;
+use App\Entity\User;
 use Twig\TwigFilter;
 use Twig\Environment;
-use App\Entity\{Images,ModelesPost};
 use Twig\TwigFunction;
+use App\Entity\PostType;
+use App\Entity\Taxonomy;
+use App\Entity\{Images,ModelesPost};
 use Twig\Extension\AbstractExtension;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class TwigAdminFunctions extends AbstractExtension
 {
     private $em;
     private $assets_front_directory;
     private $filesystem;
-    public function __construct(EntityManagerInterface $em,string $assets_front_directory) {
+    private $security;
+    private $urlGenerator;
+    private $authorization;
+    private $router;
+    public function __construct(EntityManagerInterface $em,RouterInterface $router,AuthorizationCheckerInterface $authorization,string $assets_front_directory,Security $security,UrlGeneratorInterface $urlGenerator) {
         $this->em = $em;
         $this->assets_front_directory = $assets_front_directory;
         $this->filesystem = new Filesystem();
+        $this->security = $security;
+        $this->urlGenerator = $urlGenerator;
+        $this->authorization = $authorization;
+        $this->router = $router;
     }
     public function getFilters()
     {
@@ -37,7 +53,15 @@ class TwigAdminFunctions extends AbstractExtension
             new TwigFunction('getModeleNameById', [$this, 'getModeleNameById']),
             new TwigFunction('timeAgo', [$this, 'timeAgo']),
             
+            new TwigFunction('getPostTypeList', [$this, 'getPostTypeList']),
+            new TwigFunction('getPostTypeTaxonomyList', [$this, 'getPostTypeTaxonomyList']),
+            new TwigFunction('getAllowedRoutes', [$this, 'getAllowedRoutes']),
             
+            new TwigFunction('checkMenuOpen', [$this, 'checkMenuOpen']),
+            new TwigFunction('userHasAccess', [$this, 'userHasAccess']),
+            new TwigFunction('getPageParentName', [$this, 'getPageParentName']),
+            new TwigFunction('getUserCreator', [$this, 'getUserCreator']),
+            new TwigFunction('getPostTerms', [$this, 'getPostTerms']),
         ];
     }
     /**
@@ -66,8 +90,12 @@ class TwigAdminFunctions extends AbstractExtension
         return 'just now';
     }
     // get images
-    public function getImages($id){
+    public function getImages($id,$is_background=false){
+        if(!(int)$id){
+            return "";
+        }
         $image = $this->em->getRepository(Images::class)->find($id);
+        $url="";
         $html = "<picture>";
         if($image){
             $date  =  $image->getDateAdd();
@@ -100,7 +128,7 @@ class TwigAdminFunctions extends AbstractExtension
             $html .= '<img decoding="async" width="'.$image->getWidth().'" height="'.$image->getHeight().'"  srcset="'.implode(',',$srcset_webp).'" sizes="'.implode(',',$sizes_webp).'" src="'.$url.'" loading="lazy" alt="'.$image->getAltImage().'" />';
         }
         $html .= "</picture>";
-        return $html;
+        return $is_background?$url:$html;
     }
     // get images url
     public static function getImagesUrl($image,$width = 0){
@@ -285,5 +313,165 @@ class TwigAdminFunctions extends AbstractExtension
         }
         return "";
     }
+    // get post tist to show in sidebar menu
+    public function getPostTypeList(){
+        $post_type_list = $this->em->getRepository(PostType::class)->findSidebarList();
+        return $post_type_list;
+    }
 
+    // get taxomy post list
+    public function getPostTypeTaxonomyList($slug_post_type){
+        $taxonomy_post_type = $this->em->getRepository(Taxonomy::class)->findByPostType($slug_post_type);
+        return $taxonomy_post_type;
+    }
+
+    // get Allowed Routes for user
+    public function getAllowedRoutes(){
+        //var_dump($this->security->getUser());exit;
+        /**
+         * get user 
+         */
+        $user = $this->security->getUser();
+        /**
+         * init allowed routes list
+         */
+        $routes_allowed = array();
+        if ($user) {
+            /**
+             * get roles user 
+             */
+            $roles = $user->getRolesUser();
+            foreach ($roles as $role) {
+                //var_dump($role->getRoutes());
+                /**
+                 * get routes allowed to user
+                 */
+                $routes = $role->getRoutes();
+                foreach ($routes as $route) {
+                    /**
+                     * collect allowed routes
+                     */
+                    $routes_allowed[] = $route->getPath();
+                }
+            }
+        }
+        //var_dump($routes_allowed);exit;
+        return $routes_allowed;
+    }
+
+    // public function check menu open and role is exist
+    public function checkMenuOpen($current_path,$allowed_root,$key){
+
+        if($key=="Developeur"){
+            $list_item = [
+                'app_modeles_post_index',
+                'app_modeles_post_new',
+                'app_modeles_post_edit',
+                'app_post_type_index',
+                'app_post_type_new',
+                'app_post_type_edit',
+                'app_template_page_index',
+                'app_template_page_new',
+                'app_template_page_edit',
+                'app_post_meta_fields_index',
+                'app_post_meta_fields_edit',
+                'app_post_meta_fields_new',
+                'app_taxonomy_index',
+                'app_emplacement_index',
+                'app_emplacement_new',
+                'app_emplacement_edit',
+            ];
+            $is_current = in_array($current_path,$list_item);
+            return $is_current;
+        }
+        exit;
+        return false;
+    }
+
+    // public function check user can
+    public function userHasAccess($current_path,$allowed_root,$key,$patern="",$value=""){
+        
+        $user = $this->security->getUser();
+        $pattern = $this->parsePatternFromUrl($key);
+        $check_pattern = array_filter($allowed_root,function($ele) use($pattern,$key){
+            return preg_match($pattern, $ele) == 1 || $key == $ele;
+        });
+        if(is_array($patern) && is_array($value)){
+            foreach($patern as $k=>$v){
+                $key = str_replace('/'.$value[$k],'/'.$v,$key);
+            }
+        }elseif(strlen($patern)){
+            $key = str_replace($value,$patern,$key);
+        }
+        //var_dump($check_pattern);
+        if(in_array($key,$allowed_root) || !empty($check_pattern) || in_array('ROLE_SUPER_ADMIN',$user->getRoles())) {
+            return true;
+        }
+        return false;
+    }
+
+    public function parsePatternFromUrl($url) {
+        // Split the URL into components
+        $urlComponents = explode('/', trim($url, '/'));
+        
+        // Base pattern
+        $pattern = '/^';
+        
+        // Iterate through the components
+        foreach ($urlComponents as $component) {
+            if (is_numeric($component)) {
+                $pattern .= '\/[0-9]+'; // Replace numeric components with [0-9]+
+            } elseif ($component === 'edit') {
+                $pattern .= '\/edit'; // Literal 'edit'
+            } else {
+                $pattern .= '\/' . preg_quote($component, '/'); // Escape other components
+            }
+        }
+        
+        // Close the pattern
+        $pattern .= '$/';
+        
+        return $pattern;
+    }
+
+    public function isValidUrl($url, $pattern) {
+        // Use preg_match to check if the URL matches the pattern
+        return preg_match($pattern, $url) === 1;
+    }
+    // get page parent name
+    public function getPageParentName($id_parent){
+        if((int)$id_parent){
+            $post_parent =  $this->em->getRepository(Post::class)->find($id_parent);
+            if(!empty($post_parent)){
+                return $post_parent->getPostTitle();
+            }
+        }
+        return '-';
+    }
+
+    // get user email creator
+    public function getUserCreator($id_user){
+        if(is_array($id_user) && array_key_exists('id',$id_user)){
+            $user =  $this->em->getRepository(User::class)->find($id_user["id"]);
+            if(!empty($user)){
+                return $user->getFirstName().' '.$user->getLastName();
+            }
+        }
+        return '-';
+    }
+    // get post terms
+    public function getPostTerms($id_post){
+        $terms_string = [];
+        if((int)$id_post){
+            $post =  $this->em->getRepository(Post::class)->find($id_post);
+            if(!empty($post)){
+                $terms = $post->getTerms();
+                foreach($terms as $term){
+                    $terms_string[]=$term->getNameTerms();
+                }
+                return !empty($terms_string)?implode(',',$terms_string):'-';
+            }
+        }
+        return '-';
+    }
 }

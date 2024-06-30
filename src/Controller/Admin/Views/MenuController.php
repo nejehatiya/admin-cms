@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-#[Route('/menu')]
+#[Route('/menu', options:["need_permession"=>true,"module"=>"Menu", "method"=>["Afficher","Ajouter","Modifier","Supprimer"]])]
 class MenuController extends AbstractController
 {
     private $serializer;
@@ -29,7 +29,7 @@ class MenuController extends AbstractController
         //$this->slugify = new Slugify();
     }
 
-    #[Route('/', name: 'app_menu_index', methods: ['GET'])]
+    #[Route('/', name: 'app_menu_index', methods: ['GET'], options:["action"=>"Afficher","order"=>5])]
     public function index(MenuRepository $menuRepository,PostMetaFieldsRepository $PostMetaFieldsRepository,EmplacementRepository $emplacementRepository): Response
     {
         // menu list
@@ -52,26 +52,9 @@ class MenuController extends AbstractController
     {
         $menu = new Menu();
         $form = $this->createForm(MenuType::class, $menu);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($menu);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_menu_index', [], Response::HTTP_SEE_OTHER);
-        }
-
         return $this->render('admin/menu/new.html.twig', [
             'menu' => $menu,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_menu_show', methods: ['GET'])]
-    public function show(Menu $menu): Response
-    {
-        return $this->render('admin/menu/show.html.twig', [
-            'menu' => $menu,
         ]);
     }
 
@@ -80,12 +63,6 @@ class MenuController extends AbstractController
     {
         $form = $this->createForm(MenuType::class, $menu);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_menu_index', [], Response::HTTP_SEE_OTHER);
-        }
 
         return $this->render('admin/menu/edit.html.twig', [
             'menu' => $menu,
@@ -96,11 +73,7 @@ class MenuController extends AbstractController
     #[Route('/{id}', name: 'app_menu_delete', methods: ['POST'])]
     public function delete(Request $request, Menu $menu, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$menu->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($menu);
-            $entityManager->flush();
-        }
-
+        
         return $this->redirectToRoute('app_menu_index', [], Response::HTTP_SEE_OTHER);
     }
 }

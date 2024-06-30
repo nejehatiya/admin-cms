@@ -1,11 +1,11 @@
 <div class="tablenav-pages">
     <span class="displaying-num">{{total_count}} éléments</span>
     <span class="pagination-links">
-        <span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
-        <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
+        <a class="first-page button" href="#"><span class="screen-reader-text">Première page</span><span aria-hidden="true">«</span></a>
+        <a class="prev-page button" href="#"><span class="screen-reader-text">Page précédente</span><span aria-hidden="true">‹</span></a>
         <span class="screen-reader-text">Page actuelle</span>
         <span id="table-paging" class="paging-input">
-            <span class="tablenav-paging-text">{{current_page}} sur <span class="total-pages">{{total_page}}</span></span>
+            <span class="tablenav-paging-text"><span id="current-page-footer">{{current_page}}</span> sur <span class="total-pages">{{total_page}}</span></span>
         </span>
         <a class="next-page button" href="#"><span class="screen-reader-text">Page suivante</span><span aria-hidden="true">›</span></a>
         <a class="last-page button" href="#"><span class="screen-reader-text">Dernière page</span><span aria-hidden="true">»</span></a>

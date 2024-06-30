@@ -1,31 +1,45 @@
 {% extends 'admin/admin.html.twig' %}
-
+{% set post_type_titre = post_type_entity.name_post_type|lower|capitalize %}
 {% block title %}
-  Articles
+  {{post_type_titre}}
 {% endblock %}
 {% block titreAdmin %}
-  Articles
+  {{post_type_titre}}
 {% endblock %}
-
+{% block importmap %}
+	{{ importmap(['app','post-list']) }}
+{% endblock %}
 {% block contentAdmin %}
+    <script>
+        let post_type_slug = "{{post_type_slug}}";
+    </script>
     {# header list #}
-    {% include "admin/global/list/list-header.html.twig" with {'path':'app_post_new',params:{post_type:'post'},'titre':'Ajouter un article'} %}
+    {% include "admin/global/list/list-header.html.twig" with {'path':'app_post_new',params:{post_type:post_type_slug},'titre':'Ajouter un ' ~ post_type_titre} %}
     {# count list #}
-    {% include "admin/global/list/list-count.html.twig" with {'vars':{'all':{'name':'Tous','count':20},'publish':{'name':'Publié','count':20}}} %}
+    {% include "admin/global/list/list-count.html.twig" with 
+        {
+            'vars':{
+                'all':{'name':'Tous','count':posts_count},
+                'publish':{'name':'Publié','count':posts_count_publie},
+                'corbeille':{'name':'Corbeille','count':posts_count_corbeille},
+                'brouillon':{'name':'Brouillon','count':posts_count_brouillon},
+            }
+        } 
+    %}
     {# list content  #}
-    <form id="filter" method="get">
+    <form id="filter" method="get"> 
         {# content search-box #}
-        {% include "admin/global/list/search-box.html.twig" with {'titre':'Article'} %}
+        {% include "admin/global/list/search-box.html.twig" with {'titre':post_type_titre} %}
         {# list top  #}
         <div class="tablenav top">
             {# list actions grouper #}
-            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'Article'} %}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':post_type_titre} %}
 
             {# list filtrage  #}
-            {% include "admin/global/list/filtrage.html.twig" with {'filters':[] } %}
+            {% include "admin/global/list/filtrage.html.twig" with {'filters':filters_list } %}
             
             {# list pagination  #}
-            {% include "admin/global/list/pagination.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Post'} %}
+            {% include "admin/global/list/pagination.html.twig" with {'total_count':posts_count,'total_page':page_count,"current_page":1,'entity':'Post'} %}
 
             <br class="clear" />
 
@@ -35,21 +49,12 @@
         <table class="wp-list-table widefat fixed striped table-view-list posts">
             <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
             {# list table header #}
-            {% set fields = [
-                {name:'Titre',field_name:'post_title',method:'post_title',sortable:true,type:'text'},
-                {name:'Slug',field_name:'post_name',method:'post_name',sortable:true,type:'text'},
-                {name:'Parent',field_name:'post_parent',method:'post_parent',sortable:false,type:'text'},
-                {name:'Auteur / autrice',field_name:'author',sortable:false,type:'entity',field_to_display:'email',collection:false},
-                {name:'Etat',field_name:'post_status',method:'post_status',sortable:false,type:'text'},
-                {name:'Catégories',field_name:'terms',method:'terms',sortable:false,type:'entity',field_to_display:'name_terms',collection:true},
-                {name:'Date',field_name:'date_add',method:'date_add',sortable:true,type:'date'}
-            ] %}
             <thead>
                 {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
             </thead>
             {# list table body #}
             <tbody id="the-list">
-                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':posts,'entity_name':'modeles-post','is_view':false,'path_edit':'app_post_edit','params_link':{post_type:'post'}} %}
+                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':posts,'entity_name':'post','is_view':true,'path_edit':'app_post_edit','path_delete':'app_post_delete','params_link':{post_type:post_type_slug}} %}
             </tbody>
             {# list table footer #}
             <tfoot>
@@ -62,10 +67,29 @@
             {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'modéles'} %}
             <div class="alignleft actions"></div>
             {# list pagination footer table  #}
-            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'ModelesPost'} %}
+            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':posts_count,'total_page':page_count,"current_page":1,'entity':'Post'} %}
             
             <br class="clear" />
         </div>
     </form>
+    <div class="popup-delete-confirm popup-confirm">
+        <div class="content">
+            <p>Voulez-vous vraiment mettre ce post dans la corbeille ?</p>
+            <div class="footer">
+                <button class="button button-primary confirmer">Confirmer</button>
+                <button class="button button-danger annuler">Annuler</button>
+            </div>
+        </div>
+    </div>
+
     
+    <div class="popup-suprimer-confirm popup-confirm">
+        <div class="content">
+            <p>Voulez-vous vraiment suprimer définitivement l'article</p>
+            <div class="footer">
+                <button class="button button-primary confirmer">Confirmer</button>
+                <button class="button button-danger annuler">Annuler</button>
+            </div>
+        </div>
+    </div>
 {% endblock %}

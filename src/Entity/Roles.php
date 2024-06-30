@@ -11,33 +11,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: RolesRepository::class)]
 class Roles
 {
-    /**
-     * @Groups({"role_routes"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @Groups({"role_routes", "roles_routes"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 255)]
     private $role;
 
-    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'roles_user')]
-    private $id_role;
 
-    /**
-     * @Groups({"role_routes", "permissions"})
-     */
-    #[ORM\ManyToMany(targetEntity: Route::class, mappedBy: 'roles', cascade: ['persist'])]
-    private $routes;
+    #[ORM\ManyToMany(targetEntity: Routes::class, mappedBy: 'role')]
+    private Collection $routes;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roles_user')]
+    private Collection $users;
+   
     public function __construct()
     {
         $this->id_role = new ArrayCollection();
         $this->routes = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,35 +52,7 @@ class Roles
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getIdRole(): Collection
-    {
-        return $this->id_role;
-    }
-
-    public function addIdRole(User $idRole): self
-    {
-        if (!$this->id_role->contains($idRole)) {
-            $this->id_role[] = $idRole;
-            $idRole->setRolesUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdRole(User $idRole): self
-    {
-        if ($this->id_role->removeElement($idRole)) {
-            // set the owning side to null (unless already changed)
-            if ($idRole->getRolesUser() === $this) {
-                $idRole->setRolesUser(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function __toString()
     {
@@ -93,26 +60,57 @@ class Roles
     }
 
     /**
-     * @return Collection|Route[]
+     * @return Collection<int, Routes>
      */
     public function getRoutes(): Collection
     {
         return $this->routes;
     }
 
-    public function addRoute(Route $route): self
+    public function addRoute(Routes $route): static
     {
         if (!$this->routes->contains($route)) {
-            $this->routes[] = $route;
+            $this->routes->add($route);
+            $route->addRole($this);
         }
 
         return $this;
     }
 
-    public function removeRoute(Route $route): self
+    public function removeRoute(Routes $route): static
     {
-        $this->routes->removeElement($route);
+        if ($this->routes->removeElement($route)) {
+            $route->removeRole($this);
+        }
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addRolesUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeRolesUser($this);
+        }
+
+        return $this;
+    }
+
 }

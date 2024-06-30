@@ -1,10 +1,15 @@
+{% set alloawed_rootes = getAllowedRoutes() %}
+{% set curre_path = app.request.get('_route') %}
+{% set current_params = app.request.get('_route_params')|json_encode %}
 <a href="#wpbody-content" class="screen-reader-shortcut">Aller au contenu principal</a>
 <a href="#wp-toolbar" class="screen-reader-shortcut">Aller à la barre d’outils</a>
 <div id="adminmenuback"></div>
 <div id="adminmenuwrap">
   <ul id="adminmenu">
-    <li class="wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open menu-top menu-top-first menu-icon-dashboard menu-top-last" id="menu-dashboard">
-      <a href="index.php" class="wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open menu-top menu-top-first menu-icon-dashboard menu-top-last" aria-haspopup="false">
+    {# Tableau de bord #}
+
+    <li class="wp-first-item wp-has-submenu {% if curre_path == 'app_admin_dashbord_index' %} wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-top-first menu-icon-dashboard menu-top-last" id="menu-dashboard">
+      <a href="{{path('app_admin_dashbord_index')}}" class="wp-first-item wp-has-submenu {% if curre_path == 'app_admin_dashbord_index' %}wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-top-first menu-icon-dashboard menu-top-last" aria-haspopup="false">
         <div class="wp-menu-arrow">
           <div></div>
         </div>
@@ -15,119 +20,136 @@
       </a>
       <ul class="wp-submenu wp-submenu-wrap">
         <li class="wp-submenu-head" aria-hidden="true">Tableau de bord</li>
-        <li class="wp-first-item current">
-          <a href="index.php" class="wp-first-item current" aria-current="page">Accueil</a>
-        </li>
-        <li>
-          <a href="update-core.php">Mises à jour <span class="update-plugins count-2"><span class="update-count">2</span></span></a>
+        <li class="wp-first-item {% if curre_path == 'app_admin_dashbord_index' %}current{% endif %}">
+          <a href="{{path('app_admin_dashbord_index')}}" class="wp-first-item {% if curre_path == 'app_admin_dashbord_index' %}current{% endif %}" aria-current="page">Accueil</a>
         </li>
       </ul>
-    </li>
-    <li class=" wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open menu-top menu-top-first menu-icon-dashboard menu-top-last" id="menu-dashboard">
-      <a href="{{path('app_post_modals_index')}}" class="wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open menu-top menu-top-first menu-icon-dashboard menu-top-last" aria-haspopup="false">
-        <div class="wp-menu-arrow">
-          <div></div>
-        </div>
-        <div class="wp-menu-image dashicons-before dashicons-dashboard" aria-hidden="true">
-          <br />
-        </div>
-        <div class="wp-menu-name">Developeur</div>
-      </a>
-      <ul class="wp-submenu wp-submenu-wrap">
-        <li class="wp-submenu-head" aria-hidden="true">Tableau de bord</li>
-        <li class="wp-first-item current">
-          <a href="{{path('app_modeles_post_index')}}" class="wp-first-item" aria-current="page">Models List</a>
-        </li>
-        <li class="wp-first-item current">
-          <a href="{{path('app_post_type_index')}}" class="wp-first-item" aria-current="page">Post type List</a>
-        </li>
-        <li class="wp-first-item current">
-          <a href="{{path('app_template_page_index')}}" class="wp-first-item" aria-current="page">Template Page</a>
-        </li>
-        <li class="wp-first-item current">
-          <a href="{{path('app_post_meta_fields_index')}}" class="wp-first-item" aria-current="page">ACF</a>
-        </li>
-        <li class="wp-first-item current">
-          <a href="{{path('app_taxonomy_index')}}" class="wp-first-item" aria-current="page">Taxonomy</a>
-        </li>
-
-        <li class="wp-first-item current">
-          <a href="{{path('app_emplacement_index')}}" class="wp-first-item" aria-current="page">Emplacement menu</a>
-        </li>
-      </ul>
-    </li>
-    <li class="wp-not-current-submenu wp-menu-separator" aria-hidden="true">
-      <div class="separator"></div>
     </li>
 
+    {# Developeur Accés userHasAccess(curre_path,alloawed_rootes,'Developeur')#}
+    {% if  
+      userHasAccess(curre_path,alloawed_rootes,path('app_modeles_post_index')) or
+      userHasAccess(curre_path,alloawed_rootes,path('app_post_type_index')) or
+      userHasAccess(curre_path,alloawed_rootes,path('app_template_page_index')) or 
+      userHasAccess(curre_path,alloawed_rootes,path('app_post_meta_fields_index')) or
+      userHasAccess(curre_path,alloawed_rootes,path('app_taxonomy_index')) or
+      userHasAccess(curre_path,alloawed_rootes,path('app_emplacement_index'))
+    %}
+      <li class=" wp-first-item wp-has-submenu {% if checkMenuOpen(curre_path,alloawed_rootes,'Developeur') %} wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-top-first menu-icon-dashboard menu-top-last" id="menu-dashboard">
+        <a href="{{path('app_post_modals_index')}}" class="wp-first-item wp-has-submenu {% if checkMenuOpen(curre_path,alloawed_rootes,'Developeur') %} wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-top-first menu-icon-dashboard menu-top-last" aria-haspopup="false">
+          <div class="wp-menu-arrow">
+            <div></div>
+          </div>
+          <div class="wp-menu-image dashicons-before dashicons-dashboard" aria-hidden="true">
+            <br />
+          </div>
+          <div class="wp-menu-name">Developeur</div>
+        </a>
+        <ul class="wp-submenu wp-submenu-wrap">
+          <li class="wp-submenu-head" aria-hidden="true">Tableau de bord</li>
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_modeles_post_index')) %}
+            <li class="wp-first-item {% if curre_path == 'app_modeles_post_index' %}current{% endif %}">
+              <a href="{{path('app_modeles_post_index')}}" class="wp-first-item {% if curre_path == 'app_modeles_post_index' %}current{% endif %}" aria-current="page">Models List</a>
+            </li>
+          {% endif %}
 
-    <li class="wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" id="menu-posts">
-      <a href="{{path('app_post_index',{post_type:'post'})}}" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-post open-if-no-js menu-top-first" aria-haspopup="true">
-        <div class="wp-menu-arrow">
-          <div></div>
-        </div>
-        <div class="wp-menu-image dashicons-before dashicons-admin-post" aria-hidden="true">
-          <br />
-        </div>
-        <div class="wp-menu-name">Articles</div>
-      </a>
-      <ul class="wp-submenu wp-submenu-wrap">
-        <li class="wp-submenu-head" aria-hidden="true">Articles</li>
-        <li class="wp-first-item">
-          <a href="{{path('app_post_index',{post_type:'post'})}}" class="wp-first-item">Tous les articles</a>
-        </li>
-        <li>
-          <a href="{{path('app_post_new',{post_type:'post'})}}">Ajouter un article</a>
-        </li>
-        <li>
-          <a href="{{path('app_terms_index',{taxonomy:'category'})}}">Catégories</a>
-        </li>
-        <li>
-          <a href="{{path('app_terms_index',{taxonomy:'etiquettes'})}}">Étiquettes</a>
-        </li>
-      </ul>
-    </li>
-    <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-media" id="menu-media">
-      <a href="{{path('app_media_index')}}" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-media" aria-haspopup="true">
-        <div class="wp-menu-arrow">
-          <div></div>
-        </div>
-        <div class="wp-menu-image dashicons-before dashicons-admin-media" aria-hidden="true">
-          <br />
-        </div>
-        <div class="wp-menu-name">Médias</div>
-      </a>
-      <ul class="wp-submenu wp-submenu-wrap">
-        <li class="wp-submenu-head" aria-hidden="true">Médias</li>
-        <li class="wp-first-item">
-          <a href="{{path('app_media_index')}}" class="wp-first-item">Médiathèque</a>
-        </li>
-        <li>
-          <a href="{{path('app_media_new')}}">Ajouter un fichier média</a>
-        </li>
-      </ul>
-    </li>
-    <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-page" id="menu-pages">
-      <a href="edit.php?post_type=page" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-page" aria-haspopup="true">
-        <div class="wp-menu-arrow">
-          <div></div>
-        </div>
-        <div class="wp-menu-image dashicons-before dashicons-admin-page" aria-hidden="true">
-          <br />
-        </div>
-        <div class="wp-menu-name">Pages</div>
-      </a>
-      <ul class="wp-submenu wp-submenu-wrap">
-        <li class="wp-submenu-head" aria-hidden="true">Pages</li>
-        <li class="wp-first-item">
-          <a href="edit.php?post_type=page" class="wp-first-item">Toutes les pages</a>
-        </li>
-        <li>
-          <a href="post-new.php?post_type=page">Ajouter une page</a>
-        </li>
-      </ul>
-    </li>
-    <li class="wp-not-current-submenu menu-top menu-icon-comments menu-top-last" id="menu-comments">
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_post_type_index')) %}
+            <li class="wp-first-item {% if curre_path == 'app_post_type_index' %}current{% endif %}">
+              <a href="{{path('app_post_type_index')}}" class="wp-first-item {% if curre_path == 'app_post_type_index' %}current{% endif %}" aria-current="page">Post type List</a>
+            </li>
+          {% endif %}
+
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_template_page_index')) %}
+            <li class="wp-first-item {% if curre_path == 'app_template_page_index' %}current{% endif %}">
+              <a href="{{path('app_template_page_index')}}" class="wp-first-item {% if curre_path == 'app_template_page_index' %}current{% endif %}" aria-current="page">Template Page</a>
+            </li>
+          {% endif %}
+
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_post_meta_fields_index')) %}
+            <li class="wp-first-item {% if curre_path == 'app_post_meta_fields_index' %}current{% endif %}">
+              <a href="{{path('app_post_meta_fields_index')}}" class="wp-first-item  {% if curre_path == 'app_post_meta_fields_index' %}current{% endif %}" aria-current="page">ACF</a>
+            </li>
+          {% endif %}
+
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_taxonomy_index')) %}
+            <li class="wp-first-item {% if curre_path == 'app_taxonomy_index' %}current{% endif %}">
+              <a href="{{path('app_taxonomy_index')}}" class="wp-first-item  {% if curre_path == 'app_taxonomy_index' %}current{% endif %}" aria-current="page">Taxonomy</a>
+            </li>
+          {% endif %}
+
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_emplacement_index')) %}
+            <li class="wp-first-item {% if curre_path == 'app_emplacement_index' %}current{% endif %}">
+              <a href="{{path('app_emplacement_index')}}" class="wp-first-item  {% if curre_path == 'app_emplacement_index' %}current{% endif %}" aria-current="page">Emplacement menu</a>
+            </li>
+          {% endif %}
+        </ul>
+      </li>
+      <li class="wp-not-current-submenu wp-menu-separator" aria-hidden="true">
+        <div class="separator"></div>
+      </li>
+    {% endif %}
+
+
+    {# Post type to add to side bar #}
+    {% set post_type_list =  getPostTypeList() %}
+    {% for post_tye in post_type_list %}
+      {% set taxonomy_post_type_list =  getPostTypeTaxonomyList(post_tye.slug_post_type) %}
+      {% set taxo_slug  = taxonomy_post_type_list|map( item => item.slugTaxonomy )  %}
+      {% if  
+        userHasAccess(curre_path,alloawed_rootes,path('app_post_index',{post_type:post_tye.slug_post_type})) or
+        userHasAccess(curre_path,alloawed_rootes,path('app_post_new',{post_type:post_tye.slug_post_type}))
+      %}
+      <li class="wp-first-item   {% if curre_path in ['app_post_index','app_post_new','app_post_edit'] and app.request.get('post_type') == post_tye.slug_post_type or app.request.get('taxonomy')  in taxo_slug  %} wp-has-current-submenu wp-menu-open {% endif %} wp-has-submenu wp-has-submenu menu-top menu-icon-post menu-top-first" id="menu-posts-{{post_tye.id}}">
+        <a href="{{path('app_post_index',{post_type:post_tye.slug_post_type})}}" class="wp-has-submenu   {% if curre_path in ['app_post_index','app_post_new','app_post_edit'] and app.request.get('post_type') == post_tye.slug_post_type or app.request.get('taxonomy')  in taxo_slug  %} wp-has-current-submenu wp-menu-open {% endif %}  menu-top menu-icon-post open-if-no-js menu-top-first" aria-haspopup="true">
+          <div class="wp-menu-arrow">
+            <div></div>
+          </div>
+          <div class="wp-menu-image dashicons-before {{post_tye.icone_dasbord ? post_tye.icone_dasbord : 'dashicons-admin-post'}}" aria-hidden="true">
+            <br />
+          </div>
+          <div class="wp-menu-name">{{post_tye.name_post_type|lower|capitalize}}</div>
+        </a>
+        <ul class="wp-submenu wp-submenu-wrap">
+          <li class="wp-submenu-head" aria-hidden="true">Articles</li>
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_post_index',{post_type:post_tye.slug_post_type})) %}
+            <li class="wp-first-item   {% if curre_path in ['app_post_index'] and app.request.get('post_type') == post_tye.slug_post_type  %} current {% endif %} ">
+              <a href="{{path('app_post_index',{post_type:post_tye.slug_post_type})}}" class="wp-first-item {% if curre_path in ['app_post_index'] and app.request.get('post_type') == post_tye.slug_post_type  %} current {% endif %} ">Tous les articles</a>
+            </li>
+          {% endif %}
+
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_post_new',{post_type:post_tye.slug_post_type})) %}
+            <li class="{% if curre_path in ['app_post_new'] and app.request.get('post_type') == post_tye.slug_post_type  %} current {% endif %} ">
+              <a href="{{path('app_post_new',{post_type:post_tye.slug_post_type})}}"  class="{% if curre_path in ['app_post_new'] and app.request.get('post_type') == post_tye.slug_post_type  %} current {% endif %} ">Ajouter un article</a>
+            </li>
+          {% endif %}
+          {% for taxonomy_item in taxonomy_post_type_list %}
+            {% if userHasAccess(curre_path,alloawed_rootes,path('app_terms_index',{taxonomy:taxonomy_item.slugTaxonomy}),"[a-zA-Z0-9]+",taxonomy_item.slugTaxonomy) %}
+              <li class="{% if curre_path in ['app_terms_index'] and  app.request.get('taxonomy') == taxonomy_item.slugTaxonomy  %} current {% endif %} ">
+                <a href="{{path('app_terms_index',{taxonomy:taxonomy_item.slugTaxonomy})}}" class="{% if curre_path in ['app_terms_index'] and  app.request.get('taxonomy') == taxonomy_item.slugTaxonomy  %} current {% endif %} ">{{taxonomy_item.nameTaxonomy}}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+    {% endfor %}
+
+    {# media item  #}
+    {% if userHasAccess(curre_path,alloawed_rootes,path('app_media_index')) %}
+      <li class="menu-top menu-icon-media {% if curre_path == 'app_media_index' %} wp-has-current-submenu wp-menu-open {% endif %}" id="menu-media">
+        <a href="{{path('app_media_index')}}" class="wp-has-submenu {% if curre_path == 'app_media_index' %}wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-icon-media" aria-haspopup="true">
+          <div class="wp-menu-arrow">
+            <div></div>
+          </div>
+          <div class="wp-menu-image dashicons-before dashicons-admin-media" aria-hidden="true">
+            <br />
+          </div>
+          <div class="wp-menu-name">Médias</div>
+        </a>
+      </li>
+    {% endif %}
+    {# comments item  #}
+    {#<li class="wp-not-current-submenu menu-top menu-icon-comments menu-top-last" id="menu-comments">
       <a href="edit-comments.php" class="wp-not-current-submenu menu-top menu-icon-comments menu-top-last">
         <div class="wp-menu-arrow">
           <div></div>
@@ -139,56 +161,36 @@
           Commentaires <span class="awaiting-mod count-0"><span class="pending-count" aria-hidden="true">0</span><span class="comments-in-moderation-text screen-reader-text">0 commentaire en modération</span></span>
         </div>
       </a>
-    </li>
+    </li>#}
     <li class="wp-not-current-submenu wp-menu-separator" aria-hidden="true">
       <div class="separator"></div>
     </li>
-    <li class="wp-first-item wp-has-submenu wp-has-current-submenu wp-menu-open  wp-has-submenu wp-not-current-submenu menu-top menu-icon-appearance menu-top-first" id="menu-appearance">
-      <a href="themes.php" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-appearance menu-top-first" aria-haspopup="true">
-        <div class="wp-menu-arrow">
-          <div></div>
-        </div>
-        <div class="wp-menu-image dashicons-before dashicons-admin-appearance" aria-hidden="true">
-          <br />
-        </div>
-        <div class="wp-menu-name">Apparence</div>
-      </a>
-      <ul class="wp-submenu wp-submenu-wrap">
-        <li class="wp-submenu-head" aria-hidden="true">Apparence</li>
-        <li class="wp-first-item">
-          <a href="{{path('app_menu_index')}}" class="wp-first-item">Menu <span class="update-plugins count-0"><span class="theme-count">0</span></span></a>
-        </li>
-        <li>
-          <a href="site-editor.php">Éditeur</a>
-        </li>
-      </ul>
-    </li>
-    <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-plugins" id="menu-plugins">
-      <a href="plugins.php" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-plugins" aria-haspopup="true">
-        <div class="wp-menu-arrow">
-          <div></div>
-        </div>
-        <div class="wp-menu-image dashicons-before dashicons-admin-plugins" aria-hidden="true">
-          <br />
-        </div>
-        <div class="wp-menu-name">
-          Extensions <span class="update-plugins count-1"><span class="plugin-count">1</span></span>
-        </div>
-      </a>
-      <ul class="wp-submenu wp-submenu-wrap">
-        <li class="wp-submenu-head" aria-hidden="true">
-          Extensions <span class="update-plugins count-1"><span class="plugin-count">1</span></span>
-        </li>
-        <li class="wp-first-item">
-          <a href="plugins.php" class="wp-first-item">Extensions installées</a>
-        </li>
-        <li>
-          <a href="plugin-install.php">Ajouter une extension</a>
-        </li>
-      </ul>
-    </li>
-    <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-users" id="menu-users">
-      <a href="users.php" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-users" aria-haspopup="true">
+    {# menu item #}
+    {% if userHasAccess(curre_path,alloawed_rootes,path('app_menu_index')) %}
+      <li class="wp-first-item wp-has-submenu  {% if curre_path == 'app_menu_index' %} wp-has-current-submenu wp-menu-open {% endif %}  wp-has-submenu  menu-top menu-icon-appearance menu-top-first" id="menu-appearance">
+        <a href="{{path('app_menu_index')}}" class="wp-has-submenu  {% if curre_path == 'app_menu_index' %} wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-icon-appearance menu-top-first" aria-haspopup="true">
+          <div class="wp-menu-arrow">
+            <div></div>
+          </div>
+          <div class="wp-menu-image dashicons-before dashicons-admin-appearance" aria-hidden="true">
+            <br />
+          </div>
+          <div class="wp-menu-name">Apparence</div>
+        </a>
+        <ul class="wp-submenu wp-submenu-wrap">
+          <li class="wp-submenu-head" aria-hidden="true">Apparence</li>
+          <li class="wp-first-item {% if curre_path == 'app_menu_index' %}current{% endif %}">
+            <a href="{{path('app_menu_index')}}" class="wp-first-item {% if curre_path == 'app_menu_index' %}current{% endif %}">Menu <span class="update-plugins count-0"><span class="theme-count">0</span></span></a>
+          </li>
+        </ul>
+      </li>
+    {% endif %}
+    {# gestion user #}
+    {% if 
+      true
+    %}
+    <li class="wp-has-submenu  {% if curre_path in ['app_user_index','app_user_new','app_user_edit','app_roles_index'] %} wp-has-current-submenu wp-menu-open {% endif %}   menu-top menu-icon-users" id="menu-users">
+      <a href="{{path('app_user_index')}}" class="wp-has-submenu {% if curre_path in ['app_user_index','app_user_new','app_user_edit','app_roles_index'] %} wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-icon-users" aria-haspopup="true">
         <div class="wp-menu-arrow">
           <div></div>
         </div>
@@ -199,57 +201,71 @@
       </a>
       <ul class="wp-submenu wp-submenu-wrap">
         <li class="wp-submenu-head" aria-hidden="true">Comptes</li>
-        <li class="wp-first-item">
-          <a href="users.php" class="wp-first-item">Tous les comptes</a>
+        {% if userHasAccess(curre_path,alloawed_rootes,path('app_user_index')) %}
+          <li class="wp-first-item {% if curre_path in ['app_user_index'] %} current {% endif %}">
+            <a href="{{path('app_user_index')}}" class="wp-first-item {% if curre_path in ['app_user_index'] %} current {% endif %}">Tous les comptes</a>
+          </li>
+        {% endif %}
+
+        {% if userHasAccess(curre_path,alloawed_rootes,path('app_user_new')) %}
+          <li class=" {% if curre_path in ['app_user_new'] %} current {% endif %}">
+            <a href="{{path('app_user_new')}}" class=" {% if curre_path in ['app_user_new'] %} current {% endif %}">Ajouter un compte</a>
+          </li>
+        {% endif %}
+
+
+        {% set user_id = app.user ? app.user.id : 0 %}
+        <li class=" {% if curre_path in ['app_user_edit'] and app.request.get('id') == user_id %} current {% endif %}">
+          <a href="{{path('app_user_edit',{id:user_id})}}" class=" {% if curre_path in ['app_user_edit'] and app.request.get('id') == user_id %} current {% endif %}">Profil</a>
         </li>
-        <li>
-          <a href="user-new.php">Ajouter un compte</a>
-        </li>
-        <li>
-          <a href="profile.php">Profil</a>
-        </li>
+
+        {% if userHasAccess(curre_path,alloawed_rootes,path('app_roles_index')) %}
+          <li class=" {% if curre_path in ['app_roles_index'] %} current {% endif %}">
+            <a href="{{path('app_roles_index')}}" class=" {% if curre_path in ['app_user_edit'] %} current {% endif %}">Role</a>
+          </li>
+        {% endif %}
       </ul>
     </li>
-    <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-tools" id="menu-tools">
-      <a href="tools.php" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-tools" aria-haspopup="true">
-        <div class="wp-menu-arrow">
-          <div></div>
-        </div>
-        <div class="wp-menu-image dashicons-before dashicons-admin-tools" aria-hidden="true">
-          <br />
-        </div>
-        <div class="wp-menu-name">Outils</div>
-      </a>
-      <ul class="wp-submenu wp-submenu-wrap">
-        <li class="wp-submenu-head" aria-hidden="true">Outils</li>
-        <li class="wp-first-item">
-          <a href="tools.php" class="wp-first-item">Outils disponibles</a>
-        </li>
-        <li>
-          <a href="import.php">Importer</a>
-        </li>
-        <li>
-          <a href="export.php">Exporter</a>
-        </li>
-        <li>
-          <a href="site-health.php">Santé du site <span class="menu-counter site-health-counter count-0"><span class="count">0</span></span></a>
-        </li>
-        <li>
-          <a href="export-personal-data.php">Exporter les données</a>
-        </li>
-        <li>
-          <a href="erase-personal-data.php">Effacer les données</a>
-        </li>
-        <li>
-          <a href="theme-editor.php">Éditeur de fichiers des thèmes</a>
-        </li>
-        <li>
-          <a href="plugin-editor.php">Éditeur de fichiers des extensions</a>
-        </li>
-      </ul>
-    </li>
-    <li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-settings menu-top-last" id="menu-settings">
-      <a href="options-general.php" class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-settings menu-top-last" aria-haspopup="true">
+    {% endif %}
+    {# redirection  #}
+    {% if 
+      userHasAccess(curre_path,alloawed_rootes,path('app_redirection_index')) or 
+      userHasAccess(curre_path,alloawed_rootes,path('app_redirection_new'))
+    %}
+      <li class="wp-has-submenu menu-top menu-icon-media {% if curre_path in ['app_redirection_index','app_redirection_new','app_redirection_edit'] %} wp-has-current-submenu wp-menu-open {% endif %}" id="menu-media">
+        <a href="{{path('app_redirection_index')}}" class="wp-has-submenu  {% if curre_path in ['app_redirection_index','app_redirection_new','app_redirection_edit'] %} wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-icon-media" aria-haspopup="true">
+          <div class="wp-menu-arrow">
+            <div></div>
+          </div>
+          <div class="wp-menu-image dashicons-before dashicons-admin-links" aria-hidden="true">
+            <br />
+          </div>
+          <div class="wp-menu-name">Redirections</div>
+        </a>
+        <ul class="wp-submenu wp-submenu-wrap">
+          <li class="wp-submenu-head" aria-hidden="true">Redirections</li>
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_redirection_index')) %}
+            <li class="wp-first-item {% if curre_path in ['app_redirection_index'] %} current {% endif %}">
+              <a href="{{path('app_redirection_index')}}" class="wp-first-item {% if curre_path in ['app_redirection_index'] %} current {% endif %}">Tous les Redirections</a>
+            </li>
+          {% endif %}
+
+          {% if userHasAccess(curre_path,alloawed_rootes,path('app_redirection_new')) %}
+            <li class="wp-first-item {% if curre_path in ['app_redirection_new'] %} current {% endif %}">
+              <a href="{{path('app_redirection_new')}}" class="wp-first-item  {% if curre_path in ['app_redirection_new'] %} current {% endif %}">Ajouter</a>
+            </li>
+          {% endif %}
+        </ul>
+      </li>
+    {% endif %}
+    {# Configuration générale #}
+    {% if 
+      userHasAccess(curre_path,alloawed_rootes,path('app_configuration_index')) or 
+      userHasAccess(curre_path,alloawed_rootes,path('app_options_index')) or 
+      userHasAccess(curre_path,alloawed_rootes,path('app_permession_admin'))
+    %}
+    <li class="wp-has-submenu  menu-top menu-icon-settings menu-top-last  {% if curre_path in ['app_configuration_index','app_permession_admin','app_options_index'] %} wp-has-current-submenu wp-menu-open {% endif %}" id="menu-settings">
+      <a href="{{path('app_configuration_index')}}" class="wp-has-submenu   {% if curre_path in ['app_configuration_index','app_permession_admin','app_options_index'] %} wp-has-current-submenu wp-menu-open {% endif %} menu-top menu-icon-settings menu-top-last" aria-haspopup="true">
         <div class="wp-menu-arrow">
           <div></div>
         </div>
@@ -260,29 +276,26 @@
       </a>
       <ul class="wp-submenu wp-submenu-wrap">
         <li class="wp-submenu-head" aria-hidden="true">Réglages</li>
-        <li class="wp-first-item">
-          <a href="options-general.php" class="wp-first-item">Général</a>
-        </li>
-        <li>
-          <a href="options-writing.php">Écriture</a>
-        </li>
-        <li>
-          <a href="options-reading.php">Lecture</a>
-        </li>
-        <li>
-          <a href="options-discussion.php">Commentaires</a>
-        </li>
-        <li>
-          <a href="options-media.php">Médias</a>
-        </li>
-        <li>
-          <a href="options-permalink.php">Permaliens</a>
-        </li>
-        <li>
-          <a href="options-privacy.php">Confidentialité</a>
-        </li>
+        {% if userHasAccess(curre_path,alloawed_rootes,path('app_configuration_index')) %}
+          <li class="wp-first-item   {% if curre_path in ['app_configuration_index'] %} current {% endif %}">
+            <a href="{{path('app_configuration_index')}}" class="wp-first-item  {% if curre_path in ['app_options_index'] %} current {% endif %}">Général</a>
+          </li>
+        {% endif %}
+
+        {% if userHasAccess(curre_path,alloawed_rootes,path('app_options_index')) %}
+          <li class="wp-first-item  {% if curre_path in ['app_options_index'] %} current {% endif %}">
+            <a href="{{path('app_options_index')}}" class="wp-first-item  {% if curre_path in ['app_options_index'] %} current {% endif %}">Options</a>
+          </li>
+        {% endif %}
+
+        {% if userHasAccess(curre_path,alloawed_rootes,path('app_permession_admin')) %}
+          <li class="wp-first-item  {% if curre_path in ['app_permession_admin'] %} current {% endif %}">
+            <a href="{{path('app_permession_admin')}}" class="wp-first-item  {% if curre_path in ['app_permession_admin'] %} current {% endif %}">Permession</a>
+          </li>
+        {% endif %}
       </ul>
     </li>
+    {% endif %}
     <li id="collapse-menu" class="hide-if-no-js">
       <button type="button" id="collapse-button" aria-label="Replier le menu principal" aria-expanded="true"><span class="collapse-button-icon" aria-hidden="true"></span><span class="collapse-button-label">Réduire le menu</span></button>
     </li>

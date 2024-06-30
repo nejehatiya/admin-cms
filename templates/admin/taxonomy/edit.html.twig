@@ -13,5 +13,7 @@
     <script>
         let id_taxonomy = "{{taxonomy.id}}";
     </script>
+    {% include "admin/global/list/list-header.html.twig" with {'path':'app_terms_index',params:{taxonomy:taxonomy.slugTaxonomy},'titre':'Ajouter une nouvelle terms'} %}
+    
     {{ include('admin/taxonomy/_form.html.twig') }}
 {% endblock %}

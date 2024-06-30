@@ -97,7 +97,15 @@ class PostTypeRepository extends ServiceEntityRepository
         ;
         return $query;
     }
-
-
+    // find list postype in side bar menu
+    public function findSidebarList(){
+        $query =  $this->createQueryBuilder('m')
+        ->select('m.id,m.slug_post_type,m.name_post_type,m.icone_dasbord')
+        ->andWhere('m.displayInSitemap = :displayInSitemap')
+        ->setParameter('displayInSitemap', 1);
+        $query = $query->getQuery()
+        ->getResult();
+        return $query;
+    }
 
 }

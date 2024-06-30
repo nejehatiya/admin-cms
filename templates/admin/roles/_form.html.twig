@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+    <table class="form-table" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.role) }}</th>
+                <td>
+                    {{ form_widget(form.role) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(form) }}
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </p>
+{{ form_end(form) }}

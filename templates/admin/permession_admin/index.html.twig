@@ -1,0 +1,61 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Permessions List
+{% endblock %}
+{% block titreAdmin %}
+   Permessions List
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','permession']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <div class="page-wrapper">
+    <div class="page-content-wrapper"> 
+        <div class="page-content permession-role">
+            <div class="card">
+                <div class="card-body"> 
+                    <div class="row">
+                        <p>* ROLE_SUPER_ADMIN a tous les permessions</p>
+                        <div class="role-list position-relative">
+                            <div  class="dropdown">
+                                <select id="role-permession"  >
+                                    <option >Choisir role</option>
+                                    {% for role in roles_list %}
+                                        {% if role.role not in ["ROLE_USER","ROLE_ROLE_USER"]  %}
+                                            <option  class="dropdown-item" {% if role.role == "ROLE_ADMIN" %}selected{% endif %} {% if role.role == "ROLE_SUPER_ADMIN" %}disabled {% endif %} value="{{role.id}}">{{role.role}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="lds-ellipsis">
+                            <div></div><div></div><div></div><div></div></div>
+                        </div>
+                        <div class="routes">
+                            <table class="table tbody">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Afficher</th>
+                                        <th scope="col">Ajouter</th>
+                                        <th scope="col">Modifier</th>
+                                        <th scope="col">Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{include('admin/permession_admin/tbody.html.twig',{'modules':modules,'active_routes':active_routes})}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="actions">
+                            <button id="save" class="btn btn-outline-primary d-block"><i  class="fadeIn animated bx bx-save"></i>Enregistrer<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></button>
+                        </div>
+                    </div>
+                </div>                   
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

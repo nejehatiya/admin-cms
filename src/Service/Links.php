@@ -25,4 +25,11 @@ class Links
         }
         return $url;
     }
+    /**
+     * get link of post
+     * {$post}
+     */
+    public function getPostLink($post,$base_url=""){
+        return "";
+    }
 }

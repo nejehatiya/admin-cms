@@ -3,8 +3,9 @@
 namespace App\Controller\Admin\Api;
 
 use Cocur\Slugify\Slugify;
-use App\Entity\{ModelesPost};
 use App\Form\PostModalsType;
+use App\Entity\{ModelesPost};
+use App\Entity\ModelesContentDefault;
 use App\Repository\PostModalsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +17,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\{PostMetaFields,Images,PostType,Post,PostMeta,Terms,Revision};
-
+use App\Service\AnalyseService;
 #[Route('/api/{post_type}')]
 class ApiPostController extends AbstractController
 {
@@ -24,13 +25,15 @@ class ApiPostController extends AbstractController
     private $serializer;
     private $slugify;
     private $url_site;
+    private $analyse_service;
     // init constructor
-    public function __construct(EntityManagerInterface $EntityManagerInterface,SerializerInterface $serializer,string $url_site)
+    public function __construct(AnalyseService $AnalyseService,EntityManagerInterface $EntityManagerInterface,SerializerInterface $serializer,string $url_site)
     {
         $this->em = $EntityManagerInterface;
         $this->serializer = $serializer;
         $this->url_site = $url_site;
         $this->slugify = new Slugify();
+        $this->analyse_service = $AnalyseService;
     }
     #[Route('/check-slug', name: 'app_post_check_slug_index_ttt', methods: ['POST'])]
     public function indexCheckName(Request $request,$post_type): Response
@@ -169,10 +172,10 @@ class ApiPostController extends AbstractController
             }
         }
         // traiter author
-        if($author){
-            $get_author = $this->em->find(User::class)->find((int)$author);
+        if((int)$author){
+            $get_author = $this->em->getRepository(Post::class)->find((int)$author);
             if(!empty($get_author)){
-                $post->setAuthor($get_author);
+                $post->setAuthor((int)$author);
             }
         }
         //  traiter postype
@@ -197,14 +200,29 @@ class ApiPostController extends AbstractController
         // message il faut lancer analyse et gérer le sommaire pour chaque post on creation et modifiction
         // is create
         if(!$id){
+            $user = $this->getUser();
+            $post->setCreator($user);
             $post->setDateAdd(new \DateTime());
             $this->em->persist($post);
         }
         // publish in database
         $this->em->flush();
+
+        $analyse_post = $this->analyse_service->traitementAnalysePost($post->getId(),$post_type);
         return $this->json(['success'=>true,'message'=>$id ?'post à jour avec succés':'post créer avec succés']);
     }
+    #[Route('/analsye/{id}', name: 'app_post_analsye_api_test', methods: ['POST'])]
+    public function indexAnalsye(Request $request,$id,$post_type): Response
+    {
+        
+        $model_content = $request->request->get('model_content');
+        $model_content_decode = json_decode($request->request->get('model_content'),true);
+        
 
+        $analyse_post_html = $this->analyse_service->traitementAnalysePost(null,$post_type,$model_content);
+        return $this->json(['success'=>true,'analyse_post_html'=>$analyse_post_html]);
+    }
+    
     #[Route('/get/{id}', name: 'app_post_get_data_yyyyyy', methods: ['GET'])]
     public function indexGetData(Request $request,$id): Response
     {
@@ -220,8 +238,74 @@ class ApiPostController extends AbstractController
         return $this->json(['success'=>true,'post'=>$post]);
     }
 
+    #[Route('/change-status/{id}', name: 'app_post_change_status_data_yyyyyy', methods: ['POST'])]
+    public function indexChangeStatus(Request $request,$id): Response
+    {
+        
+        // get modele post
+        $post = $this->em->getRepository(Post::class)->find($id);
+        if(empty($post)){
+            return $this->json(['success'=>false,'message'=>'post n\'existe pas']);
+        }
+        $status = strip_tags($request->request->get('status'));
+        $post->setPostStatus($status);
+        $this->em->flush();
+        return $this->json(['success'=>true,'message'=>'post status mis à jour avec succés']);
+    }
 
-    #[Route('/get-sous-page/{id_parent}', name: 'app_post_get_data', methods: ['GET'])]
+    #[Route('/delete/{id}', name: 'app_post_delete_api_data_yyyyyy', methods: ['GET'])]
+    public function indexDeletePost(Request $request,$id): Response
+    {
+        // get modele post
+        $post = $this->em->getRepository(Post::class)->find($id);
+        if(empty($post)){
+            return $this->json(['success'=>false,'message'=>'post n\'existe pas']);
+        }
+        // delete all terms / revsion / post meta
+        // delete all old post meta related to this post
+        $metas = $post->getPostMetas();
+        if(!empty($metas)){
+            foreach($metas as $meta){
+                $post->removePostMeta($meta);
+                $this->em->remove($meta);
+            }
+        }
+        // delete revisions
+        $revisions = $post->getRevisions();
+        if(!empty($revisions)){
+            foreach($revisions as $revision){
+                $post->removeRevision($revision);
+                $this->em->remove($revision);
+            }
+        }
+        // delete commentaires
+        $commentaires = $post->getCommentaires();
+        if(!empty($commentaires)){
+            foreach($commentaires as $commentaire){
+                $post->removeCommentaire($commentaire);
+                $this->em->remove($commentaire);
+            }
+        }
+        // delete images
+        $images = $post->getImages();
+        if(!empty($images)){
+            foreach($images as $image){
+                $post->removeImage($image);
+            }
+        }
+        // delete terms 
+        $terms = $post->getTerms();
+        if(!empty($terms)){
+            foreach($terms as $term){
+                $post->removeTerm($term);
+            }
+        }
+        $this->em->remove($post);
+        $this->em->flush();
+        return $this->json(['success'=>true,'message'=>'post suprimmer avec succés']);
+    }
+
+    #[Route('/get-sous-page/{id_parent}', name: 'app_post_get_sous_page', methods: ['GET'])]
     public function indexGetPageParentList(Request $request,$id_parent): Response
     {
         
@@ -232,8 +316,8 @@ class ApiPostController extends AbstractController
         if(empty($posts_parents)){
             return $this->json(['success'=>false,'message'=>'post  n\'a  pas de fils']);
         }
-        
-        return $this->json(['success'=>true,'post'=>$post]);
+        $select_2 = $this->renderView("admin/post/_partial/element-post-field/page-parent.html.twig",["pages_parents"=>$posts_parents,'id_attr'=>1]);
+        return $this->json(['success'=>true,'select_2'=>$select_2]);
     }
 
 
@@ -265,6 +349,8 @@ class ApiPostController extends AbstractController
             $post = new Post();
             $post->setPostTitle($titre);
             $post->setPostName($slug);
+            $user = $this->getUser();
+            $post->setCreator($user);
             $this->em->persist($post);
             $this->em->flush();
         }else{
@@ -297,6 +383,9 @@ class ApiPostController extends AbstractController
     #[Route('/get-form/{id_form}', name: 'app_post_get_form_data', methods: ['POST'])]
     public function indexPostGetForm(Request $request,$id_form): Response
     {
+        
+        $user = $this->getUser();
+        $id_user = $user->getId();
         $data_set = json_decode($request->request->get('data_set'),true);
         //var_dump($data_set);exit;
         // get modele post
@@ -305,7 +394,15 @@ class ApiPostController extends AbstractController
             return $this->json(['success'=>false,'message'=>'modéle post n\'existe pas']);
         }
         if(empty($data_set)){
-            $data_set = json_decode($forms->getContentModele(),true);
+            $model_content  = $this->em->getRepository(ModelesContentDefault::class)->findContentDefault($forms->getId(),$id_user);
+            if(!empty($model_content)){
+                $data_set = json_decode($model_content->getContentDefault(),true);
+            }else{
+                $model_content  = $this->em->getRepository(ModelesContentDefault::class)->findContentDefault($forms->getId(),'system');
+                if(!empty($model_content)){
+                    $data_set = json_decode($model_content->getContentDefault(),true);
+                }
+            }
             if(!empty($data_set) && array_key_exists('json_data',$data_set)){
                 $data_set = $data_set['json_data'];
             }
@@ -327,7 +424,19 @@ class ApiPostController extends AbstractController
             return $this->json(['success'=>false,'message'=>'modéle post n\'existe pas']);
         }
         if($content_defualt){
-            $forms->setContentModele($request->request->get('data'));
+            $user = $this->getUser();
+            $id_user = $user->getId();
+            $model_content  = $this->em->getRepository(ModelesContentDefault::class)->findContentDefault($forms->getId(),$id_user);
+            if(empty($model_content)){
+                $model_content = new ModelesContentDefault();
+                $model_content->setUser($id_user);
+                $model_content->setModeleId($forms);
+                $model_content->setContentDefault($request->request->get('data'));
+                $this->em->persist($model_content);
+            }else{
+                $model_content->setContentDefault($request->request->get('data'));
+            }
+            //$forms->setContentModele($request->request->get('data'));
             $this->em->flush();
         }
         // html menu edit 

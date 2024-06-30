@@ -88,10 +88,6 @@ class Post
     private $id_feature_image;
 
     #[Groups(['show_api','post_data'])]
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
-    private $author;
-
-    #[Groups(['show_api','post_data'])]
     #[ORM\JoinColumn(nullable: true)]
     #[ORM\ManyToOne(targetEntity: PostType::class, inversedBy: 'posts')]
     private $post_type;
@@ -150,7 +146,15 @@ class Post
     private $is_follow;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $post_meta_json = null; 
+    private ?string $post_meta_json = null;
+
+    #[Groups(['show_api','post_data'])]
+    #[ORM\ManyToOne]
+    private ?User $creator = null;
+
+    #[Groups(['show_api','post_data'])]
+    #[ORM\Column(nullable: true)]
+    private ?int $author = null; 
 
     public function slugify($text)
     {
@@ -481,25 +485,7 @@ class Post
         return $this->post_title;
     }
 
-    /**
-     * Get the value of author
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set the value of author
-     *
-     * @return  self
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
+   
 
     public function getPostType(): ?PostType
     {
@@ -773,6 +759,30 @@ class Post
     public function setPostMetaJson(?string $post_meta_json): static
     {
         $this->post_meta_json = $post_meta_json;
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?int
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?int $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

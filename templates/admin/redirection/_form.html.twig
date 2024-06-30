@@ -1,0 +1,43 @@
+{{ form_start(form) }}
+    <table class="form-table" role="presentation">
+        <tbody>
+            <tr>
+                <th scope="row">{{ form_label(form.old_root) }}</th>
+                <td>
+                    {{ form_widget(form.old_root) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+            <tr> 
+                <th scope="row">{{ form_label(form.new_root) }}</th>
+                <td>
+                    {{ form_widget(form.new_root) }}
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </td>
+            </tr>
+
+            {% if edit is not defined  %}
+                <tr class="border-top"> 
+                    <th scope="row">Où bien par fichier</th>
+                    <td>
+                    </td>
+                </tr>
+                
+                <tr> 
+                    <th scope="row">Fichier csv séparer par vergule contient deux colones (old_root,new_root)</th>
+                    <td>
+                        <input type="file" id="redirection_file" name="redirection[file]" class="regular-text">
+                        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                        <div id="output"></div>
+                    </td>
+                </tr>
+
+            {% endif %}
+        </tbody>
+    </table>
+    {{ form_widget(form) }}
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </p>
+{{ form_end(form) }}

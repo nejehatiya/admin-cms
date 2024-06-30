@@ -16,43 +16,30 @@ class Route
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @Groups({"routes_names"})
-     */
+    
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @Groups({"role_routes", "permissions", "roles_routes"})
-     */
+    
     #[ORM\Column(type: 'string', length: 255)]
     private $path;
 
-    /**
-     * @Groups({"role_routes"})
-     */
+    
     #[ORM\Column(type: 'string', length: 10)]
     private $method;
 
-    /**
-     * @Groups({"role_routes"})
-     */
+    
     #[ORM\Column(type: 'string', length: 30)]
     private $module;
 
     #[ORM\Column(type: 'integer')]
     private $priority;
 
-    /**
-     * @Groups({"roles_routes"})
-     */
-    #[ORM\JoinTable(name: 'permission_roles_routes')]
-    #[ORM\ManyToMany(targetEntity: Roles::class, inversedBy: 'routes')]
-    private $roles;
+    
+    
 
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
         $this->priority = 0;
     }
 
@@ -73,32 +60,7 @@ class Route
         return $this;
     }
 
-    /**
-     * @return Collection|Roles[]
-     */
-    public function getRoles(): Collection
-    {
-        return $this->roles;
-    }
-
-    public function addRole(Roles $role): self
-    {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-            $role->addRoute($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRole(Roles $role): self
-    {
-        if ($this->roles->removeElement($role)) {
-            $role->removeRoute($this);
-        }
-
-        return $this;
-    }
+   
 
     public function getMethod(): ?string
     {

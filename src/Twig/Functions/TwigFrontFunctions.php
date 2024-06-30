@@ -60,6 +60,7 @@ class TwigFrontFunctions extends AbstractExtension
      */
     public function renderModalView($modal_content, $post_type = null, $vars = array(), $loopIndex = 0, $mode_affichage = "full")
     {
+        //var_dump(($modal_content));exit;
         $model_id = (int) $modal_content['id_model'];
         //dump($model_id);
         $model_id = $model_id == 58 ? 57 : $model_id;

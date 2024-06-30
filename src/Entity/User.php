@@ -17,58 +17,47 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
 {
+    #[Groups(['show_api','post_data'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @Groups({"user_post_list", "post_details", "comment_show"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
 
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string')]
     private $password;
 
-    /**
-     * @Groups({"post_details", "comment_show"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 255)]
     private $first_name;
 
-    /**
-     * @Groups({"post_details", "comment_show"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 255)] // .
     private $last_name;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $token_key;
 
-    /**
-     * @Groups({"post_details", "comment_show"})
-     */
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image_profil;
 
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'boolean')]
     private $status;
 
+    #[Groups(['show_api'])]
     #[ORM\Column(type: 'datetime')]
     private $date_add;
 
-    #[ORM\Column(type: 'datetime')]
-    private $date_upd;
-
-    #[ORM\ManyToOne(targetEntity: Roles::class, inversedBy: 'id_role')]
-    private $roles_user;
 
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'id_user')]
     private $commentaires;
@@ -79,9 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[ORM\OneToMany(targetEntity: SidebarMenuAdmin::class, mappedBy: 'user')]
     private $id_user;
 
-    /**
-     * @Groups({"user_post_list"})
-     */
+    
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'author')]
     private $posts;
 
@@ -96,6 +83,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\ManyToMany(targetEntity: Roles::class, inversedBy: 'users')]
+    private Collection $roles_user;
+
     public function __construct()
     {
         $this->date_add =  new \DateTime("now");
@@ -108,6 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         $this->posts = new ArrayCollection();
         $this->menus = new ArrayCollection();
         $this->token_key = "";
+        $this->roles_user = new ArrayCollection();
     }
 
     /**
@@ -300,18 +291,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     public function setDateUpd(): self
     {
         $this->date_upd =  new \DateTime("now");
-
-        return $this;
-    }
-
-    public function getRolesUser(): ?Roles
-    {
-        return $this->roles_user;
-    }
-
-    public function setRolesUser(?Roles $roles_user): self
-    {
-        $this->roles_user = $roles_user;
 
         return $this;
     }
@@ -540,6 +519,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     public function setAuthCode(?string $authCode): static
     {
         $this->authCode = $authCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Roles>
+     */
+    public function getRolesUser(): Collection
+    {
+        return $this->roles_user;
+    }
+
+    public function addRolesUser(Roles $rolesUser): static
+    {
+        if (!$this->roles_user->contains($rolesUser)) {
+            $this->roles_user->add($rolesUser);
+        }
+
+        return $this;
+    }
+
+    public function removeRolesUser(Roles $rolesUser): static
+    {
+        $this->roles_user->removeElement($rolesUser);
 
         return $this;
     }

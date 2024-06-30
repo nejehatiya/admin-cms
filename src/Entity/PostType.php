@@ -74,6 +74,9 @@ class PostType
     #[ORM\ManyToMany(targetEntity: PostMetaFields::class, mappedBy: 'post_type')]
     private Collection $postMetaFields;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $icone_dasbord = null;
+
 
     public function __construct()
     {
@@ -384,6 +387,18 @@ class PostType
         if ($this->postMetaFields->removeElement($postMetaField)) {
             $postMetaField->removePostType($this);
         }
+
+        return $this;
+    }
+
+    public function getIconeDasbord(): ?string
+    {
+        return $this->icone_dasbord;
+    }
+
+    public function setIconeDasbord(?string $icone_dasbord): static
+    {
+        $this->icone_dasbord = $icone_dasbord;
 
         return $this;
     }

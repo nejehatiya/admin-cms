@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Modifier un utulisateur
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un utulisateur
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','user']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+        let id_user = "{{user.id}}";
+    </script>
+    {{ include('admin/user/_form.html.twig') }}
+{% endblock %}

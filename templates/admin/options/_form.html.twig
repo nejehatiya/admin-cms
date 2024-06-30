@@ -1,0 +1,13 @@
+<div class="modal template-menu">
+    <div class="model-content">
+        <div class="forms-generate parent-selector ui-sortable"> 
+            {% set data = data_set|json_decode %}
+            {# page feature #}
+            {% include "admin/global/forms/forms-builder.html.twig" with {fields:fields,data_set:data} %}
+            <p class="submit">
+                <input type="submit" name="submit" id="submit" class="button button-primary" value="{{ button_label|default('Enregistrer') }}" />
+                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </p>
+        </div>
+    </div>
+</div>

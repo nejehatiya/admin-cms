@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Modifier role
+{% endblock %}
+{% block titreAdmin %}
+    Modifier role
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','role']) }}
+{% endblock %}
+{% block contentAdmin %}
+    <script>
+        let id_role = "{{role.id}}";
+    </script>
+    {{ include('admin/roles/_form.html.twig') }}
+{% endblock %}

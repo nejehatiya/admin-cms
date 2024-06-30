@@ -1,0 +1,65 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+  Roles list
+{% endblock %}
+{% block titreAdmin %}
+   Roles list
+{% endblock %}
+
+{% block contentAdmin %}
+    {# header list #}
+    {% include "admin/global/list/list-header.html.twig" with {'path':'app_roles_new','titre':'Ajouter un nouveau role'} %}
+    {# count list #}
+    {% include "admin/global/list/list-count.html.twig" with {'vars':{'all':{'name':'Tous','count':20}}} %}
+    {# list content  #}
+    <form id="filter" method="get">
+        {# content search-box #}
+        {% include "admin/global/list/search-box.html.twig" with {'titre':'Roles'} %}
+        {# list top  #}
+        <div class="tablenav top">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'Roles'} %}
+
+            {# list filtrage  #}
+            {% include "admin/global/list/filtrage.html.twig" with {'filters':[] } %}
+            
+            {# list pagination  #}
+            {% include "admin/global/list/pagination.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Roles'} %}
+
+            <br class="clear" />
+
+        </div>
+        
+        {# list table  #}
+        <table class="wp-list-table widefat fixed striped table-view-list posts">
+            <caption class="screen-reader-text">Tableau trié par date. Décroissant.</caption>
+            {# list table header #}
+            {% set fields = [
+                {name:'Role',field_name:'role',method:'role',sortable:true,type:'text'},
+            ] %}
+            <thead>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </thead>
+            {# list table body #}
+            <tbody id="the-list">
+                {% include "admin/global/list/table/table-body.html.twig" with {'fields': fields,'list':roles,'entity_name':'roles','is_view':false,'path_edit':'app_roles_edit'} %}
+            </tbody>
+            {# list table footer #}
+            <tfoot>
+                {% include "admin/global/list/table/table-header.html.twig" with {'fields': fields} %}
+            </tfoot>
+        </table>
+
+        <div class="tablenav bottom">
+            {# list actions grouper #}
+            {% include "admin/global/list/actions-grouper.html.twig" with {'titre':'Roles'} %}
+            <div class="alignleft actions"></div>
+            {# list pagination footer table  #}
+            {% include "admin/global/list/pagination-footer.html.twig" with {'total_count':2109,'total_page':106,"current_page":1,'entity':'Roles'} %}
+            
+            <br class="clear" />
+        </div>
+    </form>
+    
+{% endblock %}

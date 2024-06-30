@@ -30,6 +30,14 @@ class PostTypeType extends AbstractType
                 'attr'=> ['class'=>'regular-text','id'=>'slug_post_type'],
                 // unmapped fields can't define their validation using annotations
             ])
+            ->add('icone_dasbord', TextType::class, [
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+                'label'=>"icone dasbord",
+                'attr'=> ['class'=>'regular-text','id'=>'icone_dasbord'],
+                // unmapped fields can't define their validation using annotations
+            ])
             ->add('is_draft',CheckboxType::class,[
                 'label'=>"Is Draft",
                 // make it optional so you don't have to re-upload the PDF file

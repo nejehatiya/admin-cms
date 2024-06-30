@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-#[Route('/taxonomy')]
+#[Route('/taxonomy', options:["need_permession"=>true,"module"=>"Taxonomy", "method"=>["Afficher","Ajouter","Modifier","Supprimer"]])]
 class TaxonomyController extends AbstractController
 {
     private $serializer;
@@ -28,7 +28,7 @@ class TaxonomyController extends AbstractController
         //$this->slugify = new Slugify();
     }
 
-    #[Route('/', name: 'app_taxonomy_index', methods: ['GET'])]
+    #[Route('/', name: 'app_taxonomy_index', methods: ['GET'], options:["action"=>"Afficher","order"=>5])]
     public function index(TaxonomyRepository $taxonomyRepository): Response
     {
         $taxonomies = $taxonomyRepository->findAll();
@@ -39,7 +39,7 @@ class TaxonomyController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_taxonomy_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_taxonomy_new', methods: ['GET', 'POST'], options:["action"=>"Ajouter","order"=>4])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $taxonomy = new Taxonomy();
@@ -59,15 +59,7 @@ class TaxonomyController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_taxonomy_show', methods: ['GET'])]
-    public function show(Taxonomy $taxonomy): Response
-    {
-        return $this->render('admin/taxonomy/show.html.twig', [
-            'taxonomy' => $taxonomy,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_taxonomy_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_taxonomy_edit', methods: ['GET', 'POST'], options:["action"=>"Modifier","order"=>1], requirements:["id"=>"[0-9]+"])]
     public function edit(Request $request, Taxonomy $taxonomy, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TaxonomyType::class, $taxonomy);
@@ -85,7 +77,7 @@ class TaxonomyController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_taxonomy_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_taxonomy_delete', methods: ['POST'], options:["action"=>"Supprimer","order"=>3], requirements:["id"=>"[0-9]+"])]
     public function delete(Request $request, Taxonomy $taxonomy, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$taxonomy->getId(), $request->getPayload()->get('_token'))) {

@@ -48,4 +48,33 @@ class OptionsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    
+    // get config value name
+    public function findByKey($key){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.option_name = :val')
+            ->setParameter('val', $key)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function deleteAllRecords()
+    {
+        $query = $this->createQueryBuilder('d')
+            ->delete()
+            ->getQuery()
+            ->execute();
+        return $query;
+    }
+    public function resetAutoIncrement()
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $platform   = $connection->getDatabasePlatform();
+        
+        $truncateSql = $platform->getTruncateTableSQL('configuration', true /* whether to cascade */);
+        $connection->executeUpdate($truncateSql);
+    }
 }

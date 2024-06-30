@@ -1,10 +1,12 @@
 import './fonts-elementor.css'
 import './post.css'
 
+
+
 // require main function
 import * as main_function from '../../js/main-functions.js';
-
 $(document).ready(function(){
+    let current_level = 0;
     // display loading until data get
     $("#elementor-loading").addClass('d-block');
     let id = null;
@@ -12,7 +14,8 @@ $(document).ready(function(){
     // check exitance of id post
     if(typeof id_post !== "undefined" ){
         id = id_post;
-        
+    }else{
+        $("#post-status").val("Brouillon").trigger('change');
     }
     /**
      * structure json of model
@@ -286,7 +289,7 @@ $(document).ready(function(){
     }
 
     // post-title
-    $(document).on('keyup',"#post-title",function(e){
+    /*$(document).on('keyup',"#post-title",function(e){
         let post_tile = $("#post-title").val();
         let parent_id = parseInt($("#post-parent").val());
         $("#elementor-preview-loading,#elementor-preview-loading-side-bar").addClass('d-block').removeClass('d-none');
@@ -299,7 +302,7 @@ $(document).ready(function(){
         }).fail((error)=>{
             $("#elementor-preview-loading,#elementor-preview-loading-side-bar").removeClass('d-block').addClass('d-none');
         })
-    })
+    })*/
     // post-title
     $(document).on('change',"#post-title",function(e){
         let post_tile = $("#post-title").val();
@@ -310,6 +313,7 @@ $(document).ready(function(){
             if(data.success){
                 document.title = post_tile;
                 window.history.pushState({"pageTitle":post_tile},"", data.url_page_edit);
+                $("#post-name").val(data.post.post_name);
                 id = data.id;
             }
             $("#elementor-preview-loading,#elementor-preview-loading-side-bar").removeClass('d-block').addClass('d-none');
@@ -320,7 +324,7 @@ $(document).ready(function(){
 
 
     // mis à jour le  post
-    $(document).on('click','.elementor-panel #elementor-panel-saver-button-publish',function(e){
+    $(document).on('click','.popup-confirm .content .footer button.confirmer',function(e){
         e.preventDefault();
         if(id){
             let titre = $("#post-title").val();
@@ -328,6 +332,20 @@ $(document).ready(function(){
             let excerpt = $("#post-excerpt").val();
             let template = $("#post-template").val();
             let page_prent = parseInt($("#post-parent").val());
+            let page_parent_ele = $("select.post-parent");
+            if(page_parent_ele.length>=2){
+                let page_val = parseInt($("select.post-parent").eq(page_parent_ele.length - 1).val());
+                console.log('page_val',page_val);
+                if(page_val){
+                    page_prent = page_val;
+                }else{
+                    page_val = parseInt($("select.post-parent").eq(page_parent_ele.length - 2).val());
+                    console.log('page_val 343',page_val);
+                    if(page_val){
+                        page_prent = page_val;
+                    }
+                }
+            }
             let status = $("#post-status").val();
             let image_feature = parseInt($(".media-selected.image-post-feature").val());
             let terms = [];
@@ -336,7 +354,7 @@ $(document).ready(function(){
                 terms = terms.concat(terms_selection.eq(e).val());
             });
             console.log('terms',terms);
-            let author = parseInt($("#post-title").val());
+            let author = parseInt($("#post-auteur").val());
             // collect data post meta
             let parent_form_container = $('.elementor-panel-category.open .elementor-panel-category-items.post-meta-section');
 
@@ -383,7 +401,33 @@ $(document).ready(function(){
                 $("#elementor-preview-loading,#elementor-preview-loading-side-bar").removeClass('d-block').addClass('d-none');
             })
         }
-    }) 
+    })
+    //afficher l'analyse de post
+    $(document).on('click','.elementor-panel #elementor-panel-saver-button-publish',function(e){
+        
+        let model_content = JSON.stringify(list_modele_content);
+        
+        $(".popup-analyse").addClass('show');
+        $("#elementor-preview-loading,#elementor-preview-loading-side-bar").addClass('d-block').removeClass('d-none');
+        main_function.ajaxOperation(base_url+'analsye/'+id,{
+            model_content:model_content,
+        },'POST').done(function(response){
+            console.log('response',response);
+            if(response.success){
+                $(".popup-analyse .popup-content .popup-body").html(response.analyse_post_html);
+            }
+            $("#elementor-preview-loading,#elementor-preview-loading-side-bar").removeClass('d-block').addClass('d-none');
+        }).fail((error)=>{
+            $("#elementor-preview-loading,#elementor-preview-loading-side-bar").removeClass('d-block').addClass('d-none');
+        })
+
+    })
+    // close popup analsye
+    $(document).on('click','.popup-analyse .popup-content .popup-footer button.close',function(e){
+        e.preventDefault();
+        $(".popup-analyse").removeClass('show');
+        $(".popup-analyse .popup-content .popup-body").html("");
+    })
     // delete model
     $(document).on('click','#elementor-preview-responsive-wrapper .preview-modal-list>section .elementor-editor-section-settings li.elementor-editor-element-remove',function(e){
         e.preventDefault();
@@ -574,5 +618,30 @@ $(document).ready(function(){
         $("#elementor-panel-elements-navigation .elementor-panel-navigation-tab[data-tab=elementor-panel-elements-history]").addClass('d-none')
         $("#elementor-panel-elements-navigation .elementor-panel-navigation-tab[data-tab=elementor-panel-elements-categories]").trigger('click');
         $("#elementor-panel-elements-history").html("");
-    })
+    });
+    // start load pages by parent id
+    $(document).on('change','.post-parent',function(e){
+        let id_parent = parseInt($(this).val());
+        let this_select = $(this).parents('.elementor-control-page-parent');
+        // destroy all next post parent
+        this_select.next(".elementor-control-page-parent").remove();
+        if(id_parent){
+            if($('.post-parent').length<3){
+                $("#elementor-preview-loading,#elementor-preview-loading-side-bar").addClass('d-block').removeClass('d-none');
+                main_function.ajaxOperation(base_url+'get-sous-page/'+id_parent,{},'GET').done((data)=>{
+                    console.log('data',data);
+                    if(data.success){
+                        $(data.select_2).insertAfter(this_select);
+                        $('.selectpicker').select2({
+                            placeholder: 'selectionner une option',
+                            allowClear: true
+                        });
+                    }
+                    $("#elementor-preview-loading,#elementor-preview-loading-side-bar").removeClass('d-block').addClass('d-none');
+                }).fail((error)=>{
+                    $("#elementor-preview-loading,#elementor-preview-loading-side-bar").removeClass('d-block').addClass('d-none');
+                })
+            }
+        }
+    });
 })

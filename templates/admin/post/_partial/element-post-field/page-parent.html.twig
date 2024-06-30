@@ -1,10 +1,14 @@
-<div class="elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
+{% set index = id_attr is defined and id_attr > 0 ? '-' ~ id_attr:'' %}
+<div class="elementor-control-page-parent elementor-control elementor-control-link elementor-control-type-url elementor-label-block elementor-control-separator-default elementor-control-dynamic">
   <div class="elementor-control-content">
     <div class="elementor-control-field elementor-control-url-external-show">
-      <label for="elementor-control-default-c1482" class="elementor-control-title">Page Parent</label>
+      <label for="post-parent{{index}}" class="elementor-control-title">{{id_attr is defined and id_attr > 0 ? 'Page Parent level '~ id_attr:'Page Parent'}}</label>
       <div class="elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper">
-        <select id="post-parent" data-setting="post-parent" class="selectpicker">
-            <option value="">parent</option>
+        <select id="post-parent{{index}}" data-setting="post-parent" class="selectpicker post-parent">
+            <option value="">{{id_attr is defined and id_attr > 0 ? '-':'parent'}}</option>
+            {% for page_parent in pages_parents %}
+                <option value="{{page_parent.id}}">{{page_parent.post_title}}</option>
+            {% endfor %}
         </select>
       </div>
     </div>

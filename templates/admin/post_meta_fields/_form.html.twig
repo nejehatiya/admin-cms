@@ -59,7 +59,7 @@
                                                     {% endif %}
                                                     {% if item.type in ["select"] %}
                                                         <div class="form-check">
-                                                            <input {% if item.multiple %}checked="checked"{% endif %}  class="multiple-check-input" type="checkbox" value="" id="multiple-option-{{item.uuid}}">
+                                                            <input {% if 'multiple' in item|keys and item.multiple %}checked="checked"{% endif %}  class="multiple-check-input" type="checkbox" value="" id="multiple-option-{{item.uuid}}">
                                                             <label class="form-check-label" for="multiple-option-{{item.uuid}}">multiple</label>
                                                         </div>
                                                     {% endif %}

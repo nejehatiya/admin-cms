@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+    Ajouter un nouveau role
+{% endblock %}
+{% block titreAdmin %}
+    Ajouter un nouveau role
+{% endblock %}
+{% block importmap %}
+    {{ importmap(['app','role']) }}
+{% endblock %}
+{% block contentAdmin %}
+    {{ include('admin/roles/_form.html.twig') }}
+{% endblock %}

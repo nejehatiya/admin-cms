@@ -1,3 +1,5 @@
+import { ClassicEditor, AutoLink, Link } from './ckeditor5';
+
 // init ajax operation
 let ajax_operation = null;
 // set blocks list items
@@ -186,7 +188,7 @@ export function uploadFileFormData(file,i,selector=""){
  */
 export async function textareaToCkeidtor(id,data=""){
     return  ClassicEditor
-    .create( document.querySelector( '#'+id ) );
+    .create( document.querySelector( '#'+id ));
 }
 
 /***

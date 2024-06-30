@@ -44,20 +44,48 @@ return [
         'path' => './assets/admin/post/post.js',
         'entrypoint' => true,
     ],
-    'taxonomy'=>[
+    'taxonomy' => [
         'path' => './assets/admin/taxonomy/traitement.js',
         'entrypoint' => true,
     ],
-    'modele-term'=>[
+    'modele-term' => [
         'path' => './assets/admin/term/traitement.js',
         'entrypoint' => true,
     ],
-    'menu-module'=>[
+    'menu-module' => [
         'path' => './assets/admin/menu/traitement.js',
         'entrypoint' => true,
     ],
-    'emplacement'=>[
+    'emplacement' => [
         'path' => './assets/admin/emplacement/traitement.js',
         'entrypoint' => true,
     ],
+    'user'=>[
+        'path' => './assets/admin/user/user.js',
+        'entrypoint' => true,
+    ],
+    'role'=>[
+        'path' => './assets/admin/role/role.js',
+        'entrypoint' => true,
+    ],
+    'login'=>[
+        'path' => './assets/admin/login/login.js',
+        'entrypoint' => true,
+    ],
+    'permession'=>[
+        'path' => './assets/admin/permession/permession.js',
+        'entrypoint' => true,
+    ],
+    'configuration_form'=>[
+        'path' => './assets/admin/configuration/configuration.js',
+        'entrypoint' => true,
+    ],
+    'redirection'=>[
+        'path' => './assets/admin/redirection/redirection.js',
+        'entrypoint' => true,
+    ],
+    'post-list'=>[
+        'path' => './assets/admin/post/post-list.js',
+        'entrypoint' => true,
+    ]
 ];

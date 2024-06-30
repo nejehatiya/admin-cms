@@ -39,7 +39,7 @@ class ApiPostTypeController extends AbstractController
         return $this->json(['success'=>empty($check_name),'message'=>empty($check_name)?'modéle name autorisé':'modélé name existe déja']);
     }
 
-    #[Route('/check-slug', name: 'app_post_type_check_slug', methods: ['POST'])]
+    #[Route('/check-slug-post-type', name: 'app_post_type_check_slug_cc', methods: ['POST'])]
     public function indexCheckSlug(Request $request): Response
     {
         $slugify = new Slugify();
